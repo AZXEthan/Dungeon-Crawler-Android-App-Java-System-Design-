@@ -1,5 +1,6 @@
 package com.example.a2340a_team10;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -18,11 +19,14 @@ import com.example.a2340a_team10.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+
+    private AnimationDrawable avatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,4 +79,17 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+    /* public void onSelectAvatar() {
+        ImageView avatarSelector= (ImageView) findViewById(R.id.avatar_selector);
+        avatarSelector.setBackgroundResource(R.drawable.female_elf);
+        avatar = (AnimationDrawable) avatarSelector.getBackground();
+        avatarSelector.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                avatar.start();
+            }
+        });
+    }
+     */
 }
