@@ -19,12 +19,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/avatar_selector"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginTop="?attr/actionBarSize" />
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
