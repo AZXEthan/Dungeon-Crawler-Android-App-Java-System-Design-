@@ -1,6 +1,6 @@
 package com.example.a2340a_team10;
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +20,10 @@ public class InitialConfiguration extends AppCompatActivity {
     private Button buttonSubmit;
     private TextView textViewResult;
     private LinearLayout diffHealthbar;
+
+    String selectedChoice = "";
+
+    int choice;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +46,7 @@ public class InitialConfiguration extends AppCompatActivity {
         difficultySelect.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                String selectedChoice = "";
+                //String selectedChoice = "";
                 if (checkedId == R.id.radioEasy) {
                     diffHealthbar.removeAllViews();
                     selectedChoice = "Easy";
@@ -78,7 +82,7 @@ public class InitialConfiguration extends AppCompatActivity {
         avatarSelect.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
-                int choice;
+                //int choice;
                 //                switch (checkedId) {
                 //                    case R.id.char_f_elf:
                 //                        choice = R.drawable.female_elf;
@@ -111,12 +115,13 @@ public class InitialConfiguration extends AppCompatActivity {
             }
         });
 
-        //        startBtn.setOnClickListener(v -> {
-        //            Intent game = new Intent(InitialConfiguration.this, GameActivity.class);
-        //            game.putExtra("difficulty", difficulty);
-        //            startActivity(game);
-        //            finish();
-        //        });
+        startBtn.setOnClickListener(v -> {
+            Intent game = new Intent(InitialConfiguration.this, GameActivity.class);
+            game.putExtra("difficulty", selectedChoice);
+            game.putExtra("playerView", choice);
+            startActivity(game);
+            finish();
+        });
     }
     private void displayHealth(int count) {
         diffHealthbar.setVisibility(View.VISIBLE);
