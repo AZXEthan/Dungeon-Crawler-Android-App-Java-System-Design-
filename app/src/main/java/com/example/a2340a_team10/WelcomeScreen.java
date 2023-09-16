@@ -14,10 +14,16 @@ public class WelcomeScreen extends AppCompatActivity {
         setContentView(R.layout.activity_welcome_screen);
 
         Button startButton = (Button) findViewById(R.id.startButton);
+        Button endButton = (Button) findViewById(R.id.endButton);
 
         startButton.setOnClickListener(v -> {
             Intent game = new Intent(WelcomeScreen.this, InitialConfiguration.class);
             startActivity(game);
+            finish();
+        });
+
+        endButton.setOnClickListener(v -> {
+
             finish();
         });
 
