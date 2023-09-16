@@ -25,6 +25,7 @@ public class InitialConfiguration extends AppCompatActivity {
 
     int choice;
 
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.initial_configuration);
@@ -82,7 +83,9 @@ public class InitialConfiguration extends AppCompatActivity {
         avatarSelect.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+
                 //int choice;
+
                 //                switch (checkedId) {
                 //                    case R.id.char_f_elf:
                 //                        choice = R.drawable.female_elf;
@@ -115,6 +118,7 @@ public class InitialConfiguration extends AppCompatActivity {
             }
         });
 
+
         startBtn.setOnClickListener(v -> {
             Intent game = new Intent(InitialConfiguration.this, GameActivity.class);
             game.putExtra("difficulty", selectedChoice);
@@ -122,6 +126,7 @@ public class InitialConfiguration extends AppCompatActivity {
             startActivity(game);
             finish();
         });
+
     }
     private void displayHealth(int count) {
         diffHealthbar.setVisibility(View.VISIBLE);
