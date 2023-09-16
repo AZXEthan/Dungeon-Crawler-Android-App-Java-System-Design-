@@ -24,10 +24,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".EndingScreen"
+            android:name=".InitialConfiguration"
             android:exported="false" />
         <activity
-            android:name=".InitialConfiguration"
+            android:name=".EndingScreen"
             android:exported="false" />
     </application>
 
