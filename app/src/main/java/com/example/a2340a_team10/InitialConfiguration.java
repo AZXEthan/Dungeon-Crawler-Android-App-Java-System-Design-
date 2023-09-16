@@ -120,7 +120,7 @@ public class InitialConfiguration extends AppCompatActivity {
 
 
         startBtn.setOnClickListener(v -> {
-            Intent game = new Intent(InitialConfiguration.this, GameActivity.class);
+            Intent game = new Intent(InitialConfiguration.this, EndingScreen.class);
             game.putExtra("difficulty", selectedChoice);
             game.putExtra("playerView", choice);
             startActivity(game);
