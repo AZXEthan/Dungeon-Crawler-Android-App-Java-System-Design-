@@ -27,6 +27,9 @@
             android:name=".InitialConfiguration"
             android:exported="false" />
         <activity
+            android:name=".GameScreen"
+            android:exported="false" />
+        <activity
             android:name=".EndingScreen"
             android:exported="false" />
     </application>

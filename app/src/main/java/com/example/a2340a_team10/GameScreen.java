@@ -1,6 +1,8 @@
 package com.example.a2340a_team10;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
@@ -61,6 +63,8 @@ public class GameScreen extends AppCompatActivity{
                 // Intent endingScreenIntent = new Intent(GameActivity.this, EndingScreen.class);
                 // startActivity(endingScreenIntent);
                 // finish();  // Optional: Close this activity if needed
+                Intent intent = new Intent(GameScreen.this, EndingScreen.class);
+                startActivity(intent);
             }
         });
     }
