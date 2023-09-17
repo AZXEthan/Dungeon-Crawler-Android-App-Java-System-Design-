@@ -22,66 +22,59 @@
         android:id="@+id/avatarImage"
         android:layout_width="141dp"
         android:layout_height="143dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/endGameButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
         android:id="@+id/healthshow"
-        android:layout_width="179dp"
-        android:layout_height="29dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="30dp"
+        android:layout_width="115dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="32dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/avatarImage"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/healthTextView"
-        app:layout_constraintVertical_bias="1.0"></LinearLayout>
+        app:layout_constraintStart_toEndOf="@+id/healthTextView"></LinearLayout>
 
     <TextView
         android:id="@+id/playerNameTextView"
-        android:layout_width="83dp"
-        android:layout_height="28dp"
-        android:layout_marginEnd="52dp"
+        android:layout_width="117dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="96dp"
         android:text="Player:"
         android:textColor="#4CAF50"
         android:textColorHighlight="#4CAF50"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/healthTextView"
-        app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintVertical_bias="0.097" />
 
     <TextView
         android:id="@+id/difficultyTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
+        android:layout_marginEnd="92dp"
         android:text="Difficulty:"
         android:textColor="#4CAF50"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.178"
-        app:layout_constraintStart_toEndOf="@+id/healthTextView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.102" />
+        app:layout_constraintVertical_bias="0.1" />
 
     <TextView
         android:id="@+id/healthTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginBottom="32dp"
         android:text="Health:"
         android:textColor="#4CAF50"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/avatarImage"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.499"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.399"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

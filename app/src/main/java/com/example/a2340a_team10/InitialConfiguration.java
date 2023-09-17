@@ -22,11 +22,9 @@ public class InitialConfiguration extends AppCompatActivity {
     private LinearLayout diffHealthbar;
 
     String selectedChoice = "";
-
-
+    String myName = "";
     int choice;
     int health_count;
-    String myName;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +126,7 @@ public class InitialConfiguration extends AppCompatActivity {
         startBtn.setOnClickListener(v -> {
             Intent game = new Intent(InitialConfiguration.this, GameScreen.class);
             game.putExtra("difficulty", selectedChoice);
-            game.putExtra("playerName", myName);
+            game.putExtra("player", myName);
             game.putExtra("startingHealth", health_count);
             game.putExtra("characterChoice", choice);
             startActivity(game);

@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.content.Intent;
 
 public class GameScreen extends AppCompatActivity{
 
@@ -17,14 +18,14 @@ public class GameScreen extends AppCompatActivity{
         setContentView(R.layout.game_screen);
 
         // we need to pass it from InitialConfiguration
-        String playerName = getIntent().getStringExtra("playerName");
+        String player = getIntent().getStringExtra("player");
         String difficulty = getIntent().getStringExtra("difficulty");
         int startingHealth = getIntent().getIntExtra("startingHealth", 0);
         int choice = getIntent().getIntExtra("characterChoice", 1);
 
         // Display player name
         TextView playerNameTextView = findViewById(R.id.playerNameTextView);
-        playerNameTextView.setText(String.format("Name: %s", playerName));
+        playerNameTextView.setText(String.format("Name: %s", player));
 
         // Display difficulty
         TextView chosenDifficulty = findViewById(R.id.difficultyTextView);
@@ -57,10 +58,14 @@ public class GameScreen extends AppCompatActivity{
 
             @Override
             public void onClick(View view) {
-                // Navigate to the ending screen (replace with actual navigation code)
-                // Intent endingScreenIntent = new Intent(GameActivity.this, EndingScreen.class);
-                // startActivity(endingScreenIntent);
-                // finish();  // Optional: Close this activity if needed
+                // Create an Intent to start the EndingScreen activity
+                Intent endingScreenIntent = new Intent(GameScreen.this, EndingScreen.class);
+
+                // Start the EndingScreen activity
+                startActivity(endingScreenIntent);
+
+                // Optionally, close the current activity (GameScreen)
+                finish();
             }
         });
     }
