@@ -23,7 +23,10 @@ public class InitialConfiguration extends AppCompatActivity {
 
     String selectedChoice = "";
 
+
     int choice;
+    int health_count;
+    String myName;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,14 +55,17 @@ public class InitialConfiguration extends AppCompatActivity {
                     diffHealthbar.removeAllViews();
                     selectedChoice = "Easy";
                     displayHealth(5);
+                    health_count = 5;
                 } else if (checkedId == R.id.radioMedium) {
                     diffHealthbar.removeAllViews();
                     selectedChoice = "Medium";
                     displayHealth(4);
+                    health_count = 4;
                 } else if (checkedId == R.id.radioHard) {
                     diffHealthbar.removeAllViews();
                     selectedChoice = "Hard";
                     displayHealth(3);
+                    health_count = 3;
                 }
                 selectedChoiceTextView.setText(String.format("Difficulty: %s", selectedChoice));
             }
@@ -68,7 +74,7 @@ public class InitialConfiguration extends AppCompatActivity {
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String myName = inputName.getText().toString().trim();
+                myName = inputName.getText().toString().trim();
 
                 if (!myName.isEmpty()) {
                     // Name is not empty, display it
@@ -120,9 +126,11 @@ public class InitialConfiguration extends AppCompatActivity {
 
 
         startBtn.setOnClickListener(v -> {
-            Intent game = new Intent(InitialConfiguration.this, EndingScreen.class);
+            Intent game = new Intent(InitialConfiguration.this, GameScreen.class);
             game.putExtra("difficulty", selectedChoice);
-            game.putExtra("playerView", choice);
+            game.putExtra("playerName", myName);
+            game.putExtra("startingHealth", health_count);
+            game.putExtra("characterChoice", choice);
             startActivity(game);
             finish();
         });
