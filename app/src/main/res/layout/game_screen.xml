@@ -4,16 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FAF3B0"
     tools:context=".GameScreen">
 
     <Button
         android:id="@+id/endGameButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="End the game"
+        android:fontFamily="@font/coming_soon"
+        android:soundEffectsEnabled="true"
+        android:text="End game"
+        android:textColor="#040101"
+        android:textColorHighlight="#392E2E"
+        android:textColorLink="#B12727"
+        app:icon="@android:drawable/ic_dialog_map"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.876" />
@@ -29,29 +36,31 @@
 
     <LinearLayout
         android:id="@+id/healthshow"
-        android:layout_width="179dp"
-        android:layout_height="29dp"
+        android:layout_width="148dp"
+        android:layout_height="23dp"
         android:layout_marginTop="6dp"
         android:layout_marginBottom="30dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/avatarImage"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.547"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/healthTextView"
-        app:layout_constraintVertical_bias="1.0"></LinearLayout>
+        app:layout_constraintVertical_bias="0.0"></LinearLayout>
 
     <TextView
         android:id="@+id/playerNameTextView"
-        android:layout_width="83dp"
-        android:layout_height="28dp"
+        android:layout_width="196dp"
+        android:layout_height="47dp"
         android:layout_marginEnd="52dp"
+        android:fontFamily="@font/press_start_2p"
         android:text="Player:"
-        android:textColor="#4CAF50"
-        android:textColorHighlight="#4CAF50"
-        android:textSize="20sp"
+        android:textColor="#020000"
+        android:textColorHighlight="#0B0C0C"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/healthTextView"
-        app:layout_constraintHorizontal_bias="0.925"
+        app:layout_constraintHorizontal_bias="0.941"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.1" />
@@ -61,26 +70,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
+        android:fontFamily="@font/press_start_2p"
         android:text="Difficulty:"
-        android:textColor="#4CAF50"
-        android:textSize="20sp"
+        android:textColor="#C11010"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.178"
+        app:layout_constraintHorizontal_bias="0.472"
         app:layout_constraintStart_toEndOf="@+id/healthTextView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.102" />
+        app:layout_constraintVertical_bias="0.092" />
 
     <TextView
         android:id="@+id/healthTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/press_start_2p"
         android:text="Health:"
-        android:textColor="#4CAF50"
-        android:textSize="20sp"
+        android:textColor="#29782C"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
