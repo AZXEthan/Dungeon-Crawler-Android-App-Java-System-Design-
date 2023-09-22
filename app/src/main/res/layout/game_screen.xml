@@ -28,7 +28,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
-        android:id="@+id/healthshow"
+        android:id="@+id/healthShow"
         android:layout_width="115dp"
         android:layout_height="25dp"
         android:layout_marginStart="4dp"

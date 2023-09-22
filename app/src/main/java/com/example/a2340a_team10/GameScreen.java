@@ -38,8 +38,7 @@ public class GameScreen extends AppCompatActivity{
         idleAvatar.start();
 
         // Display starting health
-        LinearLayout health = findViewById(R.id.healthshow);
-        health.removeAllViews();
+        LinearLayout health = findViewById(R.id.healthShow);
         health.setVisibility(View.VISIBLE);
 
         for (int i = 0; i < startingHealth; i++) {
