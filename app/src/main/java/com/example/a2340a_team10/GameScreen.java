@@ -1,6 +1,10 @@
 package com.example.a2340a_team10;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.GameState;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
@@ -16,7 +20,6 @@ public class GameScreen extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_screen);
-
         // we need to pass it from InitialConfiguration
         String player = getIntent().getStringExtra("player");
         String difficulty = getIntent().getStringExtra("difficulty");
@@ -31,11 +34,12 @@ public class GameScreen extends AppCompatActivity{
         TextView chosenDifficulty = findViewById(R.id.difficultyTextView);
         chosenDifficulty.setText(String.format("Difficulty: %s", difficulty));
 
-        // Display character
+        // Get or display Player
         ImageView avatar = (ImageView) findViewById(R.id.avatarImage);
         avatar.setBackgroundResource(choice);
         AnimationDrawable idleAvatar = (AnimationDrawable) avatar.getBackground();
         idleAvatar.start();
+
 
         // Display starting health
         LinearLayout health = findViewById(R.id.healthShow);
@@ -57,14 +61,12 @@ public class GameScreen extends AppCompatActivity{
 
             @Override
             public void onClick(View view) {
-                // Create an Intent to start the EndingScreen activity
-                Intent endingScreenIntent = new Intent(GameScreen.this, EndingScreen.class);
-
-                // Start the EndingScreen activity
-                startActivity(endingScreenIntent);
-
-                // Optionally, close the current activity (GameScreen)
-                finish();
+                // Navigate to the ending screen (replace with actual navigation code)
+                // Intent endingScreenIntent = new Intent(GameActivity.this, EndingScreen.class);
+                // startActivity(endingScreenIntent);
+                // finish();  // Optional: Close this activity if needed
+                Intent intent = new Intent(GameScreen.this, EndingScreen.class);
+                startActivity(intent);
             }
         });
     }
