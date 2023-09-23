@@ -21,10 +21,10 @@ public class InitialConfiguration extends AppCompatActivity {
     private TextView textViewResult;
     private LinearLayout diffHealthbar;
 
-    String selectedChoice = "";
-    String myName = "";
-    int choice;
-    int health_count;
+    private String selectedChoice = "";
+    private String myName = "";
+    private int choice;
+    private int healthCount;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,17 +53,17 @@ public class InitialConfiguration extends AppCompatActivity {
                     diffHealthbar.removeAllViews();
                     selectedChoice = "Easy";
                     displayHealth(5);
-                    health_count = 5;
+                    healthCount = 5;
                 } else if (checkedId == R.id.radioMedium) {
                     diffHealthbar.removeAllViews();
                     selectedChoice = "Medium";
                     displayHealth(4);
-                    health_count = 4;
+                    healthCount = 4;
                 } else if (checkedId == R.id.radioHard) {
                     diffHealthbar.removeAllViews();
                     selectedChoice = "Hard";
                     displayHealth(3);
-                    health_count = 3;
+                    healthCount = 3;
                 }
                 selectedChoiceTextView.setText(String.format("Difficulty: %s", selectedChoice));
             }
@@ -87,26 +87,6 @@ public class InitialConfiguration extends AppCompatActivity {
         avatarSelect.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
-
-                //int choice;
-
-                //                switch (checkedId) {
-                //                    case R.id.char_f_elf:
-                //                        choice = R.drawable.female_elf;
-                //                        break;
-                //                    case R.id.char_m_elf:
-                //                        choice = R.drawable.male_elf;
-                //                        break;
-                //                    case R.id.char_witch:
-                //                        choice = R.drawable.witch;
-                //                        break;
-                //                    case R.id.char_wizard:
-                //                        choice = R.drawable.wizard;
-                //                        break;
-                //                    default:
-                //                        choice = R.drawable.female_elf;
-                //                        break;
-                //                }
                 if (checkedId == R.id.char_f_elf) {
                     choice = R.drawable.female_elf;
                 } else if (checkedId == R.id.char_m_elf) {
@@ -127,14 +107,10 @@ public class InitialConfiguration extends AppCompatActivity {
             Intent game = new Intent(InitialConfiguration.this, GameScreen.class);
             game.putExtra("difficulty", selectedChoice);
             game.putExtra("player", myName);
-            game.putExtra("startingHealth", health_count);
+            game.putExtra("startingHealth", healthCount);
             game.putExtra("characterChoice", choice);
             startActivity(game);
-            Intent character = new Intent(InitialConfiguration.this, PlayerView.class);
-            game.putExtra("playerName", myName);
-            character.putExtra("characterChoice", choice);
-            startActivity(character);
-            finish();
+            finish(); // Do we need this?
         });
 
     }

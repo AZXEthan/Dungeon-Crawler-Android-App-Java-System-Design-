@@ -1,15 +1,6 @@
 package com.example.a2340a_team10;
-import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.AnimationDrawable;
-import android.os.Bundle;
-import android.widget.ImageView;
-
-public class PlayerView extends AppCompatActivity{
+public class PlayerView {
     private static PlayerView player;
     private String playerName;
     private int health;
@@ -17,28 +8,29 @@ public class PlayerView extends AppCompatActivity{
     private int score;
     private float posX;
     private float posY;
-
     private int choice;
 
-    private PlayerView(int speed, int score, float posX, float posY) {
+    private PlayerView(int speed, int score, float posX, float posY, String playerName,
+                       int choice, int health) {
         this.speed = speed;
         this.score = score;
         this.posX = posX;
         this.posY = posY;
-        this.playerName = getIntent().getStringExtra("playerName");
-        this.health = getIntent().getIntExtra("startingHealth", 0);
-        this.choice = getIntent().getIntExtra("characterChoice", 1);
+        this.playerName = playerName;
+        this.choice = choice;
+        this.health = health;
     }
 
 
-    public static PlayerView getPlayer() {
+    public static PlayerView initializePlayer(int speed, int score, float posX, float posY,
+                                              String playerName, int choice, int health) {
         if (player == null) {
-            player = new PlayerView(0, 0, 0, 0);
+            player = new PlayerView(speed, score, posX, posY, playerName, choice, health);
         }
         return player;
     }
 
-    public void draw(int choices) {
+    public void draw(int choice) {
         //
     }
     public void updatePosition(float newX, float newY) {

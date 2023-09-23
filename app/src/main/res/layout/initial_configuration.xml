@@ -14,7 +14,7 @@
         android:fontFamily="sans-serif-black"
         android:shadowColor="#000000"
         android:shadowRadius="5"
-        android:text="Dungeon Master"
+        android:text="Dungeon Crawler"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="#EDD711"
