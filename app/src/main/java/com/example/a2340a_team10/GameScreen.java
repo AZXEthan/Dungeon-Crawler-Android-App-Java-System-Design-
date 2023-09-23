@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.content.Intent;
 
 public class GameScreen extends AppCompatActivity{
 
@@ -20,14 +21,14 @@ public class GameScreen extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_screen);
         // we need to pass it from InitialConfiguration
-        String playerName = getIntent().getStringExtra("playerName");
+        String player = getIntent().getStringExtra("player");
         String difficulty = getIntent().getStringExtra("difficulty");
         int startingHealth = getIntent().getIntExtra("startingHealth", 0);
         int choice = getIntent().getIntExtra("characterChoice", 1);
 
         // Display player name
         TextView playerNameTextView = findViewById(R.id.playerNameTextView);
-        playerNameTextView.setText(String.format("Name: %s", playerName));
+        playerNameTextView.setText(String.format("Name: %s", player));
 
         // Display difficulty
         TextView chosenDifficulty = findViewById(R.id.difficultyTextView);
@@ -41,8 +42,7 @@ public class GameScreen extends AppCompatActivity{
 
 
         // Display starting health
-        LinearLayout health = findViewById(R.id.healthshow);
-        health.removeAllViews();
+        LinearLayout health = findViewById(R.id.healthShow);
         health.setVisibility(View.VISIBLE);
 
         for (int i = 0; i < startingHealth; i++) {
