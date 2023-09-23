@@ -132,6 +132,10 @@ public class InitialConfiguration extends AppCompatActivity {
             game.putExtra("startingHealth", health_count);
             game.putExtra("characterChoice", choice);
             startActivity(game);
+            Intent character = new Intent(InitialConfiguration.this, PlayerView.class);
+            game.putExtra("playerName", myName);
+            character.putExtra("characterChoice", choice);
+            startActivity(character);
             finish();
         });
 
