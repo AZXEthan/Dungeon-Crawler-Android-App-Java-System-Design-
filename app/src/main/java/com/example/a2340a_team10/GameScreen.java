@@ -2,8 +2,6 @@ package com.example.a2340a_team10;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.GameState;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -12,9 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.content.Intent;
 
-public class GameScreen extends AppCompatActivity{
+public class GameScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +59,9 @@ public class GameScreen extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 // Navigate to the ending screen (replace with actual navigation code)
-                // Intent endingScreenIntent = new Intent(GameActivity.this, EndingScreen.class);
-                // startActivity(endingScreenIntent);
-                // finish();  // Optional: Close this activity if needed
                 Intent intent = new Intent(GameScreen.this, EndingScreen.class);
                 startActivity(intent);
+                // finish();  // Optional: Close this activity if needed
             }
         });
     }

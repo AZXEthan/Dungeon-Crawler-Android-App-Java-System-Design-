@@ -35,7 +35,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
-        android:id="@+id/healthshow"
+        android:id="@+id/healthShow"
         android:layout_width="148dp"
         android:layout_height="23dp"
         android:layout_marginTop="6dp"
