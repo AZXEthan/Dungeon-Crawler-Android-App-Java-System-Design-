@@ -1,4 +1,4 @@
-package com.example.a2340a_team10;
+package com.example.a2340a_team10.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+
+import com.example.a2340a_team10.R;
 
 public class EndingScreen extends AppCompatActivity {
 
