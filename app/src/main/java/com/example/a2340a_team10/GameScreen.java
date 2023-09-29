@@ -64,5 +64,25 @@ public class GameScreen extends AppCompatActivity {
                 // finish();  // Optional: Close this activity if needed
             }
         });
+        Button goToSecondRoomButton = findViewById(R.id.goToSecondRoomButton);
+
+        goToSecondRoomButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create an Intent to navigate to the 'SecondRoom' screen
+                Intent intent = new Intent(GameScreen.this, SecondRoom.class);
+                startActivity(intent);
+            }
+        });
+        Button goToThirdRoomButton = findViewById(R.id.goToThirdRoomButton);
+
+        goToThirdRoomButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create an Intent to navigate to the 'SecondRoom' screen
+                Intent intent = new Intent(GameScreen.this, ThirdRoom.class);
+                startActivity(intent);
+            }
+        });
     }
 }
