@@ -21,7 +21,7 @@ public class InitialConfiguration extends AppCompatActivity {
     private TextView textViewResult;
     private LinearLayout diffHealthbar;
 
-    private String selectedChoice = "";
+    private String difficultyNum = "";
     private String myName = "";
     private int choice;
     private int healthCount;
@@ -51,21 +51,21 @@ public class InitialConfiguration extends AppCompatActivity {
                 //String selectedChoice = "";
                 if (checkedId == R.id.radioEasy) {
                     diffHealthbar.removeAllViews();
-                    selectedChoice = "Easy";
+                    difficultyNum = "Easy";
                     displayHealth(5);
                     healthCount = 5;
                 } else if (checkedId == R.id.radioMedium) {
                     diffHealthbar.removeAllViews();
-                    selectedChoice = "Medium";
+                    difficultyNum = "Medium";
                     displayHealth(4);
                     healthCount = 4;
                 } else if (checkedId == R.id.radioHard) {
                     diffHealthbar.removeAllViews();
-                    selectedChoice = "Hard";
+                    difficultyNum = "Hard";
                     displayHealth(3);
                     healthCount = 3;
                 }
-                selectedChoiceTextView.setText(String.format("Difficulty: %s", selectedChoice));
+                selectedChoiceTextView.setText(String.format("Difficulty: %s", difficultyNum));
             }
         });
 
@@ -98,6 +98,7 @@ public class InitialConfiguration extends AppCompatActivity {
                 } else {
                     choice = R.drawable.female_elf;
                 }
+                //PlayerView myPlayer = PlayerView.initializePlayer(0,0,0,0,myName,choice,healthCount,difficultyNum);
                 displayAvatar(choice);
             }
         });
@@ -105,10 +106,15 @@ public class InitialConfiguration extends AppCompatActivity {
 
         startBtn.setOnClickListener(v -> {
             Intent game = new Intent(InitialConfiguration.this, GameScreen.class);
-            game.putExtra("difficulty", selectedChoice);
+//            PlayerView myPlayer = PlayerView.initializePlayer(0,0,0,0,myName,choice,healthCount,difficultyNum);
+            game.putExtra("difficulty", difficultyNum);
             game.putExtra("player", myName);
             game.putExtra("startingHealth", healthCount);
             game.putExtra("characterChoice", choice);
+//            game.putExtra("difficulty", myPlayer.getDifficulty());
+//            game.putExtra("player", myPlayer.getName());
+//            game.putExtra("startingHealth", myPlayer.getHealth());
+//            game.putExtra("characterChoice", myPlayer.getChoice());
             startActivity(game);
             finish(); // Do we need this?
         });

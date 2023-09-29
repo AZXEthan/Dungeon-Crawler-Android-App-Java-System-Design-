@@ -14,9 +14,9 @@ public class SecondRoom extends AppCompatActivity {
         setContentView(R.layout.second_room);
 
 
-        Button goToSecondRoomButton = findViewById(R.id.goToFirstRoomButton);
+        Button goToFirstRoomButton = findViewById(R.id.goToFirstRoomButton);
 
-        goToSecondRoomButton.setOnClickListener(new View.OnClickListener() {
+        goToFirstRoomButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Create an Intent to navigate to the 'SecondRoom' screen
