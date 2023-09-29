@@ -30,6 +30,12 @@
             android:name=".GameScreen"
             android:exported="false" />
         <activity
+            android:name=".SecondRoom"
+            android:exported="false" />
+        <activity
+            android:name=".ThirdRoom"
+            android:exported="false" />
+        <activity
             android:name=".EndingScreen"
             android:exported="false" />
 
