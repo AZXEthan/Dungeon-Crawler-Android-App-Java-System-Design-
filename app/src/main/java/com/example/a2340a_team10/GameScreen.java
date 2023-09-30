@@ -1,0 +1,88 @@
+package com.example.a2340a_team10;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
+public class GameScreen extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.game_screen);
+        // we need to pass it from InitialConfiguration
+        String player = getIntent().getStringExtra("player");
+        String difficulty = getIntent().getStringExtra("difficulty");
+        int startingHealth = getIntent().getIntExtra("startingHealth", 0);
+        int choice = getIntent().getIntExtra("characterChoice", 1);
+
+        // Display player name
+        TextView playerNameTextView = findViewById(R.id.playerNameTextView);
+        playerNameTextView.setText(String.format("Name: %s", player));
+
+        // Display difficulty
+        TextView chosenDifficulty = findViewById(R.id.difficultyTextView);
+        chosenDifficulty.setText(String.format("Difficulty: %s", difficulty));
+
+        // Get or display Player
+        ImageView avatar = (ImageView) findViewById(R.id.avatarImage);
+        avatar.setBackgroundResource(choice);
+        AnimationDrawable idleAvatar = (AnimationDrawable) avatar.getBackground();
+        idleAvatar.start();
+
+
+        // Display starting health
+        LinearLayout health = findViewById(R.id.healthShow);
+        health.setVisibility(View.VISIBLE);
+
+        for (int i = 0; i < startingHealth; i++) {
+            ImageView imageView = new ImageView(this);
+            imageView.setImageResource(R.drawable.ui_heart_full);
+            imageView.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            ));
+            health.addView(imageView);
+        }
+
+        // Handle navigation to the ending screen (temporary button)
+        Button nextScreenButton = findViewById(R.id.endGameButton);
+        nextScreenButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                // Navigate to the ending screen (replace with actual navigation code)
+                Intent intent = new Intent(GameScreen.this, EndingScreen.class);
+                startActivity(intent);
+                // finish();  // Optional: Close this activity if needed
+            }
+        });
+        Button goToSecondRoomButton = findViewById(R.id.goToSecondRoomButton);
+
+        goToSecondRoomButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create an Intent to navigate to the 'SecondRoom' screen
+                Intent intent = new Intent(GameScreen.this, SecondRoom.class);
+                startActivity(intent);
+            }
+        });
+        Button goToThirdRoomButton = findViewById(R.id.goToThirdRoomButton);
+
+        goToThirdRoomButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create an Intent to navigate to the 'SecondRoom' screen
+                Intent intent = new Intent(GameScreen.this, ThirdRoom.class);
+                startActivity(intent);
+            }
+        });
+    }
+}

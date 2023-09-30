@@ -1,6 +1,6 @@
 package com.example.a2340a_team10;
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +20,12 @@ public class InitialConfiguration extends AppCompatActivity {
     private Button buttonSubmit;
     private TextView textViewResult;
     private LinearLayout diffHealthbar;
+
+    private String difficultyNum = "";
+    private String myName = "";
+    private int choice;
+    private int healthCount;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,28 +48,31 @@ public class InitialConfiguration extends AppCompatActivity {
         difficultySelect.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                String selectedChoice = "";
+                //String selectedChoice = "";
                 if (checkedId == R.id.radioEasy) {
                     diffHealthbar.removeAllViews();
-                    selectedChoice = "Easy";
+                    difficultyNum = "Easy";
                     displayHealth(5);
+                    healthCount = 5;
                 } else if (checkedId == R.id.radioMedium) {
                     diffHealthbar.removeAllViews();
-                    selectedChoice = "Medium";
+                    difficultyNum = "Medium";
                     displayHealth(4);
+                    healthCount = 4;
                 } else if (checkedId == R.id.radioHard) {
                     diffHealthbar.removeAllViews();
-                    selectedChoice = "Hard";
+                    difficultyNum = "Hard";
                     displayHealth(3);
+                    healthCount = 3;
                 }
-                selectedChoiceTextView.setText(String.format("Difficulty: %s", selectedChoice));
+                selectedChoiceTextView.setText(String.format("Difficulty: %s", difficultyNum));
             }
         });
 
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String myName = inputName.getText().toString().trim();
+                myName = inputName.getText().toString().trim();
 
                 if (!myName.isEmpty()) {
                     // Name is not empty, display it
@@ -78,24 +87,6 @@ public class InitialConfiguration extends AppCompatActivity {
         avatarSelect.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
-                int choice;
-                //                switch (checkedId) {
-                //                    case R.id.char_f_elf:
-                //                        choice = R.drawable.female_elf;
-                //                        break;
-                //                    case R.id.char_m_elf:
-                //                        choice = R.drawable.male_elf;
-                //                        break;
-                //                    case R.id.char_witch:
-                //                        choice = R.drawable.witch;
-                //                        break;
-                //                    case R.id.char_wizard:
-                //                        choice = R.drawable.wizard;
-                //                        break;
-                //                    default:
-                //                        choice = R.drawable.female_elf;
-                //                        break;
-                //                }
                 if (checkedId == R.id.char_f_elf) {
                     choice = R.drawable.female_elf;
                 } else if (checkedId == R.id.char_m_elf) {
@@ -107,16 +98,27 @@ public class InitialConfiguration extends AppCompatActivity {
                 } else {
                     choice = R.drawable.female_elf;
                 }
+                //PlayerView myPlayer = PlayerView.initializePlayer(0,0,0,0,myName,choice,healthCount,difficultyNum);
                 displayAvatar(choice);
             }
         });
 
-        //        startBtn.setOnClickListener(v -> {
-        //            Intent game = new Intent(InitialConfiguration.this, GameActivity.class);
-        //            game.putExtra("difficulty", difficulty);
-        //            startActivity(game);
-        //            finish();
-        //        });
+
+        startBtn.setOnClickListener(v -> {
+            Intent game = new Intent(InitialConfiguration.this, GameScreen.class);
+//            PlayerView myPlayer = PlayerView.initializePlayer(0,0,0,0,myName,choice,healthCount,difficultyNum);
+            game.putExtra("difficulty", difficultyNum);
+            game.putExtra("player", myName);
+            game.putExtra("startingHealth", healthCount);
+            game.putExtra("characterChoice", choice);
+//            game.putExtra("difficulty", myPlayer.getDifficulty());
+//            game.putExtra("player", myPlayer.getName());
+//            game.putExtra("startingHealth", myPlayer.getHealth());
+//            game.putExtra("characterChoice", myPlayer.getChoice());
+            startActivity(game);
+            finish(); // Do we need this?
+        });
+
     }
     private void displayHealth(int count) {
         diffHealthbar.setVisibility(View.VISIBLE);

@@ -13,10 +13,7 @@
         android:theme="@style/Theme._2340A_team10"
         tools:targetApi="31">
         <activity
-            android:name=".EndingScreen"
-            android:exported="false" />
-        <activity
-            android:name=".InitialConfiguration"
+            android:name=".WelcomeScreen"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme._2340A_team10">
@@ -26,6 +23,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".InitialConfiguration"
+            android:exported="false" />
+        <activity
+            android:name=".GameScreen"
+            android:exported="false" />
+        <activity
+            android:name=".SecondRoom"
+            android:exported="false" />
+        <activity
+            android:name=".ThirdRoom"
+            android:exported="false" />
+        <activity
+            android:name=".EndingScreen"
+            android:exported="false" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
