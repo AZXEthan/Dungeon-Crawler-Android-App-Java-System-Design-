@@ -1,4 +1,4 @@
-package com.example.a2340a_team10;
+package com.example.a2340a_team10.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,29 +11,30 @@ import android.widget.TextView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.example.a2340a_team10.R;
+import com.example.a2340a_team10.model.*;
+
 public class GameScreen extends AppCompatActivity {
+    private Player hero;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_screen);
-        // we need to pass it from InitialConfiguration
-        String player = getIntent().getStringExtra("player");
-        String difficulty = getIntent().getStringExtra("difficulty");
-        int startingHealth = getIntent().getIntExtra("startingHealth", 0);
-        int choice = getIntent().getIntExtra("characterChoice", 1);
+
+        hero = Player.getPlayer();
 
         // Display player name
         TextView playerNameTextView = findViewById(R.id.playerNameTextView);
-        playerNameTextView.setText(String.format("Name: %s", player));
+        playerNameTextView.setText(String.format("Name: %s", hero.getName()));
 
         // Display difficulty
         TextView chosenDifficulty = findViewById(R.id.difficultyTextView);
-        chosenDifficulty.setText(String.format("Difficulty: %s", difficulty));
+        chosenDifficulty.setText(String.format("Difficulty: %s", hero.getDifficulty()));
 
         // Get or display Player
         ImageView avatar = (ImageView) findViewById(R.id.avatarImage);
-        avatar.setBackgroundResource(choice);
+        avatar.setBackgroundResource(hero.getCharacterChoice());
         AnimationDrawable idleAvatar = (AnimationDrawable) avatar.getBackground();
         idleAvatar.start();
 
@@ -42,7 +43,7 @@ public class GameScreen extends AppCompatActivity {
         LinearLayout health = findViewById(R.id.healthShow);
         health.setVisibility(View.VISIBLE);
 
-        for (int i = 0; i < startingHealth; i++) {
+        for (int i = 0; i < hero.getHealth(); i++) {
             ImageView imageView = new ImageView(this);
             imageView.setImageResource(R.drawable.ui_heart_full);
             imageView.setLayoutParams(new LinearLayout.LayoutParams(

@@ -1,17 +1,17 @@
-package com.example.a2340a_team10;
+package com.example.a2340a_team10.model;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class MyListAdapter extends android.widget.BaseAdapter {
+public class LeaderBoard extends android.widget.BaseAdapter {
     private Context context;
     private LayoutInflater layoutInflater;
 
     private int length = 10;
 
-    public MyListAdapter(Context context) {
+    public LeaderBoard(Context context) {
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
 

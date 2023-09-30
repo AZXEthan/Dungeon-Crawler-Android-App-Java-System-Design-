@@ -1,4 +1,5 @@
-package com.example.a2340a_team10;
+package com.example.a2340a_team10.view;
+
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
@@ -10,28 +11,32 @@ import android.widget.TextView;
 import android.widget.ImageView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-public class InitialConfiguration extends AppCompatActivity {
 
+import com.example.a2340a_team10.R;
+import com.example.a2340a_team10.model.*;
+
+public class InitialConfiguration extends AppCompatActivity {
     private TextView selectedChoiceTextView;
     private EditText inputName;
 
     private RadioGroup difficultySelect;
     private RadioGroup avatarSelect;
     private Button buttonSubmit;
+    private Button startBtn;
     private TextView textViewResult;
-    private LinearLayout diffHealthbar;
+    private LinearLayout healthBar;
 
-    private String difficultyNum = "";
+    private Player hero;
+    private String difficulty = "";
     private String myName = "";
     private int choice;
     private int healthCount;
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.initial_configuration);
 
-        Button startBtn = findViewById(R.id.startButton);
+        startBtn = findViewById(R.id.startButton);
 
         difficultySelect = findViewById(R.id.difficultyRadioGroup);
 
@@ -43,29 +48,32 @@ public class InitialConfiguration extends AppCompatActivity {
         inputName = findViewById(R.id.inputName);
         textViewResult = findViewById(R.id.greeting);
 
-        diffHealthbar = findViewById(R.id.diff_healthbar);
+        healthBar = findViewById(R.id.diff_healthbar);
+
+        hero = Player.getPlayer();
 
         difficultySelect.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                //String selectedChoice = "";
                 if (checkedId == R.id.radioEasy) {
-                    diffHealthbar.removeAllViews();
-                    difficultyNum = "Easy";
+                    healthBar.removeAllViews();
+                    difficulty = "Easy";
                     displayHealth(5);
                     healthCount = 5;
                 } else if (checkedId == R.id.radioMedium) {
-                    diffHealthbar.removeAllViews();
-                    difficultyNum = "Medium";
+                    healthBar.removeAllViews();
+                    difficulty = "Medium";
                     displayHealth(4);
                     healthCount = 4;
                 } else if (checkedId == R.id.radioHard) {
-                    diffHealthbar.removeAllViews();
-                    difficultyNum = "Hard";
+                    healthBar.removeAllViews();
+                    difficulty = "Hard";
                     displayHealth(3);
                     healthCount = 3;
                 }
-                selectedChoiceTextView.setText(String.format("Difficulty: %s", difficultyNum));
+                selectedChoiceTextView.setText(String.format("Difficulty: %s", difficulty));
+                hero.setDifficulty(difficulty);
+                hero.setHealth(healthCount);
             }
         });
 
@@ -73,10 +81,11 @@ public class InitialConfiguration extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 myName = inputName.getText().toString().trim();
+                hero.setName(myName);
 
                 if (!myName.isEmpty()) {
                     // Name is not empty, display it
-                    textViewResult.setText(String.format("Welcome, %s!", myName));
+                    textViewResult.setText(String.format("Welcome, %s!", hero.getName()));
                 } else {
                     // Name is empty or contains only whitespace
                     textViewResult.setText("Invalid name.");
@@ -98,30 +107,31 @@ public class InitialConfiguration extends AppCompatActivity {
                 } else {
                     choice = R.drawable.female_elf;
                 }
-                //PlayerView myPlayer = PlayerView.initializePlayer(0,0,0,0,myName,choice,healthCount,difficultyNum);
+                hero.setCharacterChoice(choice);
                 displayAvatar(choice);
             }
         });
 
-
         startBtn.setOnClickListener(v -> {
-            Intent game = new Intent(InitialConfiguration.this, GameScreen.class);
-//            PlayerView myPlayer = PlayerView.initializePlayer(0,0,0,0,myName,choice,healthCount,difficultyNum);
-            game.putExtra("difficulty", difficultyNum);
-            game.putExtra("player", myName);
-            game.putExtra("startingHealth", healthCount);
-            game.putExtra("characterChoice", choice);
-//            game.putExtra("difficulty", myPlayer.getDifficulty());
-//            game.putExtra("player", myPlayer.getName());
-//            game.putExtra("startingHealth", myPlayer.getHealth());
-//            game.putExtra("characterChoice", myPlayer.getChoice());
-            startActivity(game);
-            finish(); // Do we need this?
+            if (hero.getName() == null) {
+                textViewResult.setText("Invalid name.");
+            } else if (hero.getHealth() == 0.0f) {
+                textViewResult.setText("Please choose difficulty.");
+            } else if (hero.getCharacterChoice() == 0) {
+                textViewResult.setText("Please choose character.");
+            } else {
+                Intent game = new Intent(InitialConfiguration.this, GameScreen.class);
+                startActivity(game);
+                finish(); // Do we need this?
+            }
+//            Intent game = new Intent(InitialConfiguration.this, GameScreen.class);
+//            startActivity(game);
+//            finish(); // Do we need this?
         });
 
     }
     private void displayHealth(int count) {
-        diffHealthbar.setVisibility(View.VISIBLE);
+        healthBar.setVisibility(View.VISIBLE);
 
         for (int i = 0; i < count; i++) {
             ImageView imageView = new ImageView(this);
@@ -130,7 +140,7 @@ public class InitialConfiguration extends AppCompatActivity {
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             ));
-            diffHealthbar.addView(imageView);
+            healthBar.addView(imageView);
         }
     }
 

@@ -1,10 +1,12 @@
-package com.example.a2340a_team10;
+package com.example.a2340a_team10.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+
+import com.example.a2340a_team10.R;
 
 public class WelcomeScreen extends AppCompatActivity {
 
