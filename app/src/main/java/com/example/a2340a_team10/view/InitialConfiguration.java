@@ -113,9 +113,20 @@ public class InitialConfiguration extends AppCompatActivity {
         });
 
         startBtn.setOnClickListener(v -> {
-            Intent game = new Intent(InitialConfiguration.this, GameScreen.class);
-            startActivity(game);
-            finish(); // Do we need this?
+            if (hero.getName() == null) {
+                textViewResult.setText("Invalid name.");
+            } else if (hero.getHealth() == 0.0f) {
+                textViewResult.setText("Please choose difficulty.");
+            } else if (hero.getCharacterChoice() == 0) {
+                textViewResult.setText("Please choose character.");
+            } else {
+                Intent game = new Intent(InitialConfiguration.this, GameScreen.class);
+                startActivity(game);
+                finish(); // Do we need this?
+            }
+//            Intent game = new Intent(InitialConfiguration.this, GameScreen.class);
+//            startActivity(game);
+//            finish(); // Do we need this?
         });
 
     }
