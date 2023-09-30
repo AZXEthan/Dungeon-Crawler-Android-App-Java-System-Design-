@@ -72,28 +72,26 @@ public class InitialConfiguration extends AppCompatActivity {
                     healthCount = 3;
                 }
                 selectedChoiceTextView.setText(String.format("Difficulty: %s", difficulty));
+                hero.setDifficulty(difficulty);
+                hero.setHealth(healthCount);
             }
         });
-
-        hero.setDifficulty(difficulty);
-        hero.setHealth(healthCount);
 
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 myName = inputName.getText().toString().trim();
+                hero.setName(myName);
 
                 if (!myName.isEmpty()) {
                     // Name is not empty, display it
-                    textViewResult.setText(String.format("Welcome, %s!", myName));
+                    textViewResult.setText(String.format("Welcome, %s!", hero.getName()));
                 } else {
                     // Name is empty or contains only whitespace
                     textViewResult.setText("Invalid name.");
                 }
             }
         });
-
-        hero.setName(myName);
 
         avatarSelect.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -109,18 +107,13 @@ public class InitialConfiguration extends AppCompatActivity {
                 } else {
                     choice = R.drawable.female_elf;
                 }
+                hero.setCharacterChoice(choice);
                 displayAvatar(choice);
             }
         });
 
-        hero.setCharacterChoice(choice);
-
         startBtn.setOnClickListener(v -> {
             Intent game = new Intent(InitialConfiguration.this, GameScreen.class);
-//            game.putExtra("difficulty", difficulty);
-//            game.putExtra("player", myName);
-//            game.putExtra("startingHealth", healthCount);
-//            game.putExtra("characterChoice", choice);
             startActivity(game);
             finish(); // Do we need this?
         });
