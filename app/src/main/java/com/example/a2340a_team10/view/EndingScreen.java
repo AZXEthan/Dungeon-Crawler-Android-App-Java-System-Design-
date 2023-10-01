@@ -7,13 +7,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 
 import com.example.a2340a_team10.R;
 import com.example.a2340a_team10.model.LeaderboardModel;
+import com.example.a2340a_team10.viewmodel.LB_RecyclerViewAdapter;
 import com.example.a2340a_team10.viewmodel.LeaderboardViewModel;
-
-import java.util.ArrayList;
 
 public class EndingScreen extends AppCompatActivity {
 
@@ -42,7 +40,7 @@ public class EndingScreen extends AppCompatActivity {
 
         leaderboard = (RecyclerView) findViewById(R.id.leaderboard);
         LeaderboardViewModel.addScore();
-        LB_RecyclerViewAdpter adapter = new LB_RecyclerViewAdpter(this, LeaderboardModel.getInstance().getScoreHistory());
+        LB_RecyclerViewAdapter adapter = new LB_RecyclerViewAdapter(this, LeaderboardModel.getInstance().getPlayRecords());
         leaderboard.setAdapter(adapter);
         leaderboard.setLayoutManager(new LinearLayoutManager(this));
 

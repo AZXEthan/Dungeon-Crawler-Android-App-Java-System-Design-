@@ -1,4 +1,4 @@
-package com.example.a2340a_team10.view;
+package com.example.a2340a_team10.viewmodel;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,24 +15,24 @@ import com.example.a2340a_team10.model.LeaderboardModel;
 
 import java.util.ArrayList;
 
-public class LB_RecyclerViewAdpter extends RecyclerView.Adapter<LB_RecyclerViewAdpter.MyViewHolder> {
+public class LB_RecyclerViewAdapter extends RecyclerView.Adapter<LB_RecyclerViewAdapter.MyViewHolder> {
     Context context;
-    ArrayList<LeaderboardModel.LeaderboardRowModel> scoreHistory;
+    ArrayList<LeaderboardModel.GameRecord> scoreHistory;
 
-    public LB_RecyclerViewAdpter(Context context, ArrayList<LeaderboardModel.LeaderboardRowModel> scoreHistory) {
+    public LB_RecyclerViewAdapter(Context context, ArrayList<LeaderboardModel.GameRecord> scoreHistory) {
         this.context = context;
         this.scoreHistory = scoreHistory;
     }
     @NonNull
     @Override
-    public LB_RecyclerViewAdpter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public LB_RecyclerViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.recycler_veiw_row, parent, false);
-        return new LB_RecyclerViewAdpter.MyViewHolder(view);
+        return new LB_RecyclerViewAdapter.MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LB_RecyclerViewAdpter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull LB_RecyclerViewAdapter.MyViewHolder holder, int position) {
         holder.name.setText(scoreHistory.get(position).getName());
         holder.score.setText(String.valueOf(scoreHistory.get(position).getScore()));
         holder.time.setText(String.valueOf(scoreHistory.get(position).getTime()));

@@ -8,9 +8,9 @@ import java.util.Collections;
 public class LeaderboardViewModel {
 
     public static void addScore() {
-        ArrayList<LeaderboardModel.LeaderboardRowModel> newList = LeaderboardModel.getInstance().getScoreHistory();
-        newList.add(LeaderboardModel.getInstance().new LeaderboardRowModel());
+        ArrayList<LeaderboardModel.GameRecord> newList = LeaderboardModel.getInstance().getPlayRecords();
+        newList.add(LeaderboardModel.getInstance().new GameRecord());
         Collections.sort(newList);
-        LeaderboardModel.getInstance().setScoreHistory(newList);
+        LeaderboardModel.getInstance().setPlayRecords(newList);
     }
 }

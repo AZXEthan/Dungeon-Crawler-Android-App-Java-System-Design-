@@ -11,6 +11,8 @@ public class Player {
     private float posY;
     private int characterChoice;
 
+    private int avatar;
+
 //    private Player(String playerName, String difficulty, int characterChoice) {
 //        this.playerName = playerName;
 //        this.difficulty = difficulty;
