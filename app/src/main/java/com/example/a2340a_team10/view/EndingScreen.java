@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -26,7 +27,9 @@ public class EndingScreen extends AppCompatActivity {
         mBtnRestart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Restart the game
+                Intent restart = new Intent(EndingScreen.this, InitialConfiguration.class);
+                startActivity(restart);
+                finish();
             }
         });
 
@@ -34,7 +37,7 @@ public class EndingScreen extends AppCompatActivity {
         mBtnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Terminate the program
+                finish();
             }
         });
 
