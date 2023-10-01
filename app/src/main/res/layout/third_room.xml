@@ -31,4 +31,15 @@
         android:text="To Second Room"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/scoreTextView"
+        android:layout_width="112dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="20dp"
+        android:textColor="#FF9800"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

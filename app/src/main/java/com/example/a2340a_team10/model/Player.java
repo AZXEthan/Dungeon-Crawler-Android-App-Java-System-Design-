@@ -18,7 +18,7 @@ public class Player {
 //    }
 
     private Player() {
-        this.score = 0;
+        this.score = 300;
         this.posX = 0;
         this.posY = 0;
     }
@@ -59,7 +59,7 @@ public class Player {
         this.difficulty = difficulty;
     }
 
-    public float getHealth() {
+    public int getHealth() {
         return health;
     }
 
@@ -67,7 +67,7 @@ public class Player {
         this.health = health;
     }
 
-    public float getSpeed() {
+    public int getSpeed() {
         return speed;
     }
 
@@ -75,7 +75,7 @@ public class Player {
         this.speed = speed;
     }
 
-    public float getScore() {
+    public int getScore() {
         return score;
     }
 

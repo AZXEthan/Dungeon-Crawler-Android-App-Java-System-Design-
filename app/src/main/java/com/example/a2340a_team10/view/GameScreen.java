@@ -1,6 +1,8 @@
 package com.example.a2340a_team10.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
@@ -13,9 +15,11 @@ import android.widget.LinearLayout;
 
 import com.example.a2340a_team10.R;
 import com.example.a2340a_team10.model.*;
+import com.example.a2340a_team10.viewmodel.PlayerView;
 
 public class GameScreen extends AppCompatActivity {
     private Player hero;
+    private PlayerView gameViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +27,17 @@ public class GameScreen extends AppCompatActivity {
         setContentView(R.layout.game_screen);
 
         hero = Player.getPlayer();
+        gameViewModel = new ViewModelProvider(this).get(PlayerView.class);
+        TextView scoreTextView = findViewById(R.id.scoreTextView);
+
+        // Observe the scoreLiveData to update the score in real-time
+        gameViewModel.getScoreLiveData().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer score) {
+                // Update the score TextView
+                scoreTextView.setText("Score: " + score);
+            }
+        });
 
         // Display player name
         TextView playerNameTextView = findViewById(R.id.playerNameTextView);
