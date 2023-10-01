@@ -27,7 +27,7 @@ public class EndingScreen extends AppCompatActivity {
         mBtnRestart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent restart = new Intent(EndingScreen.this, InitialConfiguration.class);
+                Intent restart = new Intent(EndingScreen.this, WelcomeScreen.class);
                 startActivity(restart);
                 finish();
             }
