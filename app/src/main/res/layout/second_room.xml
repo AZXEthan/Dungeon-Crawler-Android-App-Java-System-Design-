@@ -5,13 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.SecondRoom">
+
     <ImageView
         android:id="@+id/backgroundImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/room2"
+        android:elevation="-1dp"
         android:scaleType="centerCrop"
-        android:elevation="-1dp" />
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-116dp" />
 
     <Button
         android:id="@+id/goToFirstRoomButton"
@@ -30,5 +33,17 @@
         android:layout_marginTop="100dp"
         android:text="To Third Room"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/scoreTextView"
+        android:layout_width="112dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="20dp"
+        android:textColor="#FF9800"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
