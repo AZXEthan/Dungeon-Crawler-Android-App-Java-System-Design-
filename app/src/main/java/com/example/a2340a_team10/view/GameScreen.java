@@ -77,7 +77,7 @@ public class GameScreen extends AppCompatActivity {
                 // Navigate to the ending screen (replace with actual navigation code)
                 Intent intent = new Intent(GameScreen.this, EndingScreen.class);
                 startActivity(intent);
-                // finish();  // Optional: Close this activity if needed
+                finish();  // Optional: Close this activity if needed
             }
         });
         Button goToSecondRoomButton = findViewById(R.id.goToSecondRoomButton);

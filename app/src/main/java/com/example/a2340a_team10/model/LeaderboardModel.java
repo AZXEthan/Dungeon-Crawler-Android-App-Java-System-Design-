@@ -1,4 +1,6 @@
 package com.example.a2340a_team10.model;
+import com.example.a2340a_team10.R;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,13 +41,23 @@ public class LeaderboardModel {
         private String time;
 
         public GameRecord() {
+            //obtained the attributes of the current player
+            int choice = Player.getPlayer().getCharacterChoice();
             this.name = Player.getPlayer().getName();
             this.score = Player.getPlayer().getScore();
-            this.avatar = Player.getPlayer().getCharacterChoice();
             SimpleDateFormat formatter =new SimpleDateFormat("HH:mm:ss");
             Date date = new Date(System.currentTimeMillis());
             this.time = formatter.format(date);
-            //obtained the attributes of the current player
+
+            if (choice == R.drawable.female_elf) {
+                this.avatar = R.drawable.elf_f_idle_anim_f0;
+            } else if (choice == R.drawable.male_elf) {
+                this.avatar = R.drawable.elf_m_idle_anim_f0;
+            } else if (choice == R.drawable.witch) {
+                this.avatar = R.drawable.wizzard_f_idle_anim_f0;
+            } else if (choice == R.drawable.wizard) {
+                this.avatar = R.drawable.wizzard_m_idle_anim_f0;
+            }
         }
 
         public float getScore() {

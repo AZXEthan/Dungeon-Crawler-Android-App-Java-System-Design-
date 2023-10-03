@@ -22,16 +22,17 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#F2E084">
 
-            <EditText
+            <TextView
                 android:id="@+id/rank"
                 android:layout_width="56dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:ems="10"
-                android:inputType="number"
                 android:text="123"
+                android:textSize="19sp"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -43,11 +44,10 @@
                 android:layout_width="61dp"
                 android:layout_height="68dp"
                 android:layout_marginStart="24dp"
-                android:src="@tools:sample/avatars"
+                android:layout_marginBottom="20dp"
+                android:src="@drawable/elf_f_idle_anim_f0"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/rank"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintStart_toEndOf="@+id/rank" />
 
             <TextView
                 android:id="@+id/Charaname"
@@ -62,13 +62,13 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.51" />
 
-            <EditText
+            <TextView
                 android:id="@+id/score"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="76dp"
                 android:ems="10"
-                android:inputType="number"
+                android:textSize="19sp"
                 android:text="12345"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -76,12 +76,12 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.521" />
 
-            <EditText
+            <TextView
                 android:id="@+id/attamptTime"
                 android:layout_width="122dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="time"
+                android:textSize="19sp"
                 android:text="5:20 pm"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
