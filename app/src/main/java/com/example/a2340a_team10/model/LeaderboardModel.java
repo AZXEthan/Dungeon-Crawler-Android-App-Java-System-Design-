@@ -9,10 +9,10 @@ import java.util.Date;
 //on the leaderboard
 public class LeaderboardModel {
     private static LeaderboardModel leaderboard;
-    private ArrayList<GameRecord> gameRecords;
+    private ArrayList<Attempt> attemptHistory;
 
     private LeaderboardModel() {
-        gameRecords.add(new GameRecord());
+        attemptHistory.add(new Attempt());
         //when the Leaderboard is created for the first time,
         //only need to add the current record
     }
@@ -24,23 +24,23 @@ public class LeaderboardModel {
         return leaderboard;
     }
 
-    public void setPlayRecords(ArrayList<GameRecord> gameRecords) {
-        this.gameRecords = gameRecords;
+    public void setAttemptHistory(ArrayList<Attempt> attempts) {
+        this.attemptHistory = attempts;
     }
 
-    public ArrayList<GameRecord> getPlayRecords() {
-        return gameRecords;
+    public ArrayList<Attempt> getAttemptHistory() {
+        return attemptHistory;
     }
 
 //This class is a helper class used to store individual record
 //of each attempts
-    public class GameRecord implements Comparable<GameRecord>{
+    public class Attempt implements Comparable<Attempt>{
         private int score;
         private int avatar;
         private String name;
         private String time;
 
-        public GameRecord() {
+        public Attempt() {
             //obtained the attributes of the current player
             int choice = Player.getPlayer().getCharacterChoice();
             this.name = Player.getPlayer().getName();
@@ -77,8 +77,8 @@ public class LeaderboardModel {
         }
 
         @Override
-        public int compareTo(GameRecord gameRecord) {
-            return (int) (score - gameRecord.getScore());
+        public int compareTo(Attempt attempt) {
+            return (int) (score - attempt.getScore());
         }
     }
 

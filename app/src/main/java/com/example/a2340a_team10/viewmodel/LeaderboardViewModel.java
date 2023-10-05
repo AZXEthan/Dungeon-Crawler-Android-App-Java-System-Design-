@@ -7,10 +7,12 @@ import java.util.Collections;
 
 public class LeaderboardViewModel {
 
-    public static void addScore() {
-        ArrayList<LeaderboardModel.GameRecord> newList = LeaderboardModel.getInstance().getPlayRecords();
-        newList.add(LeaderboardModel.getInstance().new GameRecord());
+    public static LeaderboardModel.Attempt addAttempt() {
+        ArrayList<LeaderboardModel.Attempt> newList = LeaderboardModel.getInstance().getAttemptHistory();
+        LeaderboardModel.Attempt newAttempt = LeaderboardModel.getInstance().new Attempt();
+        newList.add(newAttempt);
         Collections.sort(newList);
-        LeaderboardModel.getInstance().setPlayRecords(newList);
+        LeaderboardModel.getInstance().setAttemptHistory(newList);
+        return newAttempt;
     }
 }
