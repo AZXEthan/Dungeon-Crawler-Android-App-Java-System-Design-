@@ -48,7 +48,7 @@ public class GameScreen extends AppCompatActivity {
         chosenDifficulty.setText(String.format("Difficulty: %s", hero.getDifficulty()));
 
         // Get or display Player
-        ImageView avatar = (ImageView) findViewById(R.id.avatarImage);
+        ImageView avatar = findViewById(R.id.avatarImage);
         avatar.setBackgroundResource(hero.getCharacterChoice());
         AnimationDrawable idleAvatar = (AnimationDrawable) avatar.getBackground();
         idleAvatar.start();

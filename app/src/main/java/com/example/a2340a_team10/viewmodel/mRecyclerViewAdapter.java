@@ -11,22 +11,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.a2340a_team10.R;
+import com.example.a2340a_team10.model.Attempt;
 import com.example.a2340a_team10.model.LeaderboardModel;
 
 import java.util.ArrayList;
 
 public class mRecyclerViewAdapter extends RecyclerView.Adapter<mRecyclerViewAdapter.MyViewHolder> {
     private Context context;
-    private ArrayList<LeaderboardModel.Attempt> attemptHistory;
+    private ArrayList<Attempt> attemptHistory;
     private int count;
 
     private boolean addRank;
 
-    public mRecyclerViewAdapter(Context context, ArrayList<LeaderboardModel.Attempt> attemptHistory) {
+    public mRecyclerViewAdapter(Context context, ArrayList<Attempt> attemptHistory) {
         this(context, attemptHistory, attemptHistory.size(), true);
     }
 
-    public mRecyclerViewAdapter(Context context, ArrayList<LeaderboardModel.Attempt> attemptHistory, int count, boolean addRank) {
+    public mRecyclerViewAdapter(Context context, ArrayList<Attempt> attemptHistory, int count, boolean addRank) {
         this.context = context;
         this.attemptHistory = attemptHistory;
         this.count = count;
@@ -49,8 +50,9 @@ public class mRecyclerViewAdapter extends RecyclerView.Adapter<mRecyclerViewAdap
         holder.time.setText(String.valueOf(attemptHistory.get(position).getTime()));
         holder.avatar.setImageResource(attemptHistory.get(position).getAvatar());
         if (addRank) {
-            holder.rank.setText(position + 1);
-        } else {
+            holder.rank.setText(String.valueOf(position + 1));
+        }
+        else {
             holder.rank.setText(null);
         }
 
@@ -68,13 +70,14 @@ public class mRecyclerViewAdapter extends RecyclerView.Adapter<mRecyclerViewAdap
         private TextView score;
         private TextView time;
         private TextView rank;
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(final View itemView) {
             super(itemView);
 
             avatar = itemView.findViewById(R.id.avatar);
             name = itemView.findViewById(R.id.Charaname);
             score = itemView.findViewById(R.id.score);
             time = itemView.findViewById(R.id.attamptTime);
+            rank = itemView.findViewById(R.id.rank);
         }
     }
 }

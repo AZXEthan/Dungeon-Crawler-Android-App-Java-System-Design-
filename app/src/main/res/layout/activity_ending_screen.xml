@@ -58,7 +58,7 @@
                     android:background="#F1A125">
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/latestAttempt"
+                        android:id="@+id/boardLatestAttempt"
                         android:layout_width="595dp"
                         android:layout_height="38dp"
                         app:layout_constraintBottom_toBottomOf="parent"
