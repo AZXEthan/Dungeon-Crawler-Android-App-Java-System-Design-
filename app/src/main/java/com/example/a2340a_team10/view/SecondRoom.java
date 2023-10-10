@@ -13,8 +13,6 @@ import androidx.lifecycle.Observer;
 
 import com.example.a2340a_team10.R;
 import com.example.a2340a_team10.model.Player;
-import com.example.a2340a_team10.view.GameScreen;
-import com.example.a2340a_team10.view.ThirdRoom;
 import com.example.a2340a_team10.viewmodel.PlayerView;
 
 public class SecondRoom extends AppCompatActivity {
@@ -38,7 +36,8 @@ public class SecondRoom extends AppCompatActivity {
         idleAvatar.start();
 
         Button goToFirstRoomButton = findViewById(R.id.goToFirstRoomButton);
-        TextView scoreTextView = findViewById(R.id.scoreTextView); // Add a TextView for displaying the score
+        // Add a TextView for displaying the score
+        TextView scoreTextView = findViewById(R.id.scoreTextView);
 
         // Observe the scoreLiveData to update the score in real-time
         gameViewModel.getScoreLiveData().observe(this, new Observer<Integer>() {

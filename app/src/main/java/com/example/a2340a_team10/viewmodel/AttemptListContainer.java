@@ -12,22 +12,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.a2340a_team10.R;
 import com.example.a2340a_team10.model.Attempt;
-import com.example.a2340a_team10.model.LeaderboardModel;
 
 import java.util.ArrayList;
 
-public class mRecyclerViewAdapter extends RecyclerView.Adapter<mRecyclerViewAdapter.MyViewHolder> {
+public class AttemptListContainer extends RecyclerView.Adapter<AttemptListContainer.MyViewHolder> {
     private Context context;
     private ArrayList<Attempt> attemptHistory;
     private int count;
 
     private boolean addRank;
 
-    public mRecyclerViewAdapter(Context context, ArrayList<Attempt> attemptHistory) {
+    public AttemptListContainer(Context context, ArrayList<Attempt> attemptHistory) {
         this(context, attemptHistory, attemptHistory.size(), true);
     }
 
-    public mRecyclerViewAdapter(Context context, ArrayList<Attempt> attemptHistory, int count, boolean addRank) {
+    public AttemptListContainer(Context context, ArrayList<Attempt> attemptHistory, int count,
+                                boolean addRank) {
         this.context = context;
         this.attemptHistory = attemptHistory;
         this.count = count;
@@ -35,15 +35,16 @@ public class mRecyclerViewAdapter extends RecyclerView.Adapter<mRecyclerViewAdap
     }
     @NonNull
     @Override
-    public mRecyclerViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AttemptListContainer.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                                                int viewType) {
         //inflating the layout (giving a look to our rows)
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.recycler_veiw_row, parent, false);
-        return new mRecyclerViewAdapter.MyViewHolder(view);
+        return new AttemptListContainer.MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull mRecyclerViewAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AttemptListContainer.MyViewHolder holder, int position) {
         //assigning values to the views we created in the layout, based on the position
         holder.name.setText(attemptHistory.get(position).getName());
         holder.score.setText(String.valueOf(attemptHistory.get(position).getScore()));
@@ -51,8 +52,7 @@ public class mRecyclerViewAdapter extends RecyclerView.Adapter<mRecyclerViewAdap
         holder.avatar.setImageResource(attemptHistory.get(position).getAvatar());
         if (addRank) {
             holder.rank.setText(String.valueOf(position + 1));
-        }
-        else {
+        } else {
             holder.rank.setText("Last:");
         }
 
