@@ -32,6 +32,10 @@ public class Player {
         return hero;
     }
 
+    public static void clear() {
+        hero = null;
+    }
+
     public void updatePosition(float newX, float newY) {
         posX = newX;
         posY = newY;

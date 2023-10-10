@@ -53,7 +53,7 @@ public class mRecyclerViewAdapter extends RecyclerView.Adapter<mRecyclerViewAdap
             holder.rank.setText(String.valueOf(position + 1));
         }
         else {
-            holder.rank.setText(null);
+            holder.rank.setText("Last:");
         }
 
     }

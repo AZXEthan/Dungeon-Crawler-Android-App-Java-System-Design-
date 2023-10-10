@@ -12,6 +12,7 @@ import android.widget.Button;
 import com.example.a2340a_team10.R;
 import com.example.a2340a_team10.model.Attempt;
 import com.example.a2340a_team10.model.LeaderboardModel;
+import com.example.a2340a_team10.model.Player;
 import com.example.a2340a_team10.viewmodel.mRecyclerViewAdapter;
 import com.example.a2340a_team10.viewmodel.LeaderboardViewModel;
 
@@ -34,6 +35,7 @@ public class EndingScreen extends AppCompatActivity {
             public void onClick(View view) {
                 Intent restart = new Intent(EndingScreen.this, WelcomeScreen.class);
                 startActivity(restart);
+                Player.clear();
                 finish();
             }
         });
