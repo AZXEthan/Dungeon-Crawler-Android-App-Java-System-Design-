@@ -39,9 +39,9 @@ public class PlayerView extends ViewModel {
     }
 
     // Expose the LiveData for observation
-     public LiveData<Integer> getScoreLiveData() {
+    public LiveData<Integer> getScoreLiveData() {
         return scoreLiveData;
-     }
+    }
 
     // Optional: You can also provide a method to reset the score
     // public void resetScore(int newScore) {
@@ -49,9 +49,9 @@ public class PlayerView extends ViewModel {
     //  }
 
     // Cleanup the timer when the ViewModel is no longer needed
-//    @Override
-//    protected void onCleared() {
-//        super.onCleared();
-//        scoreTimer.cancel();
-//    }
+    // @Override
+    // protected void onCleared() {
+    //     super.onCleared();
+    //     scoreTimer.cancel();
+    // }
 }

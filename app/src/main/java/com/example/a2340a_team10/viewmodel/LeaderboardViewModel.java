@@ -7,22 +7,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class LeaderboardViewModel {
-
-//    public static LeaderboardModel.Attempt addAttempt() {
-//        ArrayList<LeaderboardModel.Attempt> newList = LeaderboardModel.getInstance().getAttemptHistory();
-//        LeaderboardModel.Attempt newAttempt = LeaderboardModel.getInstance().new Attempt();
-//        newList.add(newAttempt);
-//        Collections.sort(newList);
-//        LeaderboardModel.getInstance().setAttemptHistory(newList);
-//        return newAttempt;
-//    }
-
     public static Attempt addAttempt() {
-        ArrayList<Attempt> newList = LeaderboardModel.getInstance().getAttemptHistory();
+        ArrayList<Attempt> attemptHistory = LeaderboardModel.getInstance().getAttemptHistory();
         Attempt newAttempt = new Attempt();
-        newList.add(newAttempt);
-        Collections.sort(newList);
-        LeaderboardModel.getInstance().setAttemptHistory(newList);
+        attemptHistory.add(newAttempt);
+        Collections.sort(attemptHistory);
+        // LeaderboardModel.getInstance().setAttemptHistory(attemptHistory);
         return newAttempt;
     }
 }
