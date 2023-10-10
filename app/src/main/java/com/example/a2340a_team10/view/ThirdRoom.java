@@ -1,9 +1,11 @@
 package com.example.a2340a_team10.view;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +26,11 @@ public class ThirdRoom extends AppCompatActivity {
         setContentView(R.layout.third_room);
 
         hero = Player.getPlayer();
+
+        ImageView avatar = (ImageView) findViewById(R.id.avatarImage);
+        avatar.setBackgroundResource(hero.getCharacterChoice());
+        AnimationDrawable idleAvatar = (AnimationDrawable) avatar.getBackground();
+        idleAvatar.start();
         gameViewModel = new ViewModelProvider(this).get(PlayerView.class);
         TextView scoreTextView = findViewById(R.id.scoreTextView);
 
