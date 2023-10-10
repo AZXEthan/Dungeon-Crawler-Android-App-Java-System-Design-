@@ -48,7 +48,7 @@ public class GameScreen extends AppCompatActivity {
         chosenDifficulty.setText(String.format("Difficulty: %s", hero.getDifficulty()));
 
         // Get or display Player
-        ImageView avatar = (ImageView) findViewById(R.id.avatarImage);
+        ImageView avatar = findViewById(R.id.avatarImage);
         avatar.setBackgroundResource(hero.getCharacterChoice());
         AnimationDrawable idleAvatar = (AnimationDrawable) avatar.getBackground();
         idleAvatar.start();
@@ -77,7 +77,7 @@ public class GameScreen extends AppCompatActivity {
                 // Navigate to the ending screen (replace with actual navigation code)
                 Intent intent = new Intent(GameScreen.this, EndingScreen.class);
                 startActivity(intent);
-                // finish();  // Optional: Close this activity if needed
+                finish();  // Optional: Close this activity if needed
             }
         });
         Button goToSecondRoomButton = findViewById(R.id.goToSecondRoomButton);
