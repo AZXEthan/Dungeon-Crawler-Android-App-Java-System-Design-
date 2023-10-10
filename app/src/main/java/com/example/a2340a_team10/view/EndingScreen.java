@@ -13,7 +13,7 @@ import com.example.a2340a_team10.R;
 import com.example.a2340a_team10.model.Attempt;
 import com.example.a2340a_team10.model.LeaderboardModel;
 import com.example.a2340a_team10.model.Player;
-import com.example.a2340a_team10.viewmodel.mRecyclerViewAdapter;
+import com.example.a2340a_team10.viewmodel.AttemptListContainer;
 import com.example.a2340a_team10.viewmodel.LeaderboardViewModel;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class EndingScreen extends AppCompatActivity {
     private Button mBtnRestart;
     private Button mBtnExit;
     private RecyclerView leaderboard;
-    private RecyclerView latestAttempt;
+    private RecyclerView boardLatestAttempt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,22 +49,22 @@ public class EndingScreen extends AppCompatActivity {
         });
 
 
-        latestAttempt = findViewById(R.id.boardLatestAttempt);
+        boardLatestAttempt = findViewById(R.id.boardLatestAttempt);
         leaderboard = findViewById(R.id.leaderboard);
 
-        //generate the leaderboard by adding the current attempt to
-        //attemptHistory; also, saving the current attempt for an
-        //individual display.
+        // generate leaderboard by adding the current attempt to attemptHistory;
+        // save the current attempt for individual display.
         Attempt newAttempt = LeaderboardViewModel.addAttempt();
         ArrayList<Attempt> newAttempts = new ArrayList<>();
         newAttempts.add(newAttempt);
 
-        mRecyclerViewAdapter adapterLast = new mRecyclerViewAdapter(this, newAttempts, 1, false);
-        latestAttempt.setAdapter(adapterLast);
-        latestAttempt.setLayoutManager(new LinearLayoutManager(this));
+        AttemptListContainer latestAttempt = new AttemptListContainer(this, newAttempts, 1, false);
+        this.boardLatestAttempt.setAdapter(latestAttempt);
+        this.boardLatestAttempt.setLayoutManager(new LinearLayoutManager(this));
 
-        mRecyclerViewAdapter adapterBoard = new mRecyclerViewAdapter(this, LeaderboardModel.getInstance().getAttemptHistory());
-        leaderboard.setAdapter(adapterBoard);
+        AttemptListContainer LeaderBoard = new AttemptListContainer(this,
+                LeaderboardModel.getInstance().getAttemptHistory());
+        leaderboard.setAdapter(LeaderBoard);
         leaderboard.setLayoutManager(new LinearLayoutManager(this));
 
 

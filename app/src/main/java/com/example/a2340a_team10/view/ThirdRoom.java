@@ -63,9 +63,5 @@ public class ThirdRoom extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        // If you need to reference the ImageView programmatically
-        //ImageView backgroundImage = findViewById(R.id.backgroundImage);
-        // You can perform actions on the backgroundImage here.
     }
 }

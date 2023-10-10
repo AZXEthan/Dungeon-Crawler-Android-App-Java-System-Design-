@@ -13,12 +13,6 @@ public class Player {
 
     private int avatar;
 
-//    private Player(String playerName, String difficulty, int characterChoice) {
-//        this.playerName = playerName;
-//        this.difficulty = difficulty;
-//        this.characterChoice = characterChoice;
-//    }
-
     private Player() {
         this.score = 300;
         this.posX = 0;
