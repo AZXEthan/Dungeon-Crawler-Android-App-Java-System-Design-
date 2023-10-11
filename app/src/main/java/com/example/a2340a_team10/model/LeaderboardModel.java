@@ -31,11 +31,11 @@ public class LeaderboardModel {
         return attemptHistory;
     }
 
-    public Attempt getLastestAttempt() {
-        return lastestAttempt;
+    public Attempt getlatestAttempt() {
+        return latestAttempt;
     }
 
-    public void setLastestAttempt(Attempt lastestAttempt) {
-        this.lastestAttempt = lastestAttempt;
+    public void setlatestAttempt(Attempt lastestAttempt) {
+        this.latestAttempt = lastestAttempt;
     }
 }
