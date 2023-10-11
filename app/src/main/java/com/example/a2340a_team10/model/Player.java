@@ -90,4 +90,8 @@ public class Player {
     public void setCharacterChoice(int choice) {
         this.characterChoice = choice;
     }
+
+    public void resetScore(){
+        this.score = 300;
+    }
 }
