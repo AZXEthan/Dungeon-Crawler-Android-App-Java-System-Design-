@@ -122,6 +122,7 @@ public class InitialConfiguration extends AppCompatActivity {
             } else {
                 Intent game = new Intent(InitialConfiguration.this, GameScreen.class);
                 startActivity(game);
+                finish();
             }
         });
     }
