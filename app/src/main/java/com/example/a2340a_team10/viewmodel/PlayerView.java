@@ -10,48 +10,49 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class PlayerView extends ViewModel {
-    private MutableLiveData<Integer> scoreLiveData = new MutableLiveData<>();
-    private Timer scoreTimer = new Timer();
-    private int scoreDecreaseAmount = 10; // Set the amount to decrease score per second
+    private final MutableLiveData<Integer> scoreLiveData = new MutableLiveData<>();
+    private final Timer scoreTimer = new Timer();
+    private final Object scoreLock = new Object();
+
+    public int scoreDecreaseAmount = 10;
     private Player hero = Player.getPlayer();
 
     public PlayerView() {
         // Initialize the score LiveData with the starting score
-        scoreLiveData.setValue(hero.getScore());
+        scoreLiveData.postValue(hero.getScore());
 
         // Schedule a task to decrease the score every second
         scoreTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                decreaseScore();
+                decreaseScore(hero);
             }
-        }, 1000, 1000); // Decrease score every 1000 milliseconds (1 second)
+        }, 1000, 1000);
     }
 
-    // Function to decrease the score
-    private void decreaseScore() {
-        Integer currentScore = scoreLiveData.getValue();
-        if (currentScore != null && currentScore > 0) {
-            int updatedScore = currentScore - scoreDecreaseAmount;
-            scoreLiveData.postValue(updatedScore); // Update the LiveData
-            hero.setScore(updatedScore);
+    public void decreaseScore(Player player) {
+        synchronized (scoreLock) {
+            int playerScore = player.getScore();
+            int liveDataScore = scoreLiveData.getValue() != null ? scoreLiveData.getValue() : 0;
+
+            // Update Player's score
+            int updatedPlayerScore = Math.max(0, playerScore - scoreDecreaseAmount);
+            player.setScore(updatedPlayerScore);
+
+            // Update LiveData's score
+            int updatedLiveDataScore = Math.max(0, liveDataScore - scoreDecreaseAmount);
+            scoreLiveData.postValue(updatedLiveDataScore);
         }
     }
 
-    // Expose the LiveData for observation
     public LiveData<Integer> getScoreLiveData() {
         return scoreLiveData;
     }
 
-    // Optional: You can also provide a method to reset the score
-    // public void resetScore(int newScore) {
-    //      scoreLiveData.setValue(newScore);
-    //  }
-
-    // Cleanup the timer when the ViewModel is no longer needed
-    // @Override
-    // protected void onCleared() {
-    //     super.onCleared();
-    //     scoreTimer.cancel();
-    // }
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        scoreTimer.cancel();
+    }
 }
+

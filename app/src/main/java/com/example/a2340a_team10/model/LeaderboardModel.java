@@ -30,4 +30,12 @@ public class LeaderboardModel {
     public ArrayList<Attempt> getAttemptHistory() {
         return attemptHistory;
     }
+
+    public Attempt getLastestAttempt() {
+        return lastestAttempt;
+    }
+
+    public void setLastestAttempt(Attempt lastestAttempt) {
+        this.lastestAttempt = lastestAttempt;
+    }
 }
