@@ -56,15 +56,16 @@ public class EndingScreen extends AppCompatActivity {
         // save the current attempt for individual display.
         LeaderboardViewModel.addAttempt();
         ArrayList<Attempt> newAttempts = new ArrayList<>();
-        newAttempts.add(LeaderboardModel.getInstance().getLastestAttempt());
+        newAttempts.add(LeaderboardModel.getInstance().getLatestAttempt());
 
         AttemptListContainer latestAttempt = new AttemptListContainer(this, newAttempts, 1, false);
-        this.boardLatestAttempt.setAdapter(latestAttempt);
-        this.boardLatestAttempt.setLayoutManager(new LinearLayoutManager(this));
+        boardLatestAttempt.setAdapter(latestAttempt);
+        boardLatestAttempt.setLayoutManager(new LinearLayoutManager(this));
 
-        AttemptListContainer LeaderBoard = new AttemptListContainer(this,
+        AttemptListContainer leaderBoard = new AttemptListContainer(this,
                 LeaderboardModel.getInstance().getAttemptHistory());
-        leaderboard.setAdapter(LeaderBoard);
+        leaderboard.setAdapter(leaderBoard);
         leaderboard.setLayoutManager(new LinearLayoutManager(this));
     }
+
 }

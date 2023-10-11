@@ -10,7 +10,7 @@ public class LeaderboardViewModel {
     public static void addAttempt() {
         ArrayList<Attempt> attemptHistory = LeaderboardModel.getInstance().getAttemptHistory();
         Attempt newAttempt = new Attempt();
-        LeaderboardModel.getInstance().setLastestAttempt(newAttempt);
+        LeaderboardModel.getInstance().setLatestAttempt(newAttempt);
         attemptHistory.add(newAttempt);
         Collections.sort(attemptHistory);
     }

@@ -6,10 +6,10 @@ import java.util.ArrayList;
 public class LeaderboardModel {
     private static LeaderboardModel leaderboard;
     private static ArrayList<Attempt> attemptHistory;
-    private Attempt lastestAttempt;
+    private Attempt latestAttempt;
 
     private LeaderboardModel() {
-        attemptHistory = new ArrayList<Attempt>();
+        attemptHistory = new ArrayList<>();
     }
 
     public static LeaderboardModel getInstance() {
@@ -19,8 +19,12 @@ public class LeaderboardModel {
         return leaderboard;
     }
 
-    public void setAttemptHistory(ArrayList<Attempt> attempts) {
-        this.attemptHistory = attempts;
+    public  Attempt getLatestAttempt() {
+        return latestAttempt;
+    }
+
+    public void setLatestAttempt(Attempt latestAttempt) {
+        this.latestAttempt = latestAttempt;
     }
 
     public ArrayList<Attempt> getAttemptHistory() {
