@@ -48,7 +48,7 @@ public class GameScreen extends AppCompatActivity {
         chosenDifficulty.setText(String.format("Difficulty: %s", hero.getDifficulty()));
 
         // Get or display Player
-        ImageView avatar = (ImageView) findViewById(R.id.avatarImage);
+        ImageView avatar = findViewById(R.id.avatarImage);
         avatar.setBackgroundResource(hero.getCharacterChoice());
         AnimationDrawable idleAvatar = (AnimationDrawable) avatar.getBackground();
         idleAvatar.start();
@@ -71,33 +71,23 @@ public class GameScreen extends AppCompatActivity {
         // Handle navigation to the ending screen (temporary button)
         Button nextScreenButton = findViewById(R.id.endGameButton);
         nextScreenButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
                 // Navigate to the ending screen (replace with actual navigation code)
                 Intent intent = new Intent(GameScreen.this, EndingScreen.class);
                 startActivity(intent);
-                // finish();  // Optional: Close this activity if needed
+                finish();
             }
         });
-        Button goToSecondRoomButton = findViewById(R.id.goToSecondRoomButton);
 
+        Button goToSecondRoomButton = findViewById(R.id.goToSecondRoomButton);
         goToSecondRoomButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Create an Intent to navigate to the 'SecondRoom' screen
                 Intent intent = new Intent(GameScreen.this, SecondRoom.class);
                 startActivity(intent);
-            }
-        });
-        Button goToThirdRoomButton = findViewById(R.id.goToThirdRoomButton);
-
-        goToThirdRoomButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create an Intent to navigate to the 'SecondRoom' screen
-                Intent intent = new Intent(GameScreen.this, ThirdRoom.class);
-                startActivity(intent);
+                finish();
             }
         });
     }

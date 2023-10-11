@@ -11,11 +11,7 @@ public class Player {
     private float posY;
     private int characterChoice;
 
-//    private Player(String playerName, String difficulty, int characterChoice) {
-//        this.playerName = playerName;
-//        this.difficulty = difficulty;
-//        this.characterChoice = characterChoice;
-//    }
+    private int avatar;
 
     private Player() {
         this.score = 300;
@@ -28,6 +24,10 @@ public class Player {
             hero = new Player();
         }
         return hero;
+    }
+
+    public static void clear() {
+        hero = null;
     }
 
     public void updatePosition(float newX, float newY) {
