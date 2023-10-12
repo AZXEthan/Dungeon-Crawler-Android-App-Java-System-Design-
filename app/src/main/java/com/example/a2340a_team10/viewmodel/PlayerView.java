@@ -14,7 +14,7 @@ public class PlayerView extends ViewModel {
     private final Timer scoreTimer = new Timer();
     private final Object scoreLock = new Object();
 
-    public int scoreDecreaseAmount = 10;
+    private int scoreDecreaseAmount = 10;
     private Player hero = Player.getPlayer();
 
     public PlayerView() {
