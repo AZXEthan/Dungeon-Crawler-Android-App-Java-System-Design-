@@ -125,8 +125,8 @@ public class InitialConfiguration extends AppCompatActivity {
                 finish();
             }
         });
-
     }
+
     private void displayHealth(int count) {
         healthBar.setVisibility(View.VISIBLE);
 
