@@ -1,12 +1,14 @@
 package com.example.a2340a_team10.view;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +27,41 @@ public class ThirdRoom extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.third_room);
+
+        ImageView backgroundImage = findViewById(R.id.backgroundImage);
+        RelativeLayout gridView = findViewById(R.id.gridLayout);
+
+        // Calculate the number of grid lines you want horizontally and vertically
+        int numHorizontalLines = 5; // Change this to the desired number
+        int numVerticalLines = 5;   // Change this to the desired number
+
+        // Calculate the width and height of each grid cell
+        int cellWidth = backgroundImage.getWidth() / numHorizontalLines;
+        int cellHeight = backgroundImage.getHeight() / numVerticalLines;
+
+        // Draw horizontal grid lines
+        for (int i = 1; i < numHorizontalLines; i++) {
+            View line = new View(this);
+            line.setBackgroundColor(Color.BLACK); // Change the color as needed
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.MATCH_PARENT, 1);
+            params.leftMargin = 0;
+            params.topMargin = i * cellHeight;
+            line.setLayoutParams(params);
+            gridView.addView(line);
+        }
+
+        // Draw vertical grid lines
+        for (int i = 1; i < numVerticalLines; i++) {
+            View line = new View(this);
+            line.setBackgroundColor(Color.BLACK); // Change the color as needed
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                    1, RelativeLayout.LayoutParams.MATCH_PARENT);
+            params.leftMargin = i * cellWidth;
+            params.topMargin = 0;
+            line.setLayoutParams(params);
+            gridView.addView(line);
+        }
 
         hero = Player.getPlayer();
         gameViewModel = new ViewModelProvider(this).get(PlayerView.class);

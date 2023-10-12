@@ -15,6 +15,10 @@
         android:scaleType="centerCrop"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="-116dp" />
+    <RelativeLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <ImageView
         android:id="@+id/avatarImage"
