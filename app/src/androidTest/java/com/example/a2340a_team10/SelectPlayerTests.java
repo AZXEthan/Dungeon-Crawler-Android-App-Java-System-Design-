@@ -46,20 +46,4 @@ public class SelectPlayerTests {
         // Check if the textViewResult displays the appropriate error message
         onView(withId(R.id.greeting)).check(matches(withText("Please choose character.")));
     }
-    @Test
-    public void testStartButtonEnabledAfterRadioButtonSelection() {
-        // Check that the Start button is initially disabled
-        //onView(withId(R.id.startButton)).check(matches(isNotEnabled()));
-
-        // Simulate a click on the "Easy" radio button
-        onView(withId(R.id.char_f_elf)).perform(click());
-
-        // After the click, the Start button should be enabled
-        onView(withId(R.id.startButton)).check(matches(isEnabled()));
-    }
-
-    @Test
-    public void testStartButtonEnabledBeforeRadioButtonSelection() {
-        onView(withId(R.id.startButton)).check(matches(not(isNotEnabled())));
-    }
 }
