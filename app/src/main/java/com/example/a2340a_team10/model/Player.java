@@ -91,7 +91,7 @@ public class Player {
         this.characterChoice = choice;
     }
 
-    public void resetScore(){
+    public void resetScore() {
         this.score = 300;
     }
 }
