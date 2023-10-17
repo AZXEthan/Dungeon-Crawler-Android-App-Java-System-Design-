@@ -76,7 +76,7 @@ public class AttemptListContainer extends RecyclerView.Adapter<AttemptListContai
             avatar = itemView.findViewById(R.id.avatar);
             name = itemView.findViewById(R.id.Charaname);
             score = itemView.findViewById(R.id.score);
-            time = itemView.findViewById(R.id.attamptTime);
+            time = itemView.findViewById(R.id.attemptTime);
             rank = itemView.findViewById(R.id.rank);
         }
     }
