@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,12 +17,25 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.a2340a_team10.R;
+import com.example.a2340a_team10.model.KeyAction;
+import com.example.a2340a_team10.model.MoveDownAction;
+import com.example.a2340a_team10.model.MoveLeftAction;
+import com.example.a2340a_team10.model.MoveRightAction;
+import com.example.a2340a_team10.model.MoveUpAction;
 import com.example.a2340a_team10.model.Player;
 import com.example.a2340a_team10.viewmodel.PlayerView;
 
 public class ThirdRoom extends AppCompatActivity {
     private Player hero;
     private PlayerView gameViewModel;
+    private ImageView door;
+    private int playerX;
+    private int playerY;
+    int screenWidth;
+    int screenHeight;
+    private ImageView avatar;
+    private TextView playerNameTextView;
+    private TextView chosenDifficulty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +44,10 @@ public class ThirdRoom extends AppCompatActivity {
 
         ImageView backgroundImage = findViewById(R.id.backgroundImage);
         RelativeLayout gridView = findViewById(R.id.gridLayout);
+
+        door = findViewById(R.id.door);
+        screenWidth = getResources().getDisplayMetrics().widthPixels;
+        screenHeight = getResources().getDisplayMetrics().heightPixels;
 
         // Calculate the number of grid lines you want horizontally and vertically
         int numHorizontalLines = 5; // Change this to the desired number
@@ -77,18 +95,23 @@ public class ThirdRoom extends AppCompatActivity {
         });
 
         // Display player name
-        TextView playerNameTextView = findViewById(R.id.playerNameTextView);
+        playerNameTextView = findViewById(R.id.playerNameTextView);
         playerNameTextView.setText(String.format("Name: %s", hero.getName()));
 
         // Display difficulty
-        TextView chosenDifficulty = findViewById(R.id.difficultyTextView);
+        chosenDifficulty = findViewById(R.id.difficultyTextView);
         chosenDifficulty.setText(String.format("Difficulty: %s", hero.getDifficulty()));
 
         // Get or display Player
-        ImageView avatar = findViewById(R.id.avatarImage);
+        avatar = findViewById(R.id.avatarImage);
         avatar.setBackgroundResource(hero.getCharacterChoice());
         AnimationDrawable idleAvatar = (AnimationDrawable) avatar.getBackground();
         idleAvatar.start();
+        int[] location = new int[2];
+        avatar.getLocationOnScreen(location);
+
+        playerX = location[0]; // x coordinate
+        playerY = location[1]; // y coordinate
 
         // Display starting health
         LinearLayout health = findViewById(R.id.healthShow);
@@ -115,5 +138,41 @@ public class ThirdRoom extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        KeyAction keyAction = null;
+        int[] positions = new int[2];
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                keyAction = new MoveLeftAction();
+                break;
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                keyAction = new MoveRightAction();
+                break;
+            case KeyEvent.KEYCODE_DPAD_UP:
+                keyAction = new MoveUpAction();
+                break;
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+                keyAction = new MoveDownAction();
+                break;
+        }
+
+        if (keyAction != null) {
+            positions = keyAction.performAction(playerX, playerY);
+        }
+        if (gameViewModel.boundary(screenWidth,screenHeight,positions)) {
+            playerX = positions[0];
+            playerY = positions[1];
+        }
+        playerNameTextView.setText(String.format("Name: %s", playerX));
+        chosenDifficulty.setText(String.format("Difficulty: %s", playerY));
+        avatar.setX(playerX);
+        avatar.setY(playerY);
+        if (gameViewModel.jump(playerX, playerY, 1)) {
+            Intent intent = new Intent(ThirdRoom.this, EndingScreen.class);
+            startActivity(intent);
+            finish();
+        }
+        return true;
     }
 }
