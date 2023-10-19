@@ -6,7 +6,6 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -31,8 +30,8 @@ public class ThirdRoom extends AppCompatActivity {
     private ImageView door;
     private int playerX;
     private int playerY;
-    int screenWidth;
-    int screenHeight;
+    private int screenWidth;
+    private int screenHeight;
     private ImageView avatar;
     private TextView playerNameTextView;
     private TextView chosenDifficulty;
@@ -127,45 +126,35 @@ public class ThirdRoom extends AppCompatActivity {
             health.addView(imageView);
         }
 
-        // Handle navigation to the ending screen (temporary button)
-        Button endGameButton = findViewById(R.id.endGameButton);
-        endGameButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Navigate to the ending screen (replace with actual navigation code)
-                Intent intent = new Intent(ThirdRoom.this, EndingScreen.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+
     }
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         KeyAction keyAction = null;
         int[] positions = new int[2];
         switch (keyCode) {
-            case KeyEvent.KEYCODE_DPAD_LEFT:
-                keyAction = new MoveLeftAction();
-                break;
-            case KeyEvent.KEYCODE_DPAD_RIGHT:
-                keyAction = new MoveRightAction();
-                break;
-            case KeyEvent.KEYCODE_DPAD_UP:
-                keyAction = new MoveUpAction();
-                break;
-            case KeyEvent.KEYCODE_DPAD_DOWN:
-                keyAction = new MoveDownAction();
-                break;
+        case KeyEvent.KEYCODE_DPAD_LEFT:
+            keyAction = new MoveLeftAction();
+            break;
+        case KeyEvent.KEYCODE_DPAD_RIGHT:
+            keyAction = new MoveRightAction();
+            break;
+        case KeyEvent.KEYCODE_DPAD_UP:
+            keyAction = new MoveUpAction();
+            break;
+        case KeyEvent.KEYCODE_DPAD_DOWN:
+            keyAction = new MoveDownAction();
+            break;
+        default:
+            break;
         }
 
         if (keyAction != null) {
             positions = keyAction.performAction(playerX, playerY);
         }
-        if (gameViewModel.boundary(screenWidth,screenHeight,positions)) {
+        if (gameViewModel.boundary(screenWidth, screenHeight, positions)) {
             playerX = positions[0];
             playerY = positions[1];
         }
-        playerNameTextView.setText(String.format("Name: %s", playerX));
-        chosenDifficulty.setText(String.format("Difficulty: %s", playerY));
         avatar.setX(playerX);
         avatar.setY(playerY);
         if (gameViewModel.jump(playerX, playerY, 1)) {
@@ -173,6 +162,6 @@ public class ThirdRoom extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-        return true;
+        return super.onKeyDown(keyCode, event);
     }
 }

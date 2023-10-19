@@ -65,7 +65,7 @@ public class PlayerView extends ViewModel {
         if (posY < 0) {
             ans = false;
         }
-        if (posY > 1250) {
+        if (posY > 1150) {
             ans = false;
         }
         if (posX > 3040) {

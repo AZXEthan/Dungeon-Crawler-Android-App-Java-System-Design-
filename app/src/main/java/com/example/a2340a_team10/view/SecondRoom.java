@@ -31,8 +31,8 @@ public class SecondRoom extends AppCompatActivity {
     private int playerX;
     private int playerY;
     private ImageView door;
-    int screenWidth;
-    int screenHeight;
+    private int screenWidth;
+    private int screenHeight;
     private ImageView avatar;
 
     private TextView playerNameTextView;
@@ -145,44 +145,35 @@ public class SecondRoom extends AppCompatActivity {
             }
         });
 
-        Button goToThirdRoomButton = findViewById(R.id.goToThirdRoomButton);
-        goToThirdRoomButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create an Intent to navigate to the 'ThirdRoom' screen
-                Intent intent = new Intent(SecondRoom.this, ThirdRoom.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+
     }
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         KeyAction keyAction = null;
         int[] positions = new int[2];
         switch (keyCode) {
-            case KeyEvent.KEYCODE_DPAD_LEFT:
-                keyAction = new MoveLeftAction();
-                break;
-            case KeyEvent.KEYCODE_DPAD_RIGHT:
-                keyAction = new MoveRightAction();
-                break;
-            case KeyEvent.KEYCODE_DPAD_UP:
-                keyAction = new MoveUpAction();
-                break;
-            case KeyEvent.KEYCODE_DPAD_DOWN:
-                keyAction = new MoveDownAction();
-                break;
+        case KeyEvent.KEYCODE_DPAD_LEFT:
+            keyAction = new MoveLeftAction();
+            break;
+        case KeyEvent.KEYCODE_DPAD_RIGHT:
+            keyAction = new MoveRightAction();
+            break;
+        case KeyEvent.KEYCODE_DPAD_UP:
+            keyAction = new MoveUpAction();
+            break;
+        case KeyEvent.KEYCODE_DPAD_DOWN:
+            keyAction = new MoveDownAction();
+            break;
+        default:
+            break;
         }
 
         if (keyAction != null) {
             positions = keyAction.performAction(playerX, playerY);
         }
-        if (gameViewModel.boundary(screenWidth,screenHeight,positions)) {
+        if (gameViewModel.boundary(screenWidth, screenHeight, positions)) {
             playerX = positions[0];
             playerY = positions[1];
         }
-        playerNameTextView.setText(String.format("Name: %s", playerX));
-        chosenDifficulty.setText(String.format("Difficulty: %s", playerY));
         avatar.setX(playerX);
         avatar.setY(playerY);
         if (gameViewModel.jump(playerX, playerY, 1)) {
@@ -190,6 +181,6 @@ public class SecondRoom extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-        return true;
+        return super.onKeyDown(keyCode, event);
     }
 }

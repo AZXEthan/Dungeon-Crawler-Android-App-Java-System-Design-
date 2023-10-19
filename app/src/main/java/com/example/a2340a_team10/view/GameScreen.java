@@ -23,8 +23,8 @@ import com.example.a2340a_team10.viewmodel.PlayerView;
 public class GameScreen extends AppCompatActivity {
     private Player hero;
     private PlayerView gameViewModel;
-    int screenWidth;
-    int screenHeight;
+    private int screenWidth;
+    private int screenHeight;
     private int playerX;
     private int playerY;
     private ImageView avatar;
@@ -135,45 +135,36 @@ public class GameScreen extends AppCompatActivity {
             }
         });
 
-        Button goToSecondRoomButton = findViewById(R.id.goToSecondRoomButton);
-        goToSecondRoomButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create an Intent to navigate to the 'SecondRoom' screen
-                Intent intent = new Intent(GameScreen.this, SecondRoom.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         KeyAction keyAction = null;
         int[] positions = new int[2];
         switch (keyCode) {
-            case KeyEvent.KEYCODE_DPAD_LEFT:
-                keyAction = new MoveLeftAction();
-                break;
-            case KeyEvent.KEYCODE_DPAD_RIGHT:
-                keyAction = new MoveRightAction();
-                break;
-            case KeyEvent.KEYCODE_DPAD_UP:
-                keyAction = new MoveUpAction();
-                break;
-            case KeyEvent.KEYCODE_DPAD_DOWN:
-                keyAction = new MoveDownAction();
-                break;
+        case KeyEvent.KEYCODE_DPAD_LEFT:
+            keyAction = new MoveLeftAction();
+            break;
+        case KeyEvent.KEYCODE_DPAD_RIGHT:
+            keyAction = new MoveRightAction();
+            break;
+        case KeyEvent.KEYCODE_DPAD_UP:
+            keyAction = new MoveUpAction();
+            break;
+        case KeyEvent.KEYCODE_DPAD_DOWN:
+            keyAction = new MoveDownAction();
+            break;
+        default:
+            break;
         }
 
         if (keyAction != null) {
             positions = keyAction.performAction(playerX, playerY);
         }
-        if (gameViewModel.boundary(screenWidth,screenHeight,positions)) {
+        if (gameViewModel.boundary(screenWidth, screenHeight, positions)) {
             playerX = positions[0];
             playerY = positions[1];
         }
-        playerNameTextView.setText(String.format("Name: %s", playerX));
-        chosenDifficulty.setText(String.format("Difficulty: %s", playerY));
         avatar.setX(playerX);
         avatar.setY(playerY);
         if (gameViewModel.jump(playerX, playerY, 1)) {
@@ -181,6 +172,6 @@ public class GameScreen extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-        return true;
+        return super.onKeyDown(keyCode, event);
     }
 }
