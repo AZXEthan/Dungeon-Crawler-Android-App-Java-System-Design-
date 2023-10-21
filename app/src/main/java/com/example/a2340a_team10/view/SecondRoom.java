@@ -23,6 +23,9 @@ import com.example.a2340a_team10.model.MoveRightAction;
 import com.example.a2340a_team10.model.MoveUpAction;
 import com.example.a2340a_team10.model.Player;
 import com.example.a2340a_team10.viewmodel.PlayerView;
+import com.example.a2340a_team10.model.Obstacle;
+import java.util.Arrays;
+import java.util.List;
 
 public class SecondRoom extends AppCompatActivity {
 
@@ -170,7 +173,8 @@ public class SecondRoom extends AppCompatActivity {
         if (keyAction != null) {
             positions = keyAction.performAction(playerX, playerY);
         }
-        if (gameViewModel.boundary(screenWidth, screenHeight, positions)) {
+        Boolean inBoundary = gameViewModel.inBoundary(screenWidth, screenHeight, positions);
+        if (inBoundary) {
             playerX = positions[0];
             playerY = positions[1];
         }
