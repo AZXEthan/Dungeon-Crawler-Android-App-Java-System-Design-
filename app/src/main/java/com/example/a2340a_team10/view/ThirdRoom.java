@@ -23,6 +23,9 @@ import com.example.a2340a_team10.model.MoveRightAction;
 import com.example.a2340a_team10.model.MoveUpAction;
 import com.example.a2340a_team10.model.Player;
 import com.example.a2340a_team10.viewmodel.PlayerView;
+import com.example.a2340a_team10.model.Obstacle;
+import java.util.Arrays;
+import java.util.List;
 
 public class ThirdRoom extends AppCompatActivity {
     private Player hero;
@@ -35,6 +38,10 @@ public class ThirdRoom extends AppCompatActivity {
     private ImageView avatar;
     private TextView playerNameTextView;
     private TextView chosenDifficulty;
+
+    Obstacle obstacle1 = new Obstacle(520, 780, 450, 380);
+    Obstacle obstacle2 = new Obstacle(2020,780, 450, 380);
+    List<Obstacle> obstacles = Arrays.asList(obstacle1, obstacle2);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,7 +158,9 @@ public class ThirdRoom extends AppCompatActivity {
         if (keyAction != null) {
             positions = keyAction.performAction(playerX, playerY);
         }
-        if (gameViewModel.boundary(screenWidth, screenHeight, positions)) {
+        Boolean noCollision = !gameViewModel.onObstacle(positions, obstacles);
+        Boolean inBoundary = gameViewModel.inBoundary(screenWidth, screenHeight, positions);
+        if (noCollision && inBoundary) {
             playerX = positions[0];
             playerY = positions[1];
         }

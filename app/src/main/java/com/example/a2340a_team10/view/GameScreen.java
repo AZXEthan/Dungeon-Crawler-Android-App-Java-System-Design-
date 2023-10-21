@@ -19,6 +19,9 @@ import android.widget.LinearLayout;
 import com.example.a2340a_team10.R;
 import com.example.a2340a_team10.model.*;
 import com.example.a2340a_team10.viewmodel.PlayerView;
+import com.example.a2340a_team10.model.Obstacle;
+import java.util.Arrays;
+import java.util.List;
 
 public class GameScreen extends AppCompatActivity {
     private Player hero;
@@ -31,6 +34,11 @@ public class GameScreen extends AppCompatActivity {
     private ImageView door;
     private TextView playerNameTextView;
     private TextView chosenDifficulty;
+
+    Obstacle obstacle1 = new Obstacle(360, 0, 400, 330);
+    Obstacle obstacle2 = new Obstacle(2200,0, 400, 330);
+    List<Obstacle> obstacles = Arrays.asList(obstacle1, obstacle2);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -161,7 +169,9 @@ public class GameScreen extends AppCompatActivity {
         if (keyAction != null) {
             positions = keyAction.performAction(playerX, playerY);
         }
-        if (gameViewModel.boundary(screenWidth, screenHeight, positions)) {
+        Boolean noCollision = !gameViewModel.onObstacle(positions, obstacles);
+        Boolean inBoundary = gameViewModel.inBoundary(screenWidth, screenHeight, positions);
+        if (noCollision && inBoundary) {
             playerX = positions[0];
             playerY = positions[1];
         }
