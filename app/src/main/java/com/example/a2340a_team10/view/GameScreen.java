@@ -5,10 +5,13 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,11 +23,58 @@ import com.example.a2340a_team10.viewmodel.PlayerView;
 public class GameScreen extends AppCompatActivity {
     private Player hero;
     private PlayerView gameViewModel;
-
+    private int screenWidth;
+    private int screenHeight;
+    private int playerX;
+    private int playerY;
+    private ImageView avatar;
+    private ImageView door;
+    private TextView playerNameTextView;
+    private TextView chosenDifficulty;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_screen);
+
+        ImageView backgroundImage = findViewById(R.id.backgroundImage);
+        RelativeLayout gridView = findViewById(R.id.gridLayout);
+
+        door = findViewById(R.id.door);
+
+        screenWidth = getResources().getDisplayMetrics().widthPixels;
+        screenHeight = getResources().getDisplayMetrics().heightPixels;
+
+        // Calculate the number of grid lines you want horizontally and vertically
+        int numHorizontalLines = 5; // Change this to the desired number
+        int numVerticalLines = 5;   // Change this to the desired number
+
+        // Calculate the width and height of each grid cell
+        int cellWidth = backgroundImage.getWidth() / numHorizontalLines;
+        int cellHeight = backgroundImage.getHeight() / numVerticalLines;
+
+        // Draw horizontal grid lines
+        for (int i = 1; i < numHorizontalLines; i++) {
+            View line = new View(this);
+            line.setBackgroundColor(Color.BLACK); // Change the color as needed
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.MATCH_PARENT, 1);
+            params.leftMargin = 0;
+            params.topMargin = i * cellHeight;
+            line.setLayoutParams(params);
+            gridView.addView(line);
+        }
+
+        // Draw vertical grid lines
+        for (int i = 1; i < numVerticalLines; i++) {
+            View line = new View(this);
+            line.setBackgroundColor(Color.BLACK); // Change the color as needed
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                    1, RelativeLayout.LayoutParams.MATCH_PARENT);
+            params.leftMargin = i * cellWidth;
+            params.topMargin = 0;
+            line.setLayoutParams(params);
+            gridView.addView(line);
+        }
 
         hero = Player.getPlayer();
         gameViewModel = new ViewModelProvider(this).get(PlayerView.class);
@@ -40,19 +90,24 @@ public class GameScreen extends AppCompatActivity {
         });
 
         // Display player name
-        TextView playerNameTextView = findViewById(R.id.playerNameTextView);
+        playerNameTextView = findViewById(R.id.playerNameTextView);
         playerNameTextView.setText(String.format("Name: %s", hero.getName()));
 
         // Display difficulty
-        TextView chosenDifficulty = findViewById(R.id.difficultyTextView);
+        chosenDifficulty = findViewById(R.id.difficultyTextView);
         chosenDifficulty.setText(String.format("Difficulty: %s", hero.getDifficulty()));
 
         // Get or display Player
-        ImageView avatar = findViewById(R.id.avatarImage);
+        avatar = findViewById(R.id.avatarImage);
         avatar.setBackgroundResource(hero.getCharacterChoice());
         AnimationDrawable idleAvatar = (AnimationDrawable) avatar.getBackground();
         idleAvatar.start();
 
+        int[] location = new int[2];
+        avatar.getLocationOnScreen(location);
+
+        playerX = location[0]; // x coordinate
+        playerY = location[1]; // y coordinate
 
         // Display starting health
         LinearLayout health = findViewById(R.id.healthShow);
@@ -80,15 +135,43 @@ public class GameScreen extends AppCompatActivity {
             }
         });
 
-        Button goToSecondRoomButton = findViewById(R.id.goToSecondRoomButton);
-        goToSecondRoomButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create an Intent to navigate to the 'SecondRoom' screen
-                Intent intent = new Intent(GameScreen.this, SecondRoom.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        KeyAction keyAction = null;
+        int[] positions = new int[2];
+        switch (keyCode) {
+        case KeyEvent.KEYCODE_DPAD_LEFT:
+            keyAction = new MoveLeftAction();
+            break;
+        case KeyEvent.KEYCODE_DPAD_RIGHT:
+            keyAction = new MoveRightAction();
+            break;
+        case KeyEvent.KEYCODE_DPAD_UP:
+            keyAction = new MoveUpAction();
+            break;
+        case KeyEvent.KEYCODE_DPAD_DOWN:
+            keyAction = new MoveDownAction();
+            break;
+        default:
+            break;
+        }
+
+        if (keyAction != null) {
+            positions = keyAction.performAction(playerX, playerY);
+        }
+        if (gameViewModel.boundary(screenWidth, screenHeight, positions)) {
+            playerX = positions[0];
+            playerY = positions[1];
+        }
+        avatar.setX(playerX);
+        avatar.setY(playerY);
+        if (gameViewModel.jump(playerX, playerY, 1)) {
+            Intent intent = new Intent(GameScreen.this, SecondRoom.class);
+            startActivity(intent);
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

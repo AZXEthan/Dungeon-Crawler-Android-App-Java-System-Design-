@@ -5,7 +5,7 @@ import com.example.a2340a_team10.R;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Attempt implements Comparable<Attempt>{
+public class Attempt implements Comparable<Attempt> {
     private int score;
     private int avatar;
     private String name;
@@ -16,7 +16,7 @@ public class Attempt implements Comparable<Attempt>{
         int choice = Player.getPlayer().getCharacterChoice();
         this.name = Player.getPlayer().getName();
         this.score = Player.getPlayer().getScore();
-        SimpleDateFormat formatter =new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
         Date date = new Date(System.currentTimeMillis());
         this.time = formatter.format(date);
 

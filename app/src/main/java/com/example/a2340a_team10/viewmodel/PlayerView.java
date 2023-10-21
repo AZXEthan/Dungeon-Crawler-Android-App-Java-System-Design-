@@ -14,7 +14,7 @@ public class PlayerView extends ViewModel {
     private final Timer scoreTimer = new Timer();
     private final Object scoreLock = new Object();
 
-    public int scoreDecreaseAmount = 10;
+    private int scoreDecreaseAmount = 10;
     private Player hero = Player.getPlayer();
 
     public PlayerView() {
@@ -53,6 +53,34 @@ public class PlayerView extends ViewModel {
     protected void onCleared() {
         super.onCleared();
         scoreTimer.cancel();
+    }
+
+    public boolean boundary(int width, int height, int[] positions) {
+        int posX = positions[0];
+        int posY = positions[1];
+        boolean ans = true;
+        if (posX < 0) {
+            ans = false;
+        }
+        if (posY < 0) {
+            ans = false;
+        }
+        if (posY > 1150) {
+            ans = false;
+        }
+        if (posX > 3040) {
+            ans = false;
+        }
+        return ans;
+    }
+    public boolean jump(int playerY, int playerX, int screen) {
+        boolean ans = false;
+        if (screen == 1) {
+            if ((playerY >= 2800) && (playerX >= 600) && (playerX <= 700)) {
+                ans = true;
+            }
+        }
+        return ans;
     }
 }
 
