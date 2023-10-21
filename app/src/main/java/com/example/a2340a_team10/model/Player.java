@@ -1,4 +1,7 @@
 package com.example.a2340a_team10.model;
+//import com.example.a2340a_team10.model.Observer;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
     private static Player hero;
@@ -10,6 +13,7 @@ public class Player {
     private float posX;
     private float posY;
     private int characterChoice;
+    private List<Observer> observers = new ArrayList<>();
 
     private int avatar;
 
@@ -34,7 +38,15 @@ public class Player {
         posX = newX;
         posY = newY;
     }
+    public void attach(Observer observer) {
+        observers.add(observer);
+    }
 
+    private void notifyAllObservers() {
+        for (Observer observer : observers) {
+            observer.update();
+        }
+    }
     public float getPosX() {
         return posX;
     }

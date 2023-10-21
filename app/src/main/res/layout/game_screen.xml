@@ -7,6 +7,15 @@
     tools:context=".view.GameScreen">
 
     <ImageView
+        android:id="@+id/door"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="180dp"
+        android:src="@drawable/doors_leaf_closed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
         android:id="@+id/backgroundImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,19 +31,10 @@
         android:id="@+id/avatarImage"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/endGameButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-    <Button
-        android:id="@+id/goToSecondRoomButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        app:icon="@android:drawable/ic_dialog_map"
-        android:text="Next"
-        app:layout_constraintBottom_toTopOf="@id/endGameButton"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <Button
         android:id="@+id/endGameButton"
