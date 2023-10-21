@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.a2340a_team10.model.*;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -55,7 +56,7 @@ public class PlayerView extends ViewModel {
         scoreTimer.cancel();
     }
 
-    public boolean boundary(int width, int height, int[] positions) {
+    public boolean inBoundary(int width, int height, int[] positions) {
         int posX = positions[0];
         int posY = positions[1];
         boolean ans = true;
@@ -81,6 +82,19 @@ public class PlayerView extends ViewModel {
             }
         }
         return ans;
+    }
+
+    public boolean onObstacle(int[] positions, List<Obstacle> obstacles) {
+        for (Obstacle obstacle : obstacles) {
+            boolean above = positions[1]+66 < obstacle.getY();
+            boolean below = positions[1] > obstacle.getY() + obstacle.getHeight();
+            boolean onLeft = positions[0]+60 < obstacle.getX();
+            boolean onRight = positions[0] > obstacle.getX() + obstacle.getWidth();
+            if ((!above) && (!below) && (!onLeft) && (!onRight)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 
