@@ -18,28 +18,26 @@ import androidx.lifecycle.Observer;
 import com.example.a2340a_team10.R;
 import com.example.a2340a_team10.model.KeyAction;
 import com.example.a2340a_team10.model.MoveDownAction;
+import com.example.a2340a_team10.model.MoveKeyActionFactory;
 import com.example.a2340a_team10.model.MoveLeftAction;
 import com.example.a2340a_team10.model.MoveRightAction;
 import com.example.a2340a_team10.model.MoveUpAction;
 import com.example.a2340a_team10.model.Player;
+import com.example.a2340a_team10.model.ScreenSetup;
 import com.example.a2340a_team10.viewmodel.PlayerView;
-import com.example.a2340a_team10.model.Obstacle;
+
 import java.util.Arrays;
-import java.util.List;
 
 public class SecondRoom extends AppCompatActivity {
 
-    private PlayerView gameViewModel; // Declare an instance of GameViewModel
+    private PlayerView playerView; // Declare an instance of GameViewModel
     private Player hero;
-    private int playerX;
-    private int playerY;
     private ImageView door;
-    private int screenWidth;
-    private int screenHeight;
     private ImageView avatar;
-
     private TextView playerNameTextView;
     private TextView chosenDifficulty;
+    private MoveKeyActionFactory moveKeyActionFactory = new MoveKeyActionFactory();
+    private ScreenSetup screenSetup = new ScreenSetup();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +47,8 @@ public class SecondRoom extends AppCompatActivity {
         RelativeLayout gridView = findViewById(R.id.gridLayout);
         door = findViewById(R.id.door);
 
-        screenWidth = getResources().getDisplayMetrics().widthPixels;
-        screenHeight = getResources().getDisplayMetrics().heightPixels;
+        screenSetup.setScreenWidth(getResources().getDisplayMetrics().widthPixels);
+        screenSetup.setScreenHeight(getResources().getDisplayMetrics().heightPixels);
 
         // Calculate the number of grid lines you want horizontally and vertically
         int numHorizontalLines = 5; // Change this to the desired number
@@ -85,11 +83,11 @@ public class SecondRoom extends AppCompatActivity {
         }
 
         hero = Player.getPlayer();
-        gameViewModel = new ViewModelProvider(this).get(PlayerView.class);
+        playerView = new ViewModelProvider(this).get(PlayerView.class);
         TextView scoreTextView = findViewById(R.id.scoreTextView);
 
         // Observe the scoreLiveData to update the score in real-time
-        gameViewModel.getScoreLiveData().observe(this, new Observer<Integer>() {
+        playerView.getScoreLiveData().observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer score) {
                 // Update the score TextView
@@ -116,8 +114,7 @@ public class SecondRoom extends AppCompatActivity {
         int[] location = new int[2];
         avatar.getLocationOnScreen(location);
 
-        playerX = location[0]; // x coordinate
-        playerY = location[1]; // y coordinate
+        playerView.setPos(location); //x, y coordinates
 
 
 
@@ -151,36 +148,11 @@ public class SecondRoom extends AppCompatActivity {
 
     }
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        KeyAction keyAction = null;
-        int[] positions = new int[2];
-        switch (keyCode) {
-        case KeyEvent.KEYCODE_DPAD_LEFT:
-            keyAction = new MoveLeftAction();
-            break;
-        case KeyEvent.KEYCODE_DPAD_RIGHT:
-            keyAction = new MoveRightAction();
-            break;
-        case KeyEvent.KEYCODE_DPAD_UP:
-            keyAction = new MoveUpAction();
-            break;
-        case KeyEvent.KEYCODE_DPAD_DOWN:
-            keyAction = new MoveDownAction();
-            break;
-        default:
-            break;
-        }
-
-        if (keyAction != null) {
-            positions = keyAction.performAction(playerX, playerY);
-        }
-        Boolean inBoundary = gameViewModel.inBoundary(screenWidth, screenHeight, positions);
-        if (inBoundary) {
-            playerX = positions[0];
-            playerY = positions[1];
-        }
-        avatar.setX(playerX);
-        avatar.setY(playerY);
-        if (gameViewModel.jump(playerX, playerY, 1)) {
+        KeyAction keyAction = moveKeyActionFactory.createKeyAction(keyCode);
+        playerView.movePlayer(screenSetup, keyAction);
+        avatar.setX(playerView.getPos()[0]);
+        avatar.setY(playerView.getPos()[1]);
+        if (playerView.jump(playerView.getPos()[0], playerView.getPos()[1], 1)) {
             Intent intent = new Intent(SecondRoom.this, ThirdRoom.class);
             startActivity(intent);
             finish();

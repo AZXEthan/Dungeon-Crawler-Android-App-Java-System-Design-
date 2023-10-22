@@ -52,6 +52,9 @@ public class EndingScreen extends AppCompatActivity {
         });
 
 
+        WinAlert winAlert = new WinAlert();
+        winAlert.show(getSupportFragmentManager(), "win");
+
         boardLatestAttempt = findViewById(R.id.boardLatestAttempt);
         leaderboard = findViewById(R.id.leaderboard);
 
