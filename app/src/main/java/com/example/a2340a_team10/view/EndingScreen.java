@@ -28,6 +28,10 @@ public class EndingScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ending_screen);
+
+        WinAlert winAlert = new WinAlert();
+        winAlert.show(getSupportFragmentManager(), "win");
+
         mBtnRestart = findViewById(R.id.restartButton);
         mBtnRestart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,8 +47,7 @@ public class EndingScreen extends AppCompatActivity {
         mBtnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                WinAlert winAlert = new WinAlert();
-                winAlert.show(getSupportFragmentManager(), "win");
+                finish();
             }
         });
 
