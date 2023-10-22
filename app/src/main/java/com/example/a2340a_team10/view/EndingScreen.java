@@ -9,12 +9,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.fragment.app.DialogFragment;
+
 import com.example.a2340a_team10.R;
-import com.example.a2340a_team10.model.Attempt;
-import com.example.a2340a_team10.model.LeaderboardModel;
-import com.example.a2340a_team10.model.Player;
-import com.example.a2340a_team10.viewmodel.AttemptListContainer;
-import com.example.a2340a_team10.viewmodel.LeaderboardViewModel;
+import com.example.a2340a_team10.model.*;
+import com.example.a2340a_team10.viewmodel.*;
 
 import java.util.ArrayList;
 
@@ -44,7 +43,8 @@ public class EndingScreen extends AppCompatActivity {
         mBtnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                WinAlert winAlert = new WinAlert();
+                winAlert.show(getSupportFragmentManager(), "win");
             }
         });
 
