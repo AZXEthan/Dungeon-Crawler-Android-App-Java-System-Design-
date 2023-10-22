@@ -43,11 +43,13 @@ public class EndingScreen extends AppCompatActivity {
         mBtnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                WinAlert winAlert = new WinAlert();
-                winAlert.show(getSupportFragmentManager(), "win");
+                finish();
             }
         });
 
+
+        WinAlert winAlert = new WinAlert();
+        winAlert.show(getSupportFragmentManager(), "win");
 
         boardLatestAttempt = findViewById(R.id.boardLatestAttempt);
         leaderboard = findViewById(R.id.leaderboard);
