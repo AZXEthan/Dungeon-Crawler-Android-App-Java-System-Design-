@@ -1,5 +1,7 @@
 package com.example.a2340a_team10.model;
 
+import com.example.a2340a_team10.viewmodel.PlayerView;
+
 public interface KeyAction {
-    int[] performAction(int posX, int posY);
+    int[] performAction(PlayerView playerView);
 }

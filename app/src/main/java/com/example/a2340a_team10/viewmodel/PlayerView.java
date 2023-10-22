@@ -14,7 +14,7 @@ public class PlayerView extends ViewModel {
     private final MutableLiveData<Integer> scoreLiveData = new MutableLiveData<>();
     private final Timer scoreTimer = new Timer();
     private final Object scoreLock = new Object();
-
+    private int[] pos;
     private int scoreDecreaseAmount = 10;
     private Player hero = Player.getPlayer();
 
@@ -29,6 +29,10 @@ public class PlayerView extends ViewModel {
                 decreaseScore(hero);
             }
         }, 1000, 1000);
+    }
+
+    public PlayerView(boolean forTest) {
+        ;
     }
 
     public void decreaseScore(Player player) {
@@ -95,6 +99,29 @@ public class PlayerView extends ViewModel {
             }
         }
         return false;
+    }
+
+    public void movePlayer(ScreenSetup screenSetup, KeyAction keyAction) {
+        int[] positions = new int[2];
+        boolean noCollision;
+        boolean inBoundary;
+        if (keyAction != null && screenSetup != null) {
+            positions = keyAction.performAction(this);
+            noCollision = !onObstacle(positions, screenSetup.getObstacles());
+            inBoundary = inBoundary(screenSetup.getScreenWidth(), screenSetup.getScreenHeight(), positions);
+            if (noCollision && inBoundary) {
+                pos = positions;
+            }
+        }
+
+    }
+
+    public int[] getPos() {
+        return pos;
+    }
+
+    public void setPos(int[] pos) {
+        this.pos = pos;
     }
 }
 
