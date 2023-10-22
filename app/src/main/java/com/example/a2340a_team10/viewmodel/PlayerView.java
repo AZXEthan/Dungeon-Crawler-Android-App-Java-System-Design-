@@ -32,7 +32,7 @@ public class PlayerView extends ViewModel {
     }
 
     public PlayerView(boolean forTest) {
-        ;
+        pos = new int[2];
     }
 
     public void decreaseScore(Player player) {
@@ -102,18 +102,21 @@ public class PlayerView extends ViewModel {
     }
 
     public void movePlayer(ScreenSetup screenSetup, KeyAction keyAction) {
-        int[] positions = new int[2];
+        int[] positions;
         boolean noCollision;
         boolean inBoundary;
         if (keyAction != null && screenSetup != null) {
             positions = keyAction.performAction(this);
-            noCollision = !onObstacle(positions, screenSetup.getObstacles());
+            if (screenSetup.getObstacles() == null) {
+                noCollision = true;
+            } else {
+                noCollision = !onObstacle(positions, screenSetup.getObstacles());
+            }
             inBoundary = inBoundary(screenSetup.getScreenWidth(), screenSetup.getScreenHeight(), positions);
             if (noCollision && inBoundary) {
                 pos = positions;
             }
         }
-
     }
 
     public int[] getPos() {
