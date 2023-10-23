@@ -9,8 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.fragment.app.DialogFragment;
-
 import com.example.a2340a_team10.R;
 import com.example.a2340a_team10.model.*;
 import com.example.a2340a_team10.viewmodel.*;
@@ -60,7 +58,8 @@ public class EndingScreen extends AppCompatActivity {
         ArrayList<Attempt> newAttempts = new ArrayList<>();
         newAttempts.add(LeaderboardModel.getInstance().getLatestAttempt());
 
-        AttemptListContainer latestAttempt = new AttemptListContainer(this, newAttempts, 1, false);
+        AttemptListContainer latestAttempt = new AttemptListContainer(this,
+                newAttempts, 1, false);
         boardLatestAttempt.setAdapter(latestAttempt);
         boardLatestAttempt.setLayoutManager(new LinearLayoutManager(this));
 

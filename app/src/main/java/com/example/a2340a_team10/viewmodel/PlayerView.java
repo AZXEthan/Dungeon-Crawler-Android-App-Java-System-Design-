@@ -77,9 +77,9 @@ public class PlayerView extends ViewModel {
 
     public boolean onObstacle(int[] positions, List<Obstacle> obstacles) {
         for (Obstacle obstacle : obstacles) {
-            boolean above = positions[1]+66 < obstacle.getY();
+            boolean above = positions[1] + 66 < obstacle.getY();
             boolean below = positions[1] > obstacle.getY() + obstacle.getHeight();
-            boolean onLeft = positions[0]+60 < obstacle.getX();
+            boolean onLeft = positions[0] + 60 < obstacle.getX();
             boolean onRight = positions[0] > obstacle.getX() + obstacle.getWidth();
             if ((!above) && (!below) && (!onLeft) && (!onRight)) {
                 return true;

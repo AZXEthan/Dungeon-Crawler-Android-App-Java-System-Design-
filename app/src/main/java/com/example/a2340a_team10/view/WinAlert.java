@@ -24,7 +24,8 @@ public class WinAlert extends DialogFragment {
                 .setPositiveButton(R.string.restart, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent restart = new Intent(WinAlert.this.requireContext(), WelcomeScreen.class);
+                        Intent restart = new Intent(WinAlert.this.requireContext(),
+                                WelcomeScreen.class);
                         startActivity(restart);
                         Player.clear();
                     }
