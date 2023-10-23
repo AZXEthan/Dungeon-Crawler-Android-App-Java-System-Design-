@@ -14,6 +14,7 @@ public class PlayerRender implements Observer {
     @Override
     public void update() {
         // render the player's current position
-        System.out.println("Player is at: ("  + ")");
+        System.out.println("Player is at: (" + Player.getPlayer().getPosX() + ", "
+                + Player.getPlayer().getPosY() + ")");
     }
 }

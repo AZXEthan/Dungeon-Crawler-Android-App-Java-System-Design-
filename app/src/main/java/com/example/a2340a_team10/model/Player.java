@@ -10,8 +10,8 @@ public class Player {
     private int health;
     private int speed;
     private int score;
-    private float posX;
-    private float posY;
+    private int posX;
+    private int posY;
     private int characterChoice;
     private List<Observer> observers = new ArrayList<>();
 
@@ -34,7 +34,7 @@ public class Player {
         hero = null;
     }
 
-    public void updatePosition(float newX, float newY) {
+    public void updatePosition(int newX, int newY) {
         posX = newX;
         posY = newY;
     }

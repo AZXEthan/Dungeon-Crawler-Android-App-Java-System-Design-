@@ -11,6 +11,7 @@ public class MoveUpAction implements KeyAction {
         posY -= 30;
         position[0] = posX;
         position[1] = posY;
+        Player.getPlayer().updatePosition(posX, posY);
         return position;
     }
 }

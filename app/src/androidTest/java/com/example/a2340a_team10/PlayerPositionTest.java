@@ -17,8 +17,8 @@ public class PlayerPositionTest {
     @Test
     public void testUpdatePosition() {
 
-        float expectedPosX = 4.0f;
-        float expectedPosY = 4.0f;
+        int expectedPosX = 4;
+        int expectedPosY = 4;
 
         player.updatePosition(expectedPosX, expectedPosY);
 

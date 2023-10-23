@@ -16,17 +16,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.Observer;
 
 import com.example.a2340a_team10.R;
-import com.example.a2340a_team10.model.KeyAction;
-import com.example.a2340a_team10.model.MoveDownAction;
-import com.example.a2340a_team10.model.MoveKeyActionFactory;
-import com.example.a2340a_team10.model.MoveLeftAction;
-import com.example.a2340a_team10.model.MoveRightAction;
-import com.example.a2340a_team10.model.MoveUpAction;
-import com.example.a2340a_team10.model.Player;
-import com.example.a2340a_team10.model.ScreenSetup;
+import com.example.a2340a_team10.model.*;
 import com.example.a2340a_team10.viewmodel.PlayerView;
-
-import java.util.Arrays;
 
 public class SecondRoom extends AppCompatActivity {
 
