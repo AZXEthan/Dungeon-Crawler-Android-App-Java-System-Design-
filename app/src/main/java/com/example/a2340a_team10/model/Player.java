@@ -15,8 +15,6 @@ public class Player {
     private int characterChoice;
     private List<Observer> observers = new ArrayList<>();
 
-    private int avatar;
-
     private Player() {
         this.score = 300;
         this.posX = 0;
@@ -47,11 +45,11 @@ public class Player {
             observer.update();
         }
     }
-    public float getPosX() {
+    public int getPosX() {
         return posX;
     }
 
-    public float getPosY() {
+    public int getPosY() {
         return posY;
     }
 
