@@ -63,7 +63,7 @@ public abstract class Enemy {
         posY = newY;
     }
 
-    abstract public void attack();
+    //abstract public void attack();
 
-    abstract public boolean die();
+    //abstract public boolean die();
 }
