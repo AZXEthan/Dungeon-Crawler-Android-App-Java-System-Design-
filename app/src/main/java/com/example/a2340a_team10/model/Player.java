@@ -10,12 +10,10 @@ public class Player {
     private int health;
     private int speed;
     private int score;
-    private float posX;
-    private float posY;
+    private int posX;
+    private int posY;
     private int characterChoice;
     private List<Observer> observers = new ArrayList<>();
-
-    private int avatar;
 
     private Player() {
         this.score = 300;
@@ -34,7 +32,7 @@ public class Player {
         hero = null;
     }
 
-    public void updatePosition(float newX, float newY) {
+    public void updatePosition(int newX, int newY) {
         posX = newX;
         posY = newY;
     }
@@ -47,11 +45,11 @@ public class Player {
             observer.update();
         }
     }
-    public float getPosX() {
+    public int getPosX() {
         return posX;
     }
 
-    public float getPosY() {
+    public int getPosY() {
         return posY;
     }
 

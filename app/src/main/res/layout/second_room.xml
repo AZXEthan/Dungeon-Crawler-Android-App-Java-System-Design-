@@ -38,6 +38,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/imp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="130dp"
+        android:background="@drawable/imp"
+        android:layout_marginEnd="250dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageView
+        android:id="@+id/muddy"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="130dp"
+        android:background="@drawable/muddy"
+        android:layout_marginEnd="535dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
     <TextView
         android:id="@+id/playerNameTextView"
         android:layout_width="wrap_content"

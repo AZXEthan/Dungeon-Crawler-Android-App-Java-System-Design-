@@ -31,7 +31,7 @@ public class Attempt implements Comparable<Attempt> {
         }
     }
 
-    public float getScore() {
+    public int getScore() {
         return score;
     }
 

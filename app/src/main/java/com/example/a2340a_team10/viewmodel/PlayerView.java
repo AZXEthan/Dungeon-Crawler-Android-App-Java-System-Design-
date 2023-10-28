@@ -60,23 +60,10 @@ public class PlayerView extends ViewModel {
         scoreTimer.cancel();
     }
 
-    public boolean inBoundary(int width, int height, int[] positions) {
+    public boolean inBoundary(int[] positions) {
         int posX = positions[0];
         int posY = positions[1];
-        boolean ans = true;
-        if (posX < 0) {
-            ans = false;
-        }
-        if (posY < 0) {
-            ans = false;
-        }
-        if (posY > 1150) {
-            ans = false;
-        }
-        if (posX > 3040) {
-            ans = false;
-        }
-        return ans;
+        return posX >= 0 && posY >= 0 && posY <= 1150 && posX <= 3000;
     }
     public boolean jump(int playerY, int playerX, int screen) {
         boolean ans = false;
@@ -90,9 +77,9 @@ public class PlayerView extends ViewModel {
 
     public boolean onObstacle(int[] positions, List<Obstacle> obstacles) {
         for (Obstacle obstacle : obstacles) {
-            boolean above = positions[1]+66 < obstacle.getY();
+            boolean above = positions[1] + 66 < obstacle.getY();
             boolean below = positions[1] > obstacle.getY() + obstacle.getHeight();
-            boolean onLeft = positions[0]+60 < obstacle.getX();
+            boolean onLeft = positions[0] + 60 < obstacle.getX();
             boolean onRight = positions[0] > obstacle.getX() + obstacle.getWidth();
             if ((!above) && (!below) && (!onLeft) && (!onRight)) {
                 return true;
@@ -112,7 +99,7 @@ public class PlayerView extends ViewModel {
             } else {
                 noCollision = !onObstacle(positions, screenSetup.getObstacles());
             }
-            inBoundary = inBoundary(screenSetup.getScreenWidth(), screenSetup.getScreenHeight(), positions);
+            inBoundary = inBoundary(positions);
             if (noCollision && inBoundary) {
                 pos = positions;
             }

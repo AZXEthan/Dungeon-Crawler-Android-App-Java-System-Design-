@@ -16,17 +16,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.Observer;
 
 import com.example.a2340a_team10.R;
-import com.example.a2340a_team10.model.KeyAction;
-import com.example.a2340a_team10.model.MoveDownAction;
-import com.example.a2340a_team10.model.MoveKeyActionFactory;
-import com.example.a2340a_team10.model.MoveLeftAction;
-import com.example.a2340a_team10.model.MoveRightAction;
-import com.example.a2340a_team10.model.MoveUpAction;
-import com.example.a2340a_team10.model.Player;
-import com.example.a2340a_team10.model.ScreenSetup;
+import com.example.a2340a_team10.model.*;
 import com.example.a2340a_team10.viewmodel.PlayerView;
-
-import java.util.Arrays;
 
 public class SecondRoom extends AppCompatActivity {
 
@@ -34,10 +25,14 @@ public class SecondRoom extends AppCompatActivity {
     private Player hero;
     private ImageView door;
     private ImageView avatar;
+    private ImageView muddy;
+    private ImageView imp;
     private TextView playerNameTextView;
     private TextView chosenDifficulty;
     private MoveKeyActionFactory moveKeyActionFactory = new MoveKeyActionFactory();
     private ScreenSetup screenSetup = new ScreenSetup();
+    private Enemy muddyEnemy;
+    private Enemy impEnemy;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,6 +104,19 @@ public class SecondRoom extends AppCompatActivity {
         avatar.setBackgroundResource(hero.getCharacterChoice());
         AnimationDrawable idleAvatar = (AnimationDrawable) avatar.getBackground();
         idleAvatar.start();
+
+        imp = findViewById(R.id.imp);
+        AnimationDrawable idleImp = (AnimationDrawable) imp.getBackground();
+        idleImp.start();
+
+        muddy = findViewById(R.id.muddy);
+        AnimationDrawable idleMuddy = (AnimationDrawable) muddy.getBackground();
+        idleMuddy.start();
+
+        EnemyFactory muddyFactory = new MuddyFactory();
+        EnemyFactory impFactory = new ImpFactory();
+        muddyEnemy = muddyFactory.spawnEnemy();
+        impEnemy = impFactory.spawnEnemy();
 
         // Get the x and y coordinates of the ImageView
         int[] location = new int[2];

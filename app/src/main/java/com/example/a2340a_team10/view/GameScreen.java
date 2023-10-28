@@ -31,8 +31,8 @@ public class GameScreen extends AppCompatActivity {
     private TextView chosenDifficulty;
     private MoveKeyActionFactory moveKeyActionFactory = new MoveKeyActionFactory();
 
-    Obstacle obstacle1 = new Obstacle(360, 0, 400, 330);
-    Obstacle obstacle2 = new Obstacle(2200,0, 400, 330);
+    private Obstacle obstacle1 = new Obstacle(360, 0, 400, 330);
+    private Obstacle obstacle2 = new Obstacle(2200, 0, 400, 330);
     private ScreenSetup screenSetup = new ScreenSetup(Arrays.asList(obstacle1, obstacle2));
 
     @Override

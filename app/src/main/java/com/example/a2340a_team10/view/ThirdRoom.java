@@ -16,14 +16,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.a2340a_team10.R;
-import com.example.a2340a_team10.model.KeyAction;
-import com.example.a2340a_team10.model.MoveKeyActionFactory;
-import com.example.a2340a_team10.model.Player;
-import com.example.a2340a_team10.model.ScreenSetup;
+import com.example.a2340a_team10.model.*;
 import com.example.a2340a_team10.viewmodel.PlayerView;
-import com.example.a2340a_team10.model.Obstacle;
 import java.util.Arrays;
-import java.util.List;
 
 public class ThirdRoom extends AppCompatActivity {
     private Player hero;
@@ -33,8 +28,8 @@ public class ThirdRoom extends AppCompatActivity {
     private TextView playerNameTextView;
     private TextView chosenDifficulty;
     private MoveKeyActionFactory moveKeyActionFactory = new MoveKeyActionFactory();
-    Obstacle obstacle1 = new Obstacle(520, 780, 450, 380);
-    Obstacle obstacle2 = new Obstacle(2020,780, 450, 380);
+    private Obstacle obstacle1 = new Obstacle(520, 780, 450, 380);
+    private Obstacle obstacle2 = new Obstacle(2020, 780, 450, 380);
     private ScreenSetup screenSetup = new ScreenSetup(Arrays.asList(obstacle1, obstacle2));
 
     @Override
