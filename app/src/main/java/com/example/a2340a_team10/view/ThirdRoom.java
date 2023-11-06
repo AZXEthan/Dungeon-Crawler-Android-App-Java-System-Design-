@@ -122,6 +122,8 @@ public class ThirdRoom extends AppCompatActivity {
         EnemyFactory necromancerFactory = new NecromancerFactory();
         ogreEnemy = ogreFactory.spawnEnemy();
         necromancerEnemy = necromancerFactory.spawnEnemy();
+        Player.getPlayer().attach(ogreEnemy);
+        Player.getPlayer().attach(necromancerEnemy);
 
         int[] necromancerP = new int[2];
         necromancer.getLocationOnScreen(necromancerP);
@@ -147,13 +149,13 @@ public class ThirdRoom extends AppCompatActivity {
             health.addView(imageView);
         }
 
-
     }
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         KeyAction keyAction = moveKeyActionFactory.createKeyAction(keyCode);
         playerView.movePlayer(screenSetup, keyAction);
         avatar.setX(playerView.getPos()[0]);
         avatar.setY(playerView.getPos()[1]);
+        Player.getPlayer().updatePosition(playerView.getPos()[0], playerView.getPos()[1]);
         if (playerView.jump(playerView.getPos()[0], playerView.getPos()[1], 1)) {
             Intent intent = new Intent(ThirdRoom.this, EndingScreen.class);
             startActivity(intent);
@@ -170,6 +172,23 @@ public class ThirdRoom extends AppCompatActivity {
         int[] necromancerP = necromancerMove.move();
         necromancer.setX(necromancerP[0]);
         necromancer.setY(necromancerP[1]);
+
+        necromancerEnemy.updatePosition(necromancerP[0], necromancerP[1]);
+
+        // Display updated health
+        LinearLayout health = findViewById(R.id.healthShow);
+        health.setVisibility(View.VISIBLE);
+        health.removeAllViews();
+        for (int i = 0; i < hero.getHealth(); i++) {
+            ImageView imageView = new ImageView(this);
+            imageView.setImageResource(R.drawable.ui_heart_full);
+            imageView.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            ));
+            health.addView(imageView);
+        }
+
         return super.onKeyDown(keyCode, event);
     }
 }

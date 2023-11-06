@@ -140,7 +140,9 @@ public class GameScreen extends AppCompatActivity {
         EnemyFactory orcFactory = new OrcFactory();
         EnemyFactory zombieFactory = new ZombieFactory();
         orcEnemy = orcFactory.spawnEnemy();
+        Player.getPlayer().attach(orcEnemy);
         zombieEnemy = zombieFactory.spawnEnemy();
+        Player.getPlayer().attach(zombieEnemy);
 
         int[] location = new int[2];
         avatar.getLocationOnScreen(location);
@@ -149,7 +151,6 @@ public class GameScreen extends AppCompatActivity {
         // Display starting health
         LinearLayout health = findViewById(R.id.healthShow);
         health.setVisibility(View.VISIBLE);
-
         for (int i = 0; i < hero.getHealth(); i++) {
             ImageView imageView = new ImageView(this);
             imageView.setImageResource(R.drawable.ui_heart_full);
@@ -175,29 +176,28 @@ public class GameScreen extends AppCompatActivity {
 
     }
 
-
-
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         KeyAction keyAction = moveKeyActionFactory.createKeyAction(keyCode);
         playerView.movePlayer(screenSetup, keyAction);
         avatar.setX(playerView.getPos()[0]);
         avatar.setY(playerView.getPos()[1]);
+        Player.getPlayer().updatePosition(playerView.getPos()[0], playerView.getPos()[1]);
         if (playerView.jump(playerView.getPos()[0], playerView.getPos()[1], 1)) {
             Intent intent = new Intent(GameScreen.this, SecondRoom.class);
             startActivity(intent);
             finish();
         }
         if (orcIP == 1) {
-            orc.setY(1050);
             orc.setX(2000);
+            orc.setY(1050);
             int[] orcP = new int[2];
             orc.getLocationOnScreen(orcP);
             orcMove = new EnemyMove(orcP);
             orcIP = 0;
         }
         if (zombieIP == 1) {
-            zombie.setY(1050);
             zombie.setX(1000);
+            zombie.setY(1050);
             int[] zomP = new int[2];
             zombie.getLocationOnScreen(zomP);
             zombieMove = new EnemyMove(zomP);
@@ -209,6 +209,24 @@ public class GameScreen extends AppCompatActivity {
         int[] zomP = zombieMove.move();
         zombie.setX(zomP[0]);
         zombie.setY(zomP[1]);
+
+        orcEnemy.updatePosition(orcP[0], orcP[1]);
+        zombieEnemy.updatePosition(zomP[0], zomP[1]);
+
+        // Display updated health
+        LinearLayout health = findViewById(R.id.healthShow);
+        health.setVisibility(View.VISIBLE);
+        health.removeAllViews();
+        for (int i = 0; i < hero.getHealth(); i++) {
+            ImageView imageView = new ImageView(this);
+            imageView.setImageResource(R.drawable.ui_heart_full);
+            imageView.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            ));
+            health.addView(imageView);
+        }
+
         return super.onKeyDown(keyCode, event);
     }
 }

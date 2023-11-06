@@ -117,14 +117,14 @@ public class SecondRoom extends AppCompatActivity {
         EnemyFactory impFactory = new ImpFactory();
         muddyEnemy = muddyFactory.spawnEnemy();
         impEnemy = impFactory.spawnEnemy();
+        Player.getPlayer().attach(muddyEnemy);
+        Player.getPlayer().attach(impEnemy);
 
         // Get the x and y coordinates of the ImageView
         int[] location = new int[2];
         avatar.getLocationOnScreen(location);
 
         playerView.setPos(location); //x, y coordinates
-
-
 
         // Display starting health
         LinearLayout health = findViewById(R.id.healthShow);
@@ -160,11 +160,13 @@ public class SecondRoom extends AppCompatActivity {
         playerView.movePlayer(screenSetup, keyAction);
         avatar.setX(playerView.getPos()[0]);
         avatar.setY(playerView.getPos()[1]);
+        Player.getPlayer().updatePosition(playerView.getPos()[0], playerView.getPos()[1]);
         if (playerView.jump(playerView.getPos()[0], playerView.getPos()[1], 1)) {
             Intent intent = new Intent(SecondRoom.this, ThirdRoom.class);
             startActivity(intent);
             finish();
         }
+
         return super.onKeyDown(keyCode, event);
     }
 }
