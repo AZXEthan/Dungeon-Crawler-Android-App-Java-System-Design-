@@ -1,6 +1,6 @@
 package com.example.a2340a_team10.model;
 
-public abstract class Enemy implements Observer {
+public abstract class Enemy {
     protected String enemyName;
     protected int enemyType;
     protected String difficulty;
@@ -9,12 +9,6 @@ public abstract class Enemy implements Observer {
     protected int speed;
     protected int posX;
     protected int posY;
-
-    public Enemy() {
-        this.damage = 1;
-        this.posX = 1000;
-        this.posY = 1000;
-    }
 
     public String getEnemyName() {
         return enemyName;
@@ -65,29 +59,8 @@ public abstract class Enemy implements Observer {
     }
 
     public void updatePosition(int newX, int newY) {
-        this.posX = newX;
-        this.posY = newY;
-    }
-
-    @Override
-    public void onPlayerMove(int playerX, int playerY) {
-        if (checkCollision(playerX, playerY)) {
-            Player player = Player.getPlayer();
-            int multiplier = player.getDifficultyMultiplier();
-            player.setHealth(player.getHealth() - this.damage * multiplier);
-            if (player.getHealth() < 0) {
-                player.setHealth(0);
-            }
-        }
-    }
-
-    private boolean checkCollision(int playerX, int playerY) {
-        int threshold = 60;
-        int dX = playerX - this.posX;
-        int dY = playerY - this.posY;
-        int distanceSquared = dX * dX + dY * dY;
-
-        return distanceSquared < threshold * threshold;
+        posX = newX;
+        posY = newY;
     }
 
     //abstract public void attack();

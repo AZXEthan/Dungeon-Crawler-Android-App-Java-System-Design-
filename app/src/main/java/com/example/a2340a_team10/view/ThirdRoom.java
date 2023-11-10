@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.a2340a_team10.R;
 import com.example.a2340a_team10.model.*;
+import com.example.a2340a_team10.viewmodel.EnemyMove;
 import com.example.a2340a_team10.viewmodel.PlayerView;
 import java.util.Arrays;
 
@@ -31,6 +32,12 @@ public class ThirdRoom extends AppCompatActivity {
     private Obstacle obstacle1 = new Obstacle(520, 780, 450, 380);
     private Obstacle obstacle2 = new Obstacle(2020, 780, 450, 380);
     private ScreenSetup screenSetup = new ScreenSetup(Arrays.asList(obstacle1, obstacle2));
+    private ImageView ogre;
+    private ImageView necromancer;
+    private Enemy ogreEnemy;
+    private Enemy necromancerEnemy;
+    private EnemyMove necromancerMove;
+    private int necromancerIP = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +109,27 @@ public class ThirdRoom extends AppCompatActivity {
         avatar.setBackgroundResource(hero.getCharacterChoice());
         AnimationDrawable idleAvatar = (AnimationDrawable) avatar.getBackground();
         idleAvatar.start();
+
+        ogre = findViewById(R.id.ogre);
+        AnimationDrawable idleImp = (AnimationDrawable) ogre.getBackground();
+        idleImp.start();
+
+        necromancer = findViewById(R.id.necromancer);
+        AnimationDrawable idleMuddy = (AnimationDrawable) necromancer.getBackground();
+        idleMuddy.start();
+
+        EnemyFactory ogreFactory = new OrcFactory();
+        EnemyFactory necromancerFactory = new NecromancerFactory();
+        ogreEnemy = ogreFactory.spawnEnemy();
+        necromancerEnemy = necromancerFactory.spawnEnemy();
+        Player.getPlayer().attach(ogreEnemy);
+        Player.getPlayer().attach(necromancerEnemy);
+
+        int[] necromancerP = new int[2];
+        necromancer.getLocationOnScreen(necromancerP);
+        necromancerMove = new EnemyMove(necromancerP);
+
+
         int[] location = new int[2];
         avatar.getLocationOnScreen(location);
 
@@ -121,18 +149,46 @@ public class ThirdRoom extends AppCompatActivity {
             health.addView(imageView);
         }
 
-
     }
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         KeyAction keyAction = moveKeyActionFactory.createKeyAction(keyCode);
         playerView.movePlayer(screenSetup, keyAction);
         avatar.setX(playerView.getPos()[0]);
         avatar.setY(playerView.getPos()[1]);
+        Player.getPlayer().updatePosition(playerView.getPos()[0], playerView.getPos()[1]);
         if (playerView.jump(playerView.getPos()[0], playerView.getPos()[1], 1)) {
             Intent intent = new Intent(ThirdRoom.this, EndingScreen.class);
             startActivity(intent);
             finish();
         }
+        if (necromancerIP == 1) {
+            necromancer.setY(600);
+            necromancer.setX(1000);
+            int[] necromancerP = new int[2];
+            necromancer.getLocationOnScreen(necromancerP);
+            necromancerMove = new EnemyMove(necromancerP);
+            necromancerIP = 0;
+        }
+        int[] necromancerP = necromancerMove.move();
+        necromancer.setX(necromancerP[0]);
+        necromancer.setY(necromancerP[1]);
+
+        necromancerEnemy.updatePosition(necromancerP[0], necromancerP[1]);
+
+        // Display updated health
+        LinearLayout health = findViewById(R.id.healthShow);
+        health.setVisibility(View.VISIBLE);
+        health.removeAllViews();
+        for (int i = 0; i < hero.getHealth(); i++) {
+            ImageView imageView = new ImageView(this);
+            imageView.setImageResource(R.drawable.ui_heart_full);
+            imageView.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            ));
+            health.addView(imageView);
+        }
+
         return super.onKeyDown(keyCode, event);
     }
 }
