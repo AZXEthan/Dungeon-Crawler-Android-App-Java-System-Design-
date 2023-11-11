@@ -33,8 +33,9 @@ public class Player {
     }
 
     public void updatePosition(int newX, int newY) {
-        posX = newX;
-        posY = newY;
+        this.posX = newX;
+        this.posY = newY;
+        notifyAllObservers();
     }
     public void attach(Observer observer) {
         observers.add(observer);
@@ -42,7 +43,7 @@ public class Player {
 
     private void notifyAllObservers() {
         for (Observer observer : observers) {
-            observer.update();
+            observer.onPlayerMove(this.posX, this.posY);
         }
     }
     public int getPosX() {
@@ -103,5 +104,18 @@ public class Player {
 
     public void resetScore() {
         this.score = 300;
+    }
+
+    public int getDifficultyMultiplier() {
+        switch (this.difficulty) {
+        case "Easy":
+            return 1;
+        case "Medium":
+            return 2;
+        case "Hard":
+            return 3;
+        default:
+            return 0;
+        }
     }
 }
