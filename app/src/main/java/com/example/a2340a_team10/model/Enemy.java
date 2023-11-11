@@ -70,6 +70,10 @@ public abstract class Enemy implements Observer {
     }
 
     @Override
+    public void update(int playerX, int playerY) {
+        onPlayerMove(playerX, playerY);
+    }
+
     public void onPlayerMove(int playerX, int playerY) {
         if (checkCollision(playerX, playerY)) {
             Player player = Player.getPlayer();
