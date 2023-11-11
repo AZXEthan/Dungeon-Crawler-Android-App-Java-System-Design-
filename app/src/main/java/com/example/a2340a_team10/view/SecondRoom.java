@@ -33,6 +33,7 @@ public class SecondRoom extends AppCompatActivity {
     private ScreenSetup screenSetup = new ScreenSetup();
     private Enemy muddyEnemy;
     private Enemy impEnemy;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,10 +152,56 @@ public class SecondRoom extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
+
         });
 
-
     }
+
+
+    private void enemiesMovement() {
+
+        float playerX = avatar.getX();
+        float playerY = avatar.getY();
+
+        float muddyX = muddy.getX();
+        float muddyY = muddy.getY();
+
+        float muddySpeed = 20;
+        if (muddyX < playerX) {
+            muddyX += muddySpeed;
+        } else if (muddyX > playerX) {
+            muddyX -= muddySpeed;
+        }
+
+        if (muddyY < playerY) {
+            muddyY += muddySpeed;
+        } else if (muddyY > playerY) {
+            muddyY -= muddySpeed;
+        }
+        muddy.setX(muddyX);
+        muddy.setY(muddyY);
+
+
+        float impX = imp.getX();
+        float impY = imp.getY();
+
+        float impSpeed = 12;
+        if (impX < playerX) {
+            impX += impSpeed;
+        } else if (impX > playerX) {
+            impX -= impSpeed;
+        }
+
+        if (impY < playerY) {
+            impY += impSpeed;
+        } else if (impY > playerY) {
+            impY -= impSpeed;
+        }
+        imp.setX(impX);
+        imp.setY(impY);
+    }
+
+
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         KeyAction keyAction = moveKeyActionFactory.createKeyAction(keyCode);
         playerView.movePlayer(screenSetup, keyAction);
@@ -166,6 +213,9 @@ public class SecondRoom extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+
+        // enemy move toward to player
+        enemiesMovement();
 
         return super.onKeyDown(keyCode, event);
     }
