@@ -108,14 +108,14 @@ public class Player {
 
     public int getDifficultyMultiplier() {
         switch (this.difficulty) {
-            case "Easy":
-                return 1;
-            case "Medium":
-                return 2;
-            case "Hard":
-                return 3;
-            default:
-                return 0;
+        case "Easy":
+            return 1;
+        case "Medium":
+            return 2;
+        case "Hard":
+            return 3;
+        default:
+            return 0;
         }
     }
 }

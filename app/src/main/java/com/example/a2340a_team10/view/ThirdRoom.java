@@ -189,6 +189,11 @@ public class ThirdRoom extends AppCompatActivity {
             health.addView(imageView);
         }
 
+        if (hero.getHealth() == 0) {
+            Intent intent = new Intent(ThirdRoom.this, EndingScreen.class);
+            startActivity(intent);
+        }
+
         return super.onKeyDown(keyCode, event);
     }
 }

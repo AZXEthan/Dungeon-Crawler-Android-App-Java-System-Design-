@@ -24,9 +24,6 @@ import com.example.a2340a_team10.model.Obstacle;
 import java.util.Arrays;
 
 
-import java.util.Random;
-
-
 public class GameScreen extends AppCompatActivity {
     private Player hero;
     private PlayerView playerView;
@@ -225,6 +222,11 @@ public class GameScreen extends AppCompatActivity {
                     LinearLayout.LayoutParams.WRAP_CONTENT
             ));
             health.addView(imageView);
+        }
+
+        if (hero.getHealth() == 0) {
+            Intent intent = new Intent(GameScreen.this, EndingScreen.class);
+            startActivity(intent);
         }
 
         return super.onKeyDown(keyCode, event);
