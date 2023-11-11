@@ -1,9 +1,6 @@
 package com.example.a2340a_team10.model;
-//import com.example.a2340a_team10.model.Observer;
-import java.util.ArrayList;
-import java.util.List;
 
-public class Player {
+public class Player implements Observable{
     private static Player hero;
     private String playerName;
     private String difficulty;
@@ -13,7 +10,6 @@ public class Player {
     private int posX;
     private int posY;
     private int characterChoice;
-    private List<Observer> observers = new ArrayList<>();
 
     private Player() {
         this.score = 300;
@@ -37,13 +33,10 @@ public class Player {
         this.posY = newY;
         notifyAllObservers();
     }
-    public void attach(Observer observer) {
-        observers.add(observer);
-    }
 
     private void notifyAllObservers() {
         for (Observer observer : observers) {
-            observer.onPlayerMove(this.posX, this.posY);
+            observer.update(this.posX, this.posY);
         }
     }
     public int getPosX() {

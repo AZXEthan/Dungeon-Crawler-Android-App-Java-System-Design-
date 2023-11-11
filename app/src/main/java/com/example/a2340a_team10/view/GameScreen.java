@@ -137,9 +137,9 @@ public class GameScreen extends AppCompatActivity {
         EnemyFactory orcFactory = new OrcFactory();
         EnemyFactory zombieFactory = new ZombieFactory();
         orcEnemy = orcFactory.spawnEnemy();
-        Player.getPlayer().attach(orcEnemy);
+        Player.getPlayer().addObserver(orcEnemy);
         zombieEnemy = zombieFactory.spawnEnemy();
-        Player.getPlayer().attach(zombieEnemy);
+        Player.getPlayer().addObserver(zombieEnemy);
 
         int[] location = new int[2];
         avatar.getLocationOnScreen(location);

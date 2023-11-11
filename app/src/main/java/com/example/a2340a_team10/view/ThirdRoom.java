@@ -122,8 +122,8 @@ public class ThirdRoom extends AppCompatActivity {
         EnemyFactory necromancerFactory = new NecromancerFactory();
         ogreEnemy = ogreFactory.spawnEnemy();
         necromancerEnemy = necromancerFactory.spawnEnemy();
-        Player.getPlayer().attach(ogreEnemy);
-        Player.getPlayer().attach(necromancerEnemy);
+        Player.getPlayer().addObserver(ogreEnemy);
+        Player.getPlayer().addObserver(necromancerEnemy);
 
         int[] necromancerP = new int[2];
         necromancer.getLocationOnScreen(necromancerP);

@@ -117,8 +117,8 @@ public class SecondRoom extends AppCompatActivity {
         EnemyFactory impFactory = new ImpFactory();
         muddyEnemy = muddyFactory.spawnEnemy();
         impEnemy = impFactory.spawnEnemy();
-        Player.getPlayer().attach(muddyEnemy);
-        Player.getPlayer().attach(impEnemy);
+        Player.getPlayer().addObserver(muddyEnemy);
+        Player.getPlayer().addObserver(impEnemy);
 
         // Get the x and y coordinates of the ImageView
         int[] location = new int[2];
