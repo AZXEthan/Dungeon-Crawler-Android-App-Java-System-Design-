@@ -27,8 +27,13 @@ public class EndingScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ending_screen);
 
-        WinAlert winAlert = new WinAlert();
-        winAlert.show(getSupportFragmentManager(), "win");
+        if (Player.getPlayer().getHealth() == 0) {
+            LoseAlert loseAlert = new LoseAlert();
+            loseAlert.show(getSupportFragmentManager(), "lose");
+        } else {
+            WinAlert winAlert = new WinAlert();
+            winAlert.show(getSupportFragmentManager(), "win");
+        }
 
         mBtnRestart = findViewById(R.id.restartButton);
         mBtnRestart.setOnClickListener(new View.OnClickListener() {
