@@ -1,5 +1,7 @@
 package com.example.a2340a_team10.viewmodel;
 
+import android.view.KeyEvent;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -104,6 +106,12 @@ public class PlayerView extends ViewModel {
                 pos = positions;
             }
         }
+    }
+
+    public void bounceBack(ScreenSetup screenSetup) {
+        MoveKeyActionFactory moveKeyActionFactory = new MoveKeyActionFactory();
+        KeyAction keyAction = moveKeyActionFactory.createKeyAction(KeyEvent.KEYCODE_DPAD_LEFT);
+        movePlayer(screenSetup, keyAction);
     }
 
     public int[] getPos() {

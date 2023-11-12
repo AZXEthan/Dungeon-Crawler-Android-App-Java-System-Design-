@@ -70,25 +70,27 @@ public abstract class Enemy implements Observer {
     }
 
     @Override
-    public void update(int playerX, int playerY) {
-        onPlayerMove(playerX, playerY);
+    public void update() {
+        onPlayerMove();
     }
 
-    public void onPlayerMove(int playerX, int playerY) {
-        if (checkCollision(playerX, playerY)) {
+    public void onPlayerMove() {
+        if (checkCollision()) {
             Player player = Player.getPlayer();
             int multiplier = player.getDifficultyMultiplier();
             player.setHealth(player.getHealth() - this.damage * multiplier);
             if (player.getHealth() < 0) {
                 player.setHealth(0);
             }
+            //Enemy.bounceBack();
         }
     }
 
-    private boolean checkCollision(int playerX, int playerY) {
-        int threshold = 60;
-        int dX = playerX - this.posX;
-        int dY = playerY - this.posY;
+    private boolean checkCollision() {
+        int threshold = 30;
+        Player player = Player.getPlayer();
+        int dX = player.getPosX() - this.posX;
+        int dY = player.getPosY() - this.posY;
         int distanceSquared = dX * dX + dY * dY;
 
         return distanceSquared < threshold * threshold;

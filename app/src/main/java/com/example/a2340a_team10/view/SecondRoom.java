@@ -179,6 +179,7 @@ public class SecondRoom extends AppCompatActivity {
         }
         muddy.setX(muddyX);
         muddy.setY(muddyY);
+        muddyEnemy.updatePosition((int)muddyX, (int)muddyY);
 
 
         float impX = imp.getX();
@@ -198,6 +199,7 @@ public class SecondRoom extends AppCompatActivity {
         }
         imp.setX(impX);
         imp.setY(impY);
+        impEnemy.updatePosition((int)impX, (int)impY);
     }
 
 
@@ -206,7 +208,7 @@ public class SecondRoom extends AppCompatActivity {
         playerView.movePlayer(screenSetup, keyAction);
         avatar.setX(playerView.getPos()[0]);
         avatar.setY(playerView.getPos()[1]);
-        Player.getPlayer().updatePosition(playerView.getPos()[0], playerView.getPos()[1]);
+
         if (playerView.jump(playerView.getPos()[0], playerView.getPos()[1], 1)) {
             Intent intent = new Intent(SecondRoom.this, ThirdRoom.class);
             startActivity(intent);
@@ -215,6 +217,26 @@ public class SecondRoom extends AppCompatActivity {
 
         // enemy move toward to player
         enemiesMovement();
+        Player.getPlayer().updatePosition(playerView.getPos()[0], playerView.getPos()[1], true);
+
+        // Display updated health
+        LinearLayout health = findViewById(R.id.healthShow);
+        health.setVisibility(View.VISIBLE);
+        health.removeAllViews();
+        for (int i = 0; i < hero.getHealth(); i++) {
+            ImageView imageView = new ImageView(this);
+            imageView.setImageResource(R.drawable.ui_heart_full);
+            imageView.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            ));
+            health.addView(imageView);
+        }
+
+        if (hero.getHealth() == 0) {
+            Intent intent = new Intent(SecondRoom.this, EndingScreen.class);
+            startActivity(intent);
+        }
 
         return super.onKeyDown(keyCode, event);
     }
