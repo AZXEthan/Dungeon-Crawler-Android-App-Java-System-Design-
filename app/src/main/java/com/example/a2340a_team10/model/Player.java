@@ -28,15 +28,17 @@ public class Player implements Observable{
         hero = null;
     }
 
-    public void updatePosition(int newX, int newY) {
+    public void updatePosition(int newX, int newY, boolean notify) {
         this.posX = newX;
         this.posY = newY;
-        notifyAllObservers();
+        if (notify) {
+            notifyAllObservers();
+        }
     }
 
     private void notifyAllObservers() {
         for (Observer observer : observers) {
-            observer.update(this.posX, this.posY);
+            observer.update();
         }
     }
     public int getPosX() {
