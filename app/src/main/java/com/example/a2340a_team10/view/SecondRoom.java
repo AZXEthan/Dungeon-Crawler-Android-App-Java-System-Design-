@@ -157,7 +157,6 @@ public class SecondRoom extends AppCompatActivity {
 
     }
 
-
     private void enemiesMovement() {
 
         float playerX = avatar.getX();
@@ -166,7 +165,7 @@ public class SecondRoom extends AppCompatActivity {
         float muddyX = muddy.getX();
         float muddyY = muddy.getY();
 
-        float muddySpeed = 20;
+        float muddySpeed = 6;
         if (muddyX < playerX) {
             muddyX += muddySpeed;
         } else if (muddyX > playerX) {
@@ -185,7 +184,7 @@ public class SecondRoom extends AppCompatActivity {
         float impX = imp.getX();
         float impY = imp.getY();
 
-        float impSpeed = 12;
+        float impSpeed = 8;
         if (impX < playerX) {
             impX += impSpeed;
         } else if (impX > playerX) {
