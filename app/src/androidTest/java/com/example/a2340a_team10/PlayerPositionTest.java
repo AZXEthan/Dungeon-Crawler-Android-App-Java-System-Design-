@@ -20,7 +20,7 @@ public class PlayerPositionTest {
         int expectedPosX = 4;
         int expectedPosY = 4;
 
-        player.updatePosition(expectedPosX, expectedPosY);
+        player.updatePosition(expectedPosX, expectedPosY, false);
 
         assertEquals(expectedPosX, player.getPosX(), 0.00);
         assertEquals(expectedPosY, player.getPosY(), 0.00);

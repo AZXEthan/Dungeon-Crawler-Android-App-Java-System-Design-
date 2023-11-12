@@ -6,4 +6,7 @@
     <string name="win_message">You have earned the name of Dungeon Master!</string>
     <string name="view_ranking">CONTINUE</string>
     <string name="restart">RESTART</string>
+
+    <string name="lose_title">Sorry :(</string>
+    <string name="lose_message">Try better next time!</string>
 </resources>

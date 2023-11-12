@@ -33,6 +33,7 @@ public class SecondRoom extends AppCompatActivity {
     private ScreenSetup screenSetup = new ScreenSetup();
     private Enemy muddyEnemy;
     private Enemy impEnemy;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,8 +118,8 @@ public class SecondRoom extends AppCompatActivity {
         EnemyFactory impFactory = new ImpFactory();
         muddyEnemy = muddyFactory.spawnEnemy();
         impEnemy = impFactory.spawnEnemy();
-        Player.getPlayer().attach(muddyEnemy);
-        Player.getPlayer().attach(impEnemy);
+        Player.getPlayer().addObserver(muddyEnemy);
+        Player.getPlayer().addObserver(impEnemy);
 
         // Get the x and y coordinates of the ImageView
         int[] location = new int[2];
@@ -151,20 +152,90 @@ public class SecondRoom extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
+
         });
 
-
     }
+
+    private void enemiesMovement() {
+
+        float playerX = avatar.getX();
+        float playerY = avatar.getY();
+
+        float muddyX = muddy.getX();
+        float muddyY = muddy.getY();
+
+        float muddySpeed = 6;
+        if (muddyX < playerX) {
+            muddyX += muddySpeed;
+        } else if (muddyX > playerX) {
+            muddyX -= muddySpeed;
+        }
+
+        if (muddyY < playerY) {
+            muddyY += muddySpeed;
+        } else if (muddyY > playerY) {
+            muddyY -= muddySpeed;
+        }
+        muddy.setX(muddyX);
+        muddy.setY(muddyY);
+        muddyEnemy.updatePosition((int)muddyX, (int)muddyY);
+
+
+        float impX = imp.getX();
+        float impY = imp.getY();
+
+        float impSpeed = 8;
+        if (impX < playerX) {
+            impX += impSpeed;
+        } else if (impX > playerX) {
+            impX -= impSpeed;
+        }
+
+        if (impY < playerY) {
+            impY += impSpeed;
+        } else if (impY > playerY) {
+            impY -= impSpeed;
+        }
+        imp.setX(impX);
+        imp.setY(impY);
+        impEnemy.updatePosition((int)impX, (int)impY);
+    }
+
+
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         KeyAction keyAction = moveKeyActionFactory.createKeyAction(keyCode);
         playerView.movePlayer(screenSetup, keyAction);
         avatar.setX(playerView.getPos()[0]);
         avatar.setY(playerView.getPos()[1]);
-        Player.getPlayer().updatePosition(playerView.getPos()[0], playerView.getPos()[1]);
+
         if (playerView.jump(playerView.getPos()[0], playerView.getPos()[1], 1)) {
             Intent intent = new Intent(SecondRoom.this, ThirdRoom.class);
             startActivity(intent);
             finish();
+        }
+
+        // enemy move toward to player
+        enemiesMovement();
+        Player.getPlayer().updatePosition(playerView.getPos()[0], playerView.getPos()[1], true);
+
+        // Display updated health
+        LinearLayout health = findViewById(R.id.healthShow);
+        health.setVisibility(View.VISIBLE);
+        health.removeAllViews();
+        for (int i = 0; i < hero.getHealth(); i++) {
+            ImageView imageView = new ImageView(this);
+            imageView.setImageResource(R.drawable.ui_heart_full);
+            imageView.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            ));
+            health.addView(imageView);
+        }
+
+        if (hero.getHealth() == 0) {
+            Intent intent = new Intent(SecondRoom.this, EndingScreen.class);
+            startActivity(intent);
         }
 
         return super.onKeyDown(keyCode, event);

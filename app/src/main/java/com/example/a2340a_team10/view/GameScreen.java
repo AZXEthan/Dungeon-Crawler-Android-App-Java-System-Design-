@@ -24,9 +24,6 @@ import com.example.a2340a_team10.model.Obstacle;
 import java.util.Arrays;
 
 
-import java.util.Random;
-
-
 public class GameScreen extends AppCompatActivity {
     private Player hero;
     private PlayerView playerView;
@@ -140,9 +137,9 @@ public class GameScreen extends AppCompatActivity {
         EnemyFactory orcFactory = new OrcFactory();
         EnemyFactory zombieFactory = new ZombieFactory();
         orcEnemy = orcFactory.spawnEnemy();
-        Player.getPlayer().attach(orcEnemy);
+        Player.getPlayer().addObserver(orcEnemy);
         zombieEnemy = zombieFactory.spawnEnemy();
-        Player.getPlayer().attach(zombieEnemy);
+        Player.getPlayer().addObserver(zombieEnemy);
 
         int[] location = new int[2];
         avatar.getLocationOnScreen(location);
@@ -177,16 +174,6 @@ public class GameScreen extends AppCompatActivity {
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        KeyAction keyAction = moveKeyActionFactory.createKeyAction(keyCode);
-        playerView.movePlayer(screenSetup, keyAction);
-        avatar.setX(playerView.getPos()[0]);
-        avatar.setY(playerView.getPos()[1]);
-        Player.getPlayer().updatePosition(playerView.getPos()[0], playerView.getPos()[1]);
-        if (playerView.jump(playerView.getPos()[0], playerView.getPos()[1], 1)) {
-            Intent intent = new Intent(GameScreen.this, SecondRoom.class);
-            startActivity(intent);
-            finish();
-        }
         if (orcIP == 1) {
             orc.setX(2000);
             orc.setY(1050);
@@ -203,6 +190,18 @@ public class GameScreen extends AppCompatActivity {
             zombieMove = new EnemyMove(zomP);
             zombieIP = 0;
         }
+
+        KeyAction keyAction = moveKeyActionFactory.createKeyAction(keyCode);
+        playerView.movePlayer(screenSetup, keyAction);
+        avatar.setX(playerView.getPos()[0]);
+        avatar.setY(playerView.getPos()[1]);
+
+        if (playerView.jump(playerView.getPos()[0], playerView.getPos()[1], 1)) {
+            Intent intent = new Intent(GameScreen.this, SecondRoom.class);
+            startActivity(intent);
+            finish();
+        }
+
         int[] orcP = orcMove.move();
         orc.setX(orcP[0]);
         orc.setY(orcP[1]);
@@ -212,6 +211,7 @@ public class GameScreen extends AppCompatActivity {
 
         orcEnemy.updatePosition(orcP[0], orcP[1]);
         zombieEnemy.updatePosition(zomP[0], zomP[1]);
+        Player.getPlayer().updatePosition(playerView.getPos()[0], playerView.getPos()[1], true);
 
         // Display updated health
         LinearLayout health = findViewById(R.id.healthShow);
@@ -225,6 +225,11 @@ public class GameScreen extends AppCompatActivity {
                     LinearLayout.LayoutParams.WRAP_CONTENT
             ));
             health.addView(imageView);
+        }
+
+        if (hero.getHealth() == 0) {
+            Intent intent = new Intent(GameScreen.this, EndingScreen.class);
+            startActivity(intent);
         }
 
         return super.onKeyDown(keyCode, event);

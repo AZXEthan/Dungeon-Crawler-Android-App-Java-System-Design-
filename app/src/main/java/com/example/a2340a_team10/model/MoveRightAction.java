@@ -8,10 +8,10 @@ public class MoveRightAction implements KeyAction {
         int posX = playerView.getPos()[0];
         int posY = playerView.getPos()[1];
         int[] position = new int[2];
-        posX += 30;
+        posX += 36;
         position[0] = posX;
         position[1] = posY;
-        Player.getPlayer().updatePosition(posX, posY);
+        Player.getPlayer().updatePosition(posX, posY, false);
         return position;
     }
 }

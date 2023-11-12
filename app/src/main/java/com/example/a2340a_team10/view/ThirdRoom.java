@@ -38,6 +38,7 @@ public class ThirdRoom extends AppCompatActivity {
     private Enemy necromancerEnemy;
     private EnemyMove necromancerMove;
     private int necromancerIP = 1;
+    private int ogreIP = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,13 +123,12 @@ public class ThirdRoom extends AppCompatActivity {
         EnemyFactory necromancerFactory = new NecromancerFactory();
         ogreEnemy = ogreFactory.spawnEnemy();
         necromancerEnemy = necromancerFactory.spawnEnemy();
-        Player.getPlayer().attach(ogreEnemy);
-        Player.getPlayer().attach(necromancerEnemy);
+        Player.getPlayer().addObserver(ogreEnemy);
+        Player.getPlayer().addObserver(necromancerEnemy);
 
         int[] necromancerP = new int[2];
         necromancer.getLocationOnScreen(necromancerP);
         necromancerMove = new EnemyMove(necromancerP);
-
 
         int[] location = new int[2];
         avatar.getLocationOnScreen(location);
@@ -155,7 +155,7 @@ public class ThirdRoom extends AppCompatActivity {
         playerView.movePlayer(screenSetup, keyAction);
         avatar.setX(playerView.getPos()[0]);
         avatar.setY(playerView.getPos()[1]);
-        Player.getPlayer().updatePosition(playerView.getPos()[0], playerView.getPos()[1]);
+
         if (playerView.jump(playerView.getPos()[0], playerView.getPos()[1], 1)) {
             Intent intent = new Intent(ThirdRoom.this, EndingScreen.class);
             startActivity(intent);
@@ -173,7 +173,15 @@ public class ThirdRoom extends AppCompatActivity {
         necromancer.setX(necromancerP[0]);
         necromancer.setY(necromancerP[1]);
 
+        if (ogreIP == 1) {
+            int[] ogreP = new int[2];
+            ogre.getLocationOnScreen(ogreP);
+            ogreEnemy.updatePosition(ogreP[0], ogreP[1] - 100);
+            ogreIP = 0;
+        }
+
         necromancerEnemy.updatePosition(necromancerP[0], necromancerP[1]);
+        Player.getPlayer().updatePosition(playerView.getPos()[0], playerView.getPos()[1], true);
 
         // Display updated health
         LinearLayout health = findViewById(R.id.healthShow);
@@ -187,6 +195,11 @@ public class ThirdRoom extends AppCompatActivity {
                     LinearLayout.LayoutParams.WRAP_CONTENT
             ));
             health.addView(imageView);
+        }
+
+        if (hero.getHealth() == 0) {
+            Intent intent = new Intent(ThirdRoom.this, EndingScreen.class);
+            startActivity(intent);
         }
 
         return super.onKeyDown(keyCode, event);
