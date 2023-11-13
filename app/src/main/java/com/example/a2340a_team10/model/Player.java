@@ -41,6 +41,11 @@ public class Player implements Observable {
             observer.update();
         }
     }
+
+    public void removeAllObservers() {
+        observers.clear();
+    }
+
     public int getPosX() {
         return posX;
     }
