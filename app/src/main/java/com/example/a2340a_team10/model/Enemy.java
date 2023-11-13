@@ -87,7 +87,7 @@ public abstract class Enemy implements Observer {
     }
 
     private boolean checkCollision() {
-        int threshold = 30;
+        int threshold = 39;
         Player player = Player.getPlayer();
         int dX = player.getPosX() - this.posX;
         int dY = player.getPosY() - this.posY;
