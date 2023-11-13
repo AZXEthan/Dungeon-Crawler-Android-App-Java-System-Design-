@@ -1,6 +1,6 @@
 package com.example.a2340a_team10.model;
 
-public class Player implements Observable{
+public class Player implements Observable {
     private static Player hero;
     private String playerName;
     private String difficulty;
