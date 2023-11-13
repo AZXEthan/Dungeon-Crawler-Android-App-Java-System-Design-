@@ -48,6 +48,7 @@ public class GameScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Player.getPlayer().removeAllObservers();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_screen);
 

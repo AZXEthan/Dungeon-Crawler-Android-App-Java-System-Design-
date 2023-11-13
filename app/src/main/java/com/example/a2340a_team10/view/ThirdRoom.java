@@ -42,6 +42,7 @@ public class ThirdRoom extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Player.getPlayer().removeAllObservers();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.third_room);
 
