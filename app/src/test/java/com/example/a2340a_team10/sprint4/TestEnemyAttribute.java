@@ -51,6 +51,13 @@ public class TestEnemyAttribute {
         assertEquals("Muddy", muddy.getEnemyName());
     }
 
+    @Test
+    public void nameIsSetCorrectly6(){
+        Muddy muddy = new Muddy();
+        muddy.setEnemyName("Mud");
+        assertEquals("Mud", muddy.getEnemyName());
+    }
+
 
 
 }
