@@ -8,7 +8,7 @@ public interface Observable {
     default void addObserver(Observer observer) {
         observers.add(observer);
     }
-    default void removeObserver(Observer observer){
+    default void removeObserver(Observer observer) {
         observers.remove(observer);
     }
 }

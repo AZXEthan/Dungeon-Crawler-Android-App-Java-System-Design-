@@ -179,7 +179,7 @@ public class SecondRoom extends AppCompatActivity {
         }
         muddy.setX(muddyX);
         muddy.setY(muddyY);
-        muddyEnemy.updatePosition((int)muddyX, (int)muddyY);
+        muddyEnemy.updatePosition((int) muddyX, (int) muddyY);
 
 
         float impX = imp.getX();
@@ -199,7 +199,7 @@ public class SecondRoom extends AppCompatActivity {
         }
         imp.setX(impX);
         imp.setY(impY);
-        impEnemy.updatePosition((int)impX, (int)impY);
+        impEnemy.updatePosition((int) impX, (int) impY);
     }
 
 
