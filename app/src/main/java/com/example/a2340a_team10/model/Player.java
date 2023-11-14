@@ -1,6 +1,8 @@
 package com.example.a2340a_team10.model;
 
-public class Player implements Observable{
+import java.util.ArrayList;
+
+public class Player implements Observable {
     private static Player hero;
     private String playerName;
     private String difficulty;
@@ -10,11 +12,30 @@ public class Player implements Observable{
     private int posX;
     private int posY;
     private int characterChoice;
+    private ArrayList<Observer> observers = new ArrayList<>();
 
     private Player() {
         this.score = 300;
         this.posX = 0;
         this.posY = 0;
+    }
+    @Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+    @Override
+    public void removeAllObservers() {
+        observers.clear();
+    }
+    @Override
+    public void notifyAllObservers() {
+        for (Observer observer : observers) {
+            observer.update();
+        }
     }
 
     public static Player getPlayer() {
@@ -36,11 +57,6 @@ public class Player implements Observable{
         }
     }
 
-    private void notifyAllObservers() {
-        for (Observer observer : observers) {
-            observer.update();
-        }
-    }
     public int getPosX() {
         return posX;
     }

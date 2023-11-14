@@ -51,6 +51,47 @@ public class TestEnemyAttribute {
         assertEquals("Muddy", muddy.getEnemyName());
     }
 
+    @Test
+    public void nameIsSetCorrectly6(){
+        Muddy muddy = new Muddy();
+        muddy.setEnemyName("Mud");
+        assertEquals("Mud", muddy.getEnemyName());
+    }
+
+    @Test
+    public void nameIsSetCorrectly7(){
+        Muddy muddy = new Muddy();
+        muddy.setEnemyName("Mu");
+        assertEquals("Mu", muddy.getEnemyName());
+    }
+
+    @Test
+    public void nameIsSetCorrectly8(){
+        Orc orc2 = new Orc();
+        orc2.setEnemyName("r");
+        assertEquals("r", orc2.getEnemyName());
+    }
+
+    @Test
+    public void nameIsSetCorrectly9(){
+        Ogre ogre2 = new Ogre();
+        ogre2.setEnemyName("g");
+        assertEquals("g", ogre2.getEnemyName());
+    }
+
+    @Test
+    public void nameIsSetCorrectly10(){
+        Zombie zombie = new Zombie();
+        zombie.setEnemyName("f");
+        assertEquals("f", zombie.getEnemyName());
+    }
+
+    @Test
+    public void nameIsSetCorrectly11(){
+        Necromancer necromancer = new Necromancer();
+        necromancer.setEnemyName("d");
+        assertEquals("d", necromancer.getEnemyName());
+    }
 
 
 }

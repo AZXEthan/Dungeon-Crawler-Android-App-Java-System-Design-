@@ -42,6 +42,7 @@ public class ThirdRoom extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Player.getPlayer().removeAllObservers();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.third_room);
 
@@ -176,7 +177,7 @@ public class ThirdRoom extends AppCompatActivity {
         if (ogreIP == 1) {
             int[] ogreP = new int[2];
             ogre.getLocationOnScreen(ogreP);
-            ogreEnemy.updatePosition(ogreP[0], ogreP[1] - 100);
+            ogreEnemy.updatePosition(ogreP[0], ogreP[1]);
             ogreIP = 0;
         }
 

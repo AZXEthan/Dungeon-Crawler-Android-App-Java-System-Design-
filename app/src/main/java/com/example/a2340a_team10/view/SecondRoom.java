@@ -36,6 +36,7 @@ public class SecondRoom extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Player.getPlayer().removeAllObservers();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.second_room);
 
@@ -179,7 +180,7 @@ public class SecondRoom extends AppCompatActivity {
         }
         muddy.setX(muddyX);
         muddy.setY(muddyY);
-        muddyEnemy.updatePosition((int)muddyX, (int)muddyY);
+        muddyEnemy.updatePosition((int) muddyX, (int) muddyY);
 
 
         float impX = imp.getX();
@@ -199,7 +200,7 @@ public class SecondRoom extends AppCompatActivity {
         }
         imp.setX(impX);
         imp.setY(impY);
-        impEnemy.updatePosition((int)impX, (int)impY);
+        impEnemy.updatePosition((int) impX, (int) impY);
     }
 
 
