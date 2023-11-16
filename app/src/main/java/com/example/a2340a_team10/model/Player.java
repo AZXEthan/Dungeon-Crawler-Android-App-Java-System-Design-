@@ -2,7 +2,7 @@ package com.example.a2340a_team10.model;
 
 import java.util.ArrayList;
 
-public class Player implements Observable {
+public class Player implements Observable, CommonPowers {
     private static Player hero;
     private String playerName;
     private String difficulty;
@@ -36,6 +36,11 @@ public class Player implements Observable {
         for (Observer observer : observers) {
             observer.update();
         }
+    }
+
+    @Override
+    public void collectPowerUp() {
+        System.out.println("Hero has no power ups for now. Go collect!");
     }
 
     public static Player getPlayer() {
