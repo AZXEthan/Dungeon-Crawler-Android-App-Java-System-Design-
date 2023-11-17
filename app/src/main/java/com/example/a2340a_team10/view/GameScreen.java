@@ -39,6 +39,7 @@ public class GameScreen extends AppCompatActivity {
     private ScreenSetup screenSetup = new ScreenSetup(Arrays.asList(obstacle1, obstacle2));
     private ImageView orc;
     private ImageView zombie;
+    private ImageView coin;
     private Enemy orcEnemy;
     private Enemy zombieEnemy;
     private EnemyMove orcMove;
@@ -121,6 +122,10 @@ public class GameScreen extends AppCompatActivity {
         avatar.setBackgroundResource(hero.getCharacterChoice());
         AnimationDrawable idleAvatar = (AnimationDrawable) avatar.getBackground();
         idleAvatar.start();
+
+        coin = findViewById(R.id.coin);
+        AnimationDrawable coinA = (AnimationDrawable) coin.getBackground();
+        coinA.start();
 
         orc = findViewById(R.id.orc);
         AnimationDrawable idleImp = (AnimationDrawable) orc.getBackground();
