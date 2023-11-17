@@ -29,6 +29,7 @@ public class GameScreen extends AppCompatActivity {
     private PlayerView playerView;
     private ImageView avatar;
     private ImageView door;
+    private ImageView redFlask;
     private TextView playerNameTextView;
     private TextView chosenDifficulty;
     private MoveKeyActionFactory moveKeyActionFactory = new MoveKeyActionFactory();
@@ -56,6 +57,7 @@ public class GameScreen extends AppCompatActivity {
         RelativeLayout gridView = findViewById(R.id.gridLayout);
 
         door = findViewById(R.id.door);
+        redFlask = findViewById(R.id.redFlask);
 
         screenSetup.setScreenWidth(getResources().getDisplayMetrics().widthPixels);
         screenSetup.setScreenHeight(getResources().getDisplayMetrics().heightPixels);
