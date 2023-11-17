@@ -29,6 +29,7 @@ public class GameScreen extends AppCompatActivity {
     private PlayerView playerView;
     private ImageView avatar;
     private ImageView door;
+    private ImageView redFlask;
     private TextView playerNameTextView;
     private TextView chosenDifficulty;
     private MoveKeyActionFactory moveKeyActionFactory = new MoveKeyActionFactory();
@@ -38,6 +39,7 @@ public class GameScreen extends AppCompatActivity {
     private ScreenSetup screenSetup = new ScreenSetup(Arrays.asList(obstacle1, obstacle2));
     private ImageView orc;
     private ImageView zombie;
+    private ImageView coin;
     private Enemy orcEnemy;
     private Enemy zombieEnemy;
     private EnemyMove orcMove;
@@ -56,6 +58,7 @@ public class GameScreen extends AppCompatActivity {
         RelativeLayout gridView = findViewById(R.id.gridLayout);
 
         door = findViewById(R.id.door);
+        redFlask = findViewById(R.id.redFlask);
 
         screenSetup.setScreenWidth(getResources().getDisplayMetrics().widthPixels);
         screenSetup.setScreenHeight(getResources().getDisplayMetrics().heightPixels);
@@ -119,6 +122,10 @@ public class GameScreen extends AppCompatActivity {
         avatar.setBackgroundResource(hero.getCharacterChoice());
         AnimationDrawable idleAvatar = (AnimationDrawable) avatar.getBackground();
         idleAvatar.start();
+
+        coin = findViewById(R.id.coin);
+        AnimationDrawable coinA = (AnimationDrawable) coin.getBackground();
+        coinA.start();
 
         orc = findViewById(R.id.orc);
         AnimationDrawable idleImp = (AnimationDrawable) orc.getBackground();

@@ -4,8 +4,6 @@ import com.example.a2340a_team10.R;
 
 public class RedFlask extends PowerUp {
     public RedFlask() {
-        this.color = Color.RED;
-        this.flaskImage = R.id.flask_red;
         this.function = "Recover HP";
     }
 
