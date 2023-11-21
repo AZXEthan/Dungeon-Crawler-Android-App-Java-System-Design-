@@ -93,5 +93,14 @@ public class TestEnemyAttribute {
         assertEquals("d", necromancer.getEnemyName());
     }
 
+    @Test
+    public void nameIsSetCorrectly12(){
+        Necromancer necromancer = new Necromancer();
+        Zombie zombie = new Zombie();
+        zombie.setEnemyName("d");
+        necromancer.setEnemyName("d");
+        assertEquals(zombie.getEnemyName(), necromancer.getEnemyName());
+    }
+
 
 }
