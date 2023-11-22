@@ -113,5 +113,14 @@ public class TestEnemyAttribute {
         assertEquals("g", ogre2.getEnemyName());
     }
 
+    @Test
+    public void testAttack(){
+        Necromancer necromancer = new Necromancer();
+        Zombie zombie = new Zombie();
+        assertEquals("Zombie", zombie.getEnemyName());
+        Muddy muddy = new Muddy();
+        assertEquals("Muddy", muddy.getEnemyName());
+    }
+
 
 }
