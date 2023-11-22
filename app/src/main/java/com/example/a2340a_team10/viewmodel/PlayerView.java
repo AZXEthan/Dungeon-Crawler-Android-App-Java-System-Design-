@@ -114,6 +114,12 @@ public class PlayerView extends ViewModel {
         movePlayer(screenSetup, keyAction);
     }
 
+    public boolean checkRed() {
+        int x = pos[0];
+        int y = pos[1];
+        return 2190 <= x && x <= 2250 && 630 <= y && y <= 740;
+
+    }
     public int[] getPos() {
         return pos;
     }

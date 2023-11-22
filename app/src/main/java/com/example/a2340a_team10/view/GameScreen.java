@@ -30,10 +30,10 @@ public class GameScreen extends AppCompatActivity {
     private ImageView avatar;
     private ImageView door;
     private ImageView redFlask;
+    private boolean redCheck;
     private TextView playerNameTextView;
     private TextView chosenDifficulty;
     private MoveKeyActionFactory moveKeyActionFactory = new MoveKeyActionFactory();
-
     private Obstacle obstacle1 = new Obstacle(360, 0, 400, 330);
     private Obstacle obstacle2 = new Obstacle(2200, 0, 400, 330);
     private ScreenSetup screenSetup = new ScreenSetup(Arrays.asList(obstacle1, obstacle2));
@@ -59,6 +59,7 @@ public class GameScreen extends AppCompatActivity {
 
         door = findViewById(R.id.door);
         redFlask = findViewById(R.id.redFlask);
+        redCheck = true;
 
         screenSetup.setScreenWidth(getResources().getDisplayMetrics().widthPixels);
         screenSetup.setScreenHeight(getResources().getDisplayMetrics().heightPixels);
@@ -220,6 +221,12 @@ public class GameScreen extends AppCompatActivity {
         orcEnemy.updatePosition(orcP[0], orcP[1]);
         zombieEnemy.updatePosition(zomP[0], zomP[1]);
         Player.getPlayer().updatePosition(playerView.getPos()[0], playerView.getPos()[1], true);
+
+        if (playerView.checkRed() && redCheck) {
+            redCheck = false;
+            redFlask.setVisibility(View.INVISIBLE);
+            hero.setHealth(hero.getHealth()+2);
+        }
 
         // Display updated health
         LinearLayout health = findViewById(R.id.healthShow);
