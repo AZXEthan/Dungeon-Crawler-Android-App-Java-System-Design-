@@ -52,6 +52,14 @@ public class PlayerView extends ViewModel {
         }
     }
 
+    public void increaseScore(int increment) {
+        synchronized (scoreLock) {
+            int currentScore = hero.getScore();
+            hero.setScore(currentScore + increment);
+            scoreLiveData.postValue(hero.getScore());
+        }
+    }
+
     public LiveData<Integer> getScoreLiveData() {
         return scoreLiveData;
     }

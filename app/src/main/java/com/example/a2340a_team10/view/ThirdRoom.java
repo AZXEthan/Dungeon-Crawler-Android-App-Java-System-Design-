@@ -189,10 +189,12 @@ public class ThirdRoom extends AppCompatActivity {
         necromancerEnemy.updatePosition(necromancerP[0], necromancerP[1]);
         Player.getPlayer().updatePosition(playerView.getPos()[0], playerView.getPos()[1], true);
 
+
         if (playerView.checkRed() && redCheck) {
             redCheck = false;
             redFlask.setVisibility(View.INVISIBLE);
-            hero.setHealth(hero.getHealth()+2);
+            hero.setHealth(hero.getHealth() + 2);
+            playerView.increaseScore(100); // This is how we increase the score.
         }
         // Display updated health
         LinearLayout health = findViewById(R.id.healthShow);
