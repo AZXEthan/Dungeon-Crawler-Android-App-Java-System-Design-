@@ -15,7 +15,7 @@ public class Player implements Observable, CommonPowers {
     private ArrayList<Observer> observers = new ArrayList<>();
 
     private Player() {
-        this.score = 300;
+        this.score = 0;
         this.posX = 0;
         this.posY = 0;
     }
@@ -91,7 +91,11 @@ public class Player implements Observable, CommonPowers {
     }
 
     public void setHealth(int health) {
-        this.health = health;
+        if (health <= 5) {
+            this.health = health;
+        } else {
+            this.health = 5;
+        }
     }
 
     public int getSpeed() {

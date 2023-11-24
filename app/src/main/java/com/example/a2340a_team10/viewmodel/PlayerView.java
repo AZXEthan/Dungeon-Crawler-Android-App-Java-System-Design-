@@ -23,14 +23,6 @@ public class PlayerView extends ViewModel {
     public PlayerView() {
         // Initialize the score LiveData with the starting score
         scoreLiveData.postValue(hero.getScore());
-
-        // Schedule a task to decrease the score every second
-        scoreTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                decreaseScore(hero);
-            }
-        }, 1000, 1000);
     }
 
     public PlayerView(boolean forTest) {
@@ -126,6 +118,12 @@ public class PlayerView extends ViewModel {
         int x = pos[0];
         int y = pos[1];
         return 2190 <= x && x <= 2250 && 630 <= y && y <= 740;
+
+    }
+    public boolean checkGreen() {
+        int x = pos[0];
+        int y = pos[1];
+        return 1490 <= x && x <= 1580 && 440 <= y && y <= 560;
 
     }
     public int[] getPos() {

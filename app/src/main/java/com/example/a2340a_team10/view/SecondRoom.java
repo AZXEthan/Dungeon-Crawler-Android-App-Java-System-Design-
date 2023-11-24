@@ -27,6 +27,8 @@ public class SecondRoom extends AppCompatActivity {
     private ImageView avatar;
     private ImageView muddy;
     private ImageView imp;
+    private ImageView greenFlask;
+    private boolean greenCheck;
     private TextView playerNameTextView;
     private TextView chosenDifficulty;
     private MoveKeyActionFactory moveKeyActionFactory = new MoveKeyActionFactory();
@@ -51,6 +53,9 @@ public class SecondRoom extends AppCompatActivity {
 
         screenSetup.setScreenWidth(getResources().getDisplayMetrics().widthPixels);
         screenSetup.setScreenHeight(getResources().getDisplayMetrics().heightPixels);
+
+        greenFlask = findViewById(R.id.greenFlask);
+        greenCheck = true;
 
         // Calculate the number of grid lines you want horizontally and vertically
         int numHorizontalLines = 5; // Change this to the desired number
@@ -87,7 +92,6 @@ public class SecondRoom extends AppCompatActivity {
         hero = Player.getPlayer();
         playerView = new ViewModelProvider(this).get(PlayerView.class);
         TextView scoreTextView = findViewById(R.id.scoreTextView);
-
         // Observe the scoreLiveData to update the score in real-time
         playerView.getScoreLiveData().observe(this, new Observer<Integer>() {
             @Override
@@ -96,6 +100,7 @@ public class SecondRoom extends AppCompatActivity {
                 scoreTextView.setText("Score: " + score);
             }
         });
+
 
         // Display player name
         playerNameTextView = findViewById(R.id.playerNameTextView);
@@ -225,6 +230,17 @@ public class SecondRoom extends AppCompatActivity {
             Intent intent = new Intent(SecondRoom.this, ThirdRoom.class);
             startActivity(intent);
             finish();
+        }
+
+        if (playerView.checkGreen() && greenCheck) {
+            greenCheck = false;
+            greenFlask.setVisibility(View.INVISIBLE);
+            int[] location = new int[2];
+            location[0]=2800;
+            location[1]=600;
+            playerView.setPos(location);
+            avatar.setX(playerView.getPos()[0]);
+            avatar.setY(playerView.getPos()[1]);
         }
 
         // enemy move toward to player

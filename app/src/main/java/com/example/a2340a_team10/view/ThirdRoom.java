@@ -28,8 +28,8 @@ public class ThirdRoom extends AppCompatActivity {
     private ImageView avatar;
     private TextView playerNameTextView;
     private TextView chosenDifficulty;
-    private ImageView redFlask;
-    private boolean redCheck;
+    private ImageView yellowFlask;
+    private boolean yellowCheck;
     private MoveKeyActionFactory moveKeyActionFactory = new MoveKeyActionFactory();
     private Obstacle obstacle1 = new Obstacle(520, 780, 450, 380);
     private Obstacle obstacle2 = new Obstacle(2020, 780, 450, 380);
@@ -55,8 +55,8 @@ public class ThirdRoom extends AppCompatActivity {
         screenSetup.setScreenWidth(getResources().getDisplayMetrics().widthPixels);
         screenSetup.setScreenHeight(getResources().getDisplayMetrics().heightPixels);
 
-        redFlask = findViewById(R.id.greenFlask);
-        redCheck = true;
+        yellowFlask = findViewById(R.id.yellowFlask);
+        yellowCheck = true;
 
         // Calculate the number of grid lines you want horizontally and vertically
         int numHorizontalLines = 5; // Change this to the desired number
@@ -102,6 +102,7 @@ public class ThirdRoom extends AppCompatActivity {
                 scoreTextView.setText("Score: " + score);
             }
         });
+
 
         // Display player name
         playerNameTextView = findViewById(R.id.playerNameTextView);
@@ -190,12 +191,12 @@ public class ThirdRoom extends AppCompatActivity {
         Player.getPlayer().updatePosition(playerView.getPos()[0], playerView.getPos()[1], true);
 
 
-        if (playerView.checkRed() && redCheck) {
-            redCheck = false;
-            redFlask.setVisibility(View.INVISIBLE);
-            hero.setHealth(hero.getHealth() + 2);
-            playerView.increaseScore(100); // This is how we increase the score.
+        if (playerView.checkRed() && yellowCheck) {
+            yellowCheck = false;
+            yellowFlask.setVisibility(View.INVISIBLE);
+            playerView.increaseScore(100); // The yellow flask increases score by 100.
         }
+
         // Display updated health
         LinearLayout health = findViewById(R.id.healthShow);
         health.setVisibility(View.VISIBLE);
