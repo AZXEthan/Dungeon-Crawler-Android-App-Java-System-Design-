@@ -36,6 +36,11 @@ public class SecondRoom extends AppCompatActivity {
     private Enemy muddyEnemy;
     private Enemy impEnemy;
 
+    private ImageView longRangeWeapon;
+
+    private static final int WEAPON_OFFSET_X = 50;
+    private static final int WEAPON_OFFSET_Y = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Player.getPlayer().removeAllObservers();
@@ -127,6 +132,10 @@ public class SecondRoom extends AppCompatActivity {
         Player.getPlayer().addObserver(muddyEnemy);
         Player.getPlayer().addObserver(impEnemy);
 
+        longRangeWeapon = findViewById(R.id.longWeapon);
+        AnimationDrawable weaponAnimation = (AnimationDrawable) longRangeWeapon.getDrawable();
+        weaponAnimation.start();
+
         // Get the x and y coordinates of the ImageView
         int[] location = new int[2];
         avatar.getLocationOnScreen(location);
@@ -215,6 +224,8 @@ public class SecondRoom extends AppCompatActivity {
         avatar.setX(playerView.getPos()[0]);
         avatar.setY(playerView.getPos()[1]);
 
+        updateWeaponPosition(playerView.getPos()[0], playerView.getPos()[1]);
+
         if (playerView.jump(playerView.getPos()[0], playerView.getPos()[1], 1)) {
             Intent intent = new Intent(SecondRoom.this, ThirdRoom.class);
             startActivity(intent);
@@ -256,5 +267,10 @@ public class SecondRoom extends AppCompatActivity {
         }
 
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void updateWeaponPosition(int playerPosX, int playerPosY) {
+        longRangeWeapon.setX(playerPosX + WEAPON_OFFSET_X);
+        longRangeWeapon.setY(playerPosY + WEAPON_OFFSET_Y);
     }
 }

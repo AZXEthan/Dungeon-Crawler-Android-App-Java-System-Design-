@@ -2,11 +2,13 @@ package com.example.a2340a_team10.sprint4;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
+import com.example.a2340a_team10.model.Attack;
 import com.example.a2340a_team10.model.Muddy;
 import com.example.a2340a_team10.model.Necromancer;
 import com.example.a2340a_team10.model.Ogre;
 import com.example.a2340a_team10.model.Orc;
 import com.example.a2340a_team10.model.Zombie;
+import com.example.a2340a_team10.model.waveAttack;
 import com.example.a2340a_team10.viewmodel.EnemyMove;
 
 import org.junit.Before;
@@ -114,12 +116,14 @@ public class TestEnemyAttribute {
     }
 
     @Test
-    public void testAttack(){
-        Necromancer necromancer = new Necromancer();
-        Zombie zombie = new Zombie();
-        assertEquals("Zombie", zombie.getEnemyName());
-        Muddy muddy = new Muddy();
-        assertEquals("Muddy", muddy.getEnemyName());
+    public void testWeapon(){
+        int weapon = 5;
+        waveAttack attack = new waveAttack(5);
+        waveAttack attack1 = new waveAttack(6);
+        waveAttack attack2 = new waveAttack(7);
+        assertEquals(5, attack.weapon);
+        assertEquals(6, attack1.weapon);
+        assertEquals(7, attack2.weapon);
     }
 
 
