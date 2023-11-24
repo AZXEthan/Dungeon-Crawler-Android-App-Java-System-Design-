@@ -9,6 +9,6 @@ public class RedFlask extends PowerUp {
 
     @Override
     public void collectPowerUp() {
-        System.out.println("Hero collected a red flask and recovered 1 HP.");
+        System.out.println("Hero collected a red flask and recovered 2 HP.");
     }
 }

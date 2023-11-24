@@ -82,7 +82,6 @@ public class SecondRoom extends AppCompatActivity {
         hero = Player.getPlayer();
         playerView = new ViewModelProvider(this).get(PlayerView.class);
         TextView scoreTextView = findViewById(R.id.scoreTextView);
-
         // Observe the scoreLiveData to update the score in real-time
         playerView.getScoreLiveData().observe(this, new Observer<Integer>() {
             @Override
@@ -91,6 +90,7 @@ public class SecondRoom extends AppCompatActivity {
                 scoreTextView.setText("Score: " + score);
             }
         });
+
 
         // Display player name
         playerNameTextView = findViewById(R.id.playerNameTextView);

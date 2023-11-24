@@ -4,11 +4,11 @@ import com.example.a2340a_team10.R;
 
 public class YellowFlask extends PowerUp {
     public YellowFlask() {
-        this.function = "Temporary immortality";
+        this.function = "Increase score";
     }
 
     @Override
     public void collectPowerUp() {
-        System.out.println("Hero collected a red flask and gained temporary immortality.");
+        System.out.println("Hero collected a yellow flask and gained 100 score.");
     }
 }
