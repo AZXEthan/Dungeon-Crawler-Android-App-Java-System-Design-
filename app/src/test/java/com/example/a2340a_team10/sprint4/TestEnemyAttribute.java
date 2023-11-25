@@ -2,16 +2,12 @@ package com.example.a2340a_team10.sprint4;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-import com.example.a2340a_team10.model.Attack;
 import com.example.a2340a_team10.model.Muddy;
 import com.example.a2340a_team10.model.Necromancer;
 import com.example.a2340a_team10.model.Ogre;
 import com.example.a2340a_team10.model.Orc;
 import com.example.a2340a_team10.model.Zombie;
-import com.example.a2340a_team10.model.waveAttack;
-import com.example.a2340a_team10.viewmodel.EnemyMove;
 
-import org.junit.Before;
 import org.junit.Test;
 public class TestEnemyAttribute {
     Orc orc = new Orc();
