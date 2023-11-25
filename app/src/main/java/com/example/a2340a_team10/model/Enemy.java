@@ -14,6 +14,7 @@ public abstract class Enemy implements Observer {
         this.damage = 1;
         this.posX = 1000;
         this.posY = 1000;
+        this.health = 3;
     }
 
     public String getEnemyName() {
@@ -99,4 +100,9 @@ public abstract class Enemy implements Observer {
     //abstract public void attack();
 
     //abstract public boolean die();
+
+    public void takeDamage() {
+        this.health -= 1;
+    }
+
 }
