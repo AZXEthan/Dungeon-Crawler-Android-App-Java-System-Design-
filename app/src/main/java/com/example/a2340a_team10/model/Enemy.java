@@ -102,7 +102,7 @@ public abstract class Enemy implements Observer {
     //abstract public boolean die();
 
     public void takeDamage() {
-        this.health -= 1;
+        this.health -= 3;
     }
 
 }
