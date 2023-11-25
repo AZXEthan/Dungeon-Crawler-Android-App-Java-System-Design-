@@ -74,6 +74,7 @@ public class InitialConfiguration extends AppCompatActivity {
                 selectedChoiceTextView.setText(String.format("Difficulty: %s", difficulty));
                 hero.setDifficulty(difficulty);
                 hero.setHealth(healthCount);
+                // hero.setMaxHealth(healthCount);
             }
         });
 

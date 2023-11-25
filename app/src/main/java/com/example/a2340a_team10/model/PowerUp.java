@@ -7,5 +7,5 @@ public abstract class PowerUp implements CommonPowers {
     protected int posY;
     protected Player hero = Player.getPlayer();
 
-    public abstract void collectPowerUp();
+    public abstract boolean collectPowerUp();
 }

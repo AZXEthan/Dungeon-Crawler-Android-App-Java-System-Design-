@@ -29,7 +29,8 @@ public class ThirdRoom extends AppCompatActivity {
     private ImageView avatar;
     private TextView playerNameTextView;
     private TextView chosenDifficulty;
-    private ImageView yellowFlask;
+    private PowerUp yellowFlask;
+    private ImageView yellowFlaskImage;
     private boolean yellowCheck;
     private MoveKeyActionFactory moveKeyActionFactory = new MoveKeyActionFactory();
     private Obstacle obstacle1 = new Obstacle(520, 780, 450, 380);
@@ -61,7 +62,8 @@ public class ThirdRoom extends AppCompatActivity {
         screenSetup.setScreenWidth(getResources().getDisplayMetrics().widthPixels);
         screenSetup.setScreenHeight(getResources().getDisplayMetrics().heightPixels);
 
-        yellowFlask = findViewById(R.id.yellowFlask);
+        yellowFlask = new YellowFlask();
+        yellowFlaskImage = findViewById(R.id.yellowFlask);
         yellowCheck = true;
 
         // Calculate the number of grid lines you want horizontally and vertically
@@ -200,12 +202,11 @@ public class ThirdRoom extends AppCompatActivity {
         }
 
         necromancerEnemy.updatePosition(necromancerP[0], necromancerP[1]);
-        Player.getPlayer().updatePosition(playerView.getPos()[0], playerView.getPos()[1], true);
+        hero.updatePosition(playerView.getPos()[0], playerView.getPos()[1], true);
 
-
-        if (playerView.checkRed() && yellowCheck) {
+        if (yellowFlask.collectPowerUp() && yellowCheck) {
             yellowCheck = false;
-            yellowFlask.setVisibility(View.INVISIBLE);
+            yellowFlaskImage.setVisibility(View.INVISIBLE);
             playerView.increaseScore(100); // The yellow flask increases score by 100.
         }
 
