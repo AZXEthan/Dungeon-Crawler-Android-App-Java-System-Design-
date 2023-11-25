@@ -2,11 +2,12 @@ package com.example.a2340a_team10.model;
 
 import java.util.ArrayList;
 
-public class Player implements Observable, CommonPowers {
+public class Player implements Observable {
     private static Player hero;
     private String playerName;
     private String difficulty;
     private int health;
+    private int maxHealth;
     private int speed;
     private int score;
     private int posX;
@@ -38,11 +39,6 @@ public class Player implements Observable, CommonPowers {
         }
     }
 
-    @Override
-    public void collectPowerUp() {
-        System.out.println("Hero has no power ups for now. Go collect!");
-    }
-
     public static Player getPlayer() {
         if (hero == null) {
             hero = new Player();
@@ -62,8 +58,16 @@ public class Player implements Observable, CommonPowers {
         }
     }
 
+    public void setPosX(int newX) {
+        this.posX = newX;
+    }
+
     public int getPosX() {
         return posX;
+    }
+
+    public void setPosY(int newY) {
+        this.posY = newY;
     }
 
     public int getPosY() {
@@ -97,6 +101,11 @@ public class Player implements Observable, CommonPowers {
             this.health = 5;
         }
     }
+
+    /* public void setMaxHealth(int health) {
+        this.maxHealth = health;
+    }
+    */
 
     public int getSpeed() {
         return speed;

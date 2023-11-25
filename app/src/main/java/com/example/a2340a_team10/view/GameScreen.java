@@ -30,7 +30,8 @@ public class GameScreen extends AppCompatActivity {
     private PlayerView playerView;
     private ImageView avatar;
     private ImageView door;
-    private ImageView redFlask;
+    private PowerUp redFlask;
+    private ImageView redFlaskImage;
     private boolean redCheck;
     private TextView playerNameTextView;
     private TextView chosenDifficulty;
@@ -64,7 +65,8 @@ public class GameScreen extends AppCompatActivity {
         RelativeLayout gridView = findViewById(R.id.gridLayout);
 
         door = findViewById(R.id.door);
-        redFlask = findViewById(R.id.redFlask);
+        redFlask = new RedFlask();
+        redFlaskImage = findViewById(R.id.redFlask);
         redCheck = true;
 
         screenSetup.setScreenWidth(getResources().getDisplayMetrics().widthPixels);
@@ -232,12 +234,13 @@ public class GameScreen extends AppCompatActivity {
 
         orcEnemy.updatePosition(orcP[0], orcP[1]);
         zombieEnemy.updatePosition(zomP[0], zomP[1]);
-        Player.getPlayer().updatePosition(playerView.getPos()[0], playerView.getPos()[1], true);
 
-        if (playerView.checkRed() && redCheck) {
+        hero.updatePosition(playerView.getPos()[0], playerView.getPos()[1], true);
+
+        if (redFlask.collectPowerUp() && redCheck) {
             redCheck = false;
-            redFlask.setVisibility(View.INVISIBLE);
-            hero.setHealth(hero.getHealth()+2);
+            redFlaskImage.setVisibility(View.INVISIBLE);
+            hero.setHealth(hero.getHealth() + 2);
         }
 
         // Display updated health
