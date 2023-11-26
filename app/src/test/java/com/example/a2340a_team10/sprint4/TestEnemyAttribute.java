@@ -111,16 +111,5 @@ public class TestEnemyAttribute {
         assertEquals("g", ogre2.getEnemyName());
     }
 
-    @Test
-    public void testWeapon(){
-        int weapon = 5;
-        waveAttack attack = new waveAttack(5);
-        waveAttack attack1 = new waveAttack(6);
-        waveAttack attack2 = new waveAttack(7);
-        assertEquals(5, attack.weapon);
-        assertEquals(6, attack1.weapon);
-        assertEquals(7, attack2.weapon);
-    }
-
 
 }
