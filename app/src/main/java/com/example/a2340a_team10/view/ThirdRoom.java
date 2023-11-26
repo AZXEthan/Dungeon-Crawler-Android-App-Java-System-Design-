@@ -38,6 +38,7 @@ public class ThirdRoom extends AppCompatActivity {
     private ScreenSetup screenSetup = new ScreenSetup(Arrays.asList(obstacle1, obstacle2));
     private ImageView ogre;
     private ImageView necromancer;
+    private ImageView coin;
     private Enemy ogreEnemy;
     private Enemy necromancerEnemy;
     private EnemyMove necromancerMove;
@@ -125,6 +126,10 @@ public class ThirdRoom extends AppCompatActivity {
         avatar.setBackgroundResource(hero.getCharacterChoice());
         AnimationDrawable idleAvatar = (AnimationDrawable) avatar.getBackground();
         idleAvatar.start();
+
+        coin = findViewById(R.id.coin);
+        AnimationDrawable coinA = (AnimationDrawable) coin.getBackground();
+        coinA.start();
 
         ogre = findViewById(R.id.ogre);
         AnimationDrawable idleImp = (AnimationDrawable) ogre.getBackground();
@@ -227,8 +232,25 @@ public class ThirdRoom extends AppCompatActivity {
             startActivity(intent);
         }
 
+
+        int [] coinPos = new int[2];
+        coin.getLocationOnScreen(coinPos);
+        int offsetY = 130;
+        int coinX = coinPos[0];
+        int coinY = coinPos[1] - offsetY;
+
+        int playerX = playerView.getPos()[0];
+        int playerY = playerView.getPos()[1];
+
+        if (playerView.isTouchingCoin(playerX, playerY, coinX, coinY)) {
+            if (coin.getVisibility() == View.VISIBLE) {
+                playerView.increaseScore(50);
+            }
+            coin.setVisibility(View.GONE);
+
         if (keyCode == KeyEvent.KEYCODE_L) {
             performAttack();
+
         }
 
         return super.onKeyDown(keyCode, event);

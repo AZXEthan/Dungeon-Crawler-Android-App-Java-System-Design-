@@ -28,9 +28,13 @@ public class SecondRoom extends AppCompatActivity {
     private ImageView avatar;
     private ImageView muddy;
     private ImageView imp;
+
+    private ImageView coin;
+
     private PowerUp blueFlask;
     private ImageView blueFlaskImage;
     private boolean blueCheck;
+
     private TextView playerNameTextView;
     private TextView chosenDifficulty;
     private MoveKeyActionFactory moveKeyActionFactory = new MoveKeyActionFactory();
@@ -119,6 +123,10 @@ public class SecondRoom extends AppCompatActivity {
         avatar.setBackgroundResource(hero.getCharacterChoice());
         AnimationDrawable idleAvatar = (AnimationDrawable) avatar.getBackground();
         idleAvatar.start();
+
+        coin = findViewById(R.id.coin);
+        AnimationDrawable coinA = (AnimationDrawable) coin.getBackground();
+        coinA.start();
 
         imp = findViewById(R.id.imp);
         AnimationDrawable idleImp = (AnimationDrawable) imp.getBackground();
@@ -271,8 +279,26 @@ public class SecondRoom extends AppCompatActivity {
             startActivity(intent);
         }
 
+
+
+        int [] coinPos = new int[2];
+        coin.getLocationOnScreen(coinPos);
+        int offsetY = 130;
+        int coinX = coinPos[0];
+        int coinY = coinPos[1] - offsetY;
+
+        int playerX = playerView.getPos()[0];
+        int playerY = playerView.getPos()[1];
+
+        if (playerView.isTouchingCoin(playerX, playerY, coinX, coinY)) {
+            if (coin.getVisibility() == View.VISIBLE) {
+                playerView.increaseScore(50);
+            }
+            coin.setVisibility(View.GONE);
+
         if (keyCode == KeyEvent.KEYCODE_L) {
             performAttack();
+
         }
 
         return super.onKeyDown(keyCode, event);

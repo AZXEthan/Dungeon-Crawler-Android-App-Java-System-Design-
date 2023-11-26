@@ -256,8 +256,26 @@ public class GameScreen extends AppCompatActivity {
             startActivity(intent);
         }
 
+
+
+        int [] coinPos = new int[2];
+        coin.getLocationOnScreen(coinPos);
+        int offsetY = 130;
+        int coinX = coinPos[0];
+        int coinY = coinPos[1] - offsetY;
+
+        int playerX = playerView.getPos()[0];
+        int playerY = playerView.getPos()[1];
+
+        if (playerView.isTouchingCoin(playerX, playerY, coinX, coinY)) {
+            if (coin.getVisibility() == View.VISIBLE) {
+                playerView.increaseScore(50);
+            }
+            coin.setVisibility(View.GONE);
+
         if (keyCode == KeyEvent.KEYCODE_L) {
             performAttack();
+
         }
 
         return super.onKeyDown(keyCode, event);
