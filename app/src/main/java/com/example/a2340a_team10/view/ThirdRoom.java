@@ -244,9 +244,10 @@ public class ThirdRoom extends AppCompatActivity {
 
         if (playerView.isTouchingCoin(playerX, playerY, coinX, coinY)) {
             if (coin.getVisibility() == View.VISIBLE) {
-                playerView.increaseScore(50);
+                playerView.increaseCoinScore(50);
             }
             coin.setVisibility(View.GONE);
+        }
 
         if (keyCode == KeyEvent.KEYCODE_L) {
             performAttack();
