@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -29,11 +30,12 @@ public class GameScreen extends AppCompatActivity {
     private PlayerView playerView;
     private ImageView avatar;
     private ImageView door;
-    private ImageView redFlask;
+    private PowerUp redFlask;
+    private ImageView redFlaskImage;
+    private boolean redCheck;
     private TextView playerNameTextView;
     private TextView chosenDifficulty;
     private MoveKeyActionFactory moveKeyActionFactory = new MoveKeyActionFactory();
-
     private Obstacle obstacle1 = new Obstacle(360, 0, 400, 330);
     private Obstacle obstacle2 = new Obstacle(2200, 0, 400, 330);
     private ScreenSetup screenSetup = new ScreenSetup(Arrays.asList(obstacle1, obstacle2));
@@ -47,6 +49,11 @@ public class GameScreen extends AppCompatActivity {
     private int orcIP = 1;
     private int zombieIP = 1;
 
+    private ImageView longRangeWeapon;
+
+    private static final int WEAPON_OFFSET_X = 50;
+    private static final int WEAPON_OFFSET_Y = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +65,9 @@ public class GameScreen extends AppCompatActivity {
         RelativeLayout gridView = findViewById(R.id.gridLayout);
 
         door = findViewById(R.id.door);
-        redFlask = findViewById(R.id.redFlask);
+        redFlask = new RedFlask();
+        redFlaskImage = findViewById(R.id.redFlask);
+        redCheck = true;
 
         screenSetup.setScreenWidth(getResources().getDisplayMetrics().widthPixels);
         screenSetup.setScreenHeight(getResources().getDisplayMetrics().heightPixels);
@@ -98,7 +107,6 @@ public class GameScreen extends AppCompatActivity {
         hero = Player.getPlayer();
         playerView = new ViewModelProvider(this).get(PlayerView.class);
         TextView scoreTextView = findViewById(R.id.scoreTextView);
-
         // Observe the scoreLiveData to update the score in real-time
         playerView.getScoreLiveData().observe(this, new Observer<Integer>() {
             @Override
@@ -107,6 +115,7 @@ public class GameScreen extends AppCompatActivity {
                 scoreTextView.setText("Score: " + score);
             }
         });
+
 
         // Display player name
         playerNameTextView = findViewById(R.id.playerNameTextView);
@@ -148,6 +157,10 @@ public class GameScreen extends AppCompatActivity {
         Player.getPlayer().addObserver(orcEnemy);
         zombieEnemy = zombieFactory.spawnEnemy();
         Player.getPlayer().addObserver(zombieEnemy);
+
+        longRangeWeapon = findViewById(R.id.longWeapon);
+        AnimationDrawable weaponAnimation = (AnimationDrawable) longRangeWeapon.getDrawable();
+        weaponAnimation.start();
 
         int[] location = new int[2];
         avatar.getLocationOnScreen(location);
@@ -200,9 +213,12 @@ public class GameScreen extends AppCompatActivity {
         }
 
         KeyAction keyAction = moveKeyActionFactory.createKeyAction(keyCode);
-        playerView.movePlayer(screenSetup, keyAction);
-        avatar.setX(playerView.getPos()[0]);
-        avatar.setY(playerView.getPos()[1]);
+        if (keyAction != null) {
+            playerView.movePlayer(screenSetup, keyAction);
+            avatar.setX(playerView.getPos()[0]);
+            avatar.setY(playerView.getPos()[1]);
+            updateWeaponPosition(playerView.getPos()[0], playerView.getPos()[1]);
+        }
 
         if (playerView.jump(playerView.getPos()[0], playerView.getPos()[1], 1)) {
             Intent intent = new Intent(GameScreen.this, SecondRoom.class);
@@ -210,16 +226,16 @@ public class GameScreen extends AppCompatActivity {
             finish();
         }
 
-        int[] orcP = orcMove.move();
-        orc.setX(orcP[0]);
-        orc.setY(orcP[1]);
-        int[] zomP = zombieMove.move();
-        zombie.setX(zomP[0]);
-        zombie.setY(zomP[1]);
+        orcMove.displayMove(orc, orcEnemy);
+        zombieMove.displayMove(zombie, zombieEnemy);
 
-        orcEnemy.updatePosition(orcP[0], orcP[1]);
-        zombieEnemy.updatePosition(zomP[0], zomP[1]);
-        Player.getPlayer().updatePosition(playerView.getPos()[0], playerView.getPos()[1], true);
+        hero.updatePosition(playerView.getPos()[0], playerView.getPos()[1], true);
+
+        if (redFlask.collectPowerUp() && redCheck) {
+            redCheck = false;
+            redFlaskImage.setVisibility(View.INVISIBLE);
+            hero.setHealth(hero.getHealth() + 2);
+        }
 
         // Display updated health
         LinearLayout health = findViewById(R.id.healthShow);
@@ -241,6 +257,7 @@ public class GameScreen extends AppCompatActivity {
         }
 
 
+
         int [] coinPos = new int[2];
         coin.getLocationOnScreen(coinPos);
         int offsetY = 130;
@@ -255,8 +272,69 @@ public class GameScreen extends AppCompatActivity {
                 playerView.increaseScore(50);
             }
             coin.setVisibility(View.GONE);
+
+        if (keyCode == KeyEvent.KEYCODE_L) {
+            performAttack();
+
         }
 
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void performAttack() {
+        if (isEnemyInRange(orcEnemy)) {
+            orcEnemy.takeDamage();
+        }
+        if (isEnemyInRange(zombieEnemy)) {
+            zombieEnemy.takeDamage();
+        }
+    }
+
+    private boolean isEnemyInRange(Enemy enemy) {
+        int attackRange = 300;
+        int dx = enemy.getPosX() - playerView.getPos()[0];
+        int dy = enemy.getPosY() - playerView.getPos()[1];
+        return dx * dx + dy * dy <= attackRange * attackRange;
+    }
+
+    private void updateWeaponPosition(int playerPosX, int playerPosY) {
+        longRangeWeapon.setX(playerPosX + WEAPON_OFFSET_X);
+        longRangeWeapon.setY(playerPosY + WEAPON_OFFSET_Y);
+    }
+
+    private Handler gameUpdateHandler = new Handler();
+    private Runnable gameUpdateRunnable = new Runnable() {
+        @Override
+        public void run() {
+            gameLogicUpdate();
+            gameUpdateHandler.postDelayed(this, 100);
+        }
+    };
+
+    private void gameLogicUpdate() {
+        if (orcEnemy.getHealth() <= 0) {
+            handleEnemyDeath(orcEnemy, orc);
+        }
+        if (zombieEnemy.getHealth() <= 0) {
+            handleEnemyDeath(zombieEnemy, zombie);
+        }
+    }
+
+    private void handleEnemyDeath(Enemy enemy, ImageView enemyImageView) {
+        if (enemyImageView.getVisibility() != View.GONE) {
+            enemyImageView.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        gameUpdateHandler.post(gameUpdateRunnable); // Start the game loop
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        gameUpdateHandler.removeCallbacks(gameUpdateRunnable); // Stop the game loop
     }
 }

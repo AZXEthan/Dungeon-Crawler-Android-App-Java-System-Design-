@@ -9,11 +9,13 @@ public abstract class Enemy implements Observer {
     protected int speed;
     protected int posX;
     protected int posY;
+    protected boolean isDead;
 
     public Enemy() {
         this.damage = 1;
         this.posX = 1000;
         this.posY = 1000;
+        this.health = 3;
     }
 
     public String getEnemyName() {
@@ -99,4 +101,20 @@ public abstract class Enemy implements Observer {
     //abstract public void attack();
 
     //abstract public boolean die();
+
+    public void takeDamage() {
+        this.health -= 3;
+        if (health <= 0) {
+            health = 0;
+            isDead = true;
+        }
+    }
+
+    public boolean isDead() {
+        return isDead;
+    }
+
+    public void setDead(boolean dead) {
+        isDead = dead;
+    }
 }
