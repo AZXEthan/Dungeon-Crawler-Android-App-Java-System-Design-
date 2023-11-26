@@ -21,11 +21,11 @@ public class TestWeapon {
         assertEquals(0, imp.getHealth());
     }
 
-//    Muddy muddy = new Muddy();
-//    int i2 = muddy.getHealth();
-//    @Test
-//    public void TestDoubleDamage() {
-//        muddy.takeDamage();
-//        assertEquals(0, muddy.getHealth());
-//    }
+    Muddy muddy = new Muddy();
+    int i2 = muddy.getHealth();
+    @Test
+    public void TestDoubleDamage() {
+        muddy.takeDamage();
+        assertEquals(0, muddy.getHealth());
+    }
 }
