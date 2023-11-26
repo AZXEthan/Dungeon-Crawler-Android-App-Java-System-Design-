@@ -223,11 +223,12 @@ public class SecondRoom extends AppCompatActivity {
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         KeyAction keyAction = moveKeyActionFactory.createKeyAction(keyCode);
-        playerView.movePlayer(screenSetup, keyAction);
-        avatar.setX(playerView.getPos()[0]);
-        avatar.setY(playerView.getPos()[1]);
-
-        updateWeaponPosition(playerView.getPos()[0], playerView.getPos()[1]);
+        if (keyAction != null) {
+            playerView.movePlayer(screenSetup, keyAction);
+            avatar.setX(playerView.getPos()[0]);
+            avatar.setY(playerView.getPos()[1]);
+            updateWeaponPosition(playerView.getPos()[0], playerView.getPos()[1]);
+        }
 
         if (playerView.jump(playerView.getPos()[0], playerView.getPos()[1], 1)) {
             Intent intent = new Intent(SecondRoom.this, ThirdRoom.class);
