@@ -226,15 +226,8 @@ public class GameScreen extends AppCompatActivity {
             finish();
         }
 
-        int[] orcP = orcMove.move();
-        orc.setX(orcP[0]);
-        orc.setY(orcP[1]);
-        int[] zomP = zombieMove.move();
-        zombie.setX(zomP[0]);
-        zombie.setY(zomP[1]);
-
-        orcEnemy.updatePosition(orcP[0], orcP[1]);
-        zombieEnemy.updatePosition(zomP[0], zomP[1]);
+        orcMove.displayMove(orc, orcEnemy);
+        zombieMove.displayMove(zombie, zombieEnemy);
 
         hero.updatePosition(playerView.getPos()[0], playerView.getPos()[1], true);
 

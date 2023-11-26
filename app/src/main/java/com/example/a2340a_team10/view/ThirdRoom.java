@@ -191,9 +191,7 @@ public class ThirdRoom extends AppCompatActivity {
             necromancerMove = new EnemyMove(necromancerP);
             necromancerIP = 0;
         }
-        int[] necromancerP = necromancerMove.move();
-        necromancer.setX(necromancerP[0]);
-        necromancer.setY(necromancerP[1]);
+        necromancerMove.displayMove(necromancer, necromancerEnemy);
 
         if (ogreIP == 1) {
             int[] ogreP = new int[2];
@@ -202,7 +200,6 @@ public class ThirdRoom extends AppCompatActivity {
             ogreIP = 0;
         }
 
-        necromancerEnemy.updatePosition(necromancerP[0], necromancerP[1]);
         hero.updatePosition(playerView.getPos()[0], playerView.getPos()[1], true);
 
         if (yellowFlask.collectPowerUp() && yellowCheck) {
