@@ -7,6 +7,7 @@ public class Player implements Observable {
     private String playerName;
     private String difficulty;
     private int health;
+    private int maxHealth;
     private int speed;
     private int score;
     private int posX;
@@ -15,7 +16,7 @@ public class Player implements Observable {
     private ArrayList<Observer> observers = new ArrayList<>();
 
     private Player() {
-        this.score = 300;
+        this.score = 0;
         this.posX = 0;
         this.posY = 0;
     }
@@ -57,8 +58,16 @@ public class Player implements Observable {
         }
     }
 
+    public void setPosX(int newX) {
+        this.posX = newX;
+    }
+
     public int getPosX() {
         return posX;
+    }
+
+    public void setPosY(int newY) {
+        this.posY = newY;
     }
 
     public int getPosY() {
@@ -86,8 +95,17 @@ public class Player implements Observable {
     }
 
     public void setHealth(int health) {
-        this.health = health;
+        if (health <= 5) {
+            this.health = health;
+        } else {
+            this.health = 5;
+        }
     }
+
+    /* public void setMaxHealth(int health) {
+        this.maxHealth = health;
+    }
+    */
 
     public int getSpeed() {
         return speed;

@@ -7,9 +7,7 @@ import com.example.a2340a_team10.model.Necromancer;
 import com.example.a2340a_team10.model.Ogre;
 import com.example.a2340a_team10.model.Orc;
 import com.example.a2340a_team10.model.Zombie;
-import com.example.a2340a_team10.viewmodel.EnemyMove;
 
-import org.junit.Before;
 import org.junit.Test;
 public class TestEnemyAttribute {
     Orc orc = new Orc();
@@ -91,6 +89,26 @@ public class TestEnemyAttribute {
         Necromancer necromancer = new Necromancer();
         necromancer.setEnemyName("d");
         assertEquals("d", necromancer.getEnemyName());
+    }
+
+    @Test
+    public void nameIsSetCorrectly12(){
+        Necromancer necromancer = new Necromancer();
+        Zombie zombie = new Zombie();
+        zombie.setEnemyName("d");
+        necromancer.setEnemyName("d");
+        assertEquals(zombie.getEnemyName(), necromancer.getEnemyName());
+    }
+
+    @Test
+    public void nameIsSetCorrectly13(){
+        Necromancer necromancer = new Necromancer();
+        Zombie zombie = new Zombie();
+        zombie.setEnemyName("d");
+        necromancer.setEnemyName("d");
+        Ogre ogre2 = new Ogre();
+        ogre2.setEnemyName("g");
+        assertEquals("g", ogre2.getEnemyName());
     }
 
 

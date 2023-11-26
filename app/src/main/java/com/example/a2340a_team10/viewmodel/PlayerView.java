@@ -23,14 +23,6 @@ public class PlayerView extends ViewModel {
     public PlayerView() {
         // Initialize the score LiveData with the starting score
         scoreLiveData.postValue(hero.getScore());
-
-        // Schedule a task to decrease the score every second
-        scoreTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                decreaseScore(hero);
-            }
-        }, 1000, 1000);
     }
 
     public PlayerView(boolean forTest) {
@@ -49,6 +41,14 @@ public class PlayerView extends ViewModel {
             // Update LiveData's score
             int updatedLiveDataScore = Math.max(0, liveDataScore - scoreDecreaseAmount);
             scoreLiveData.postValue(updatedLiveDataScore);
+        }
+    }
+
+    public void increaseScore(int increment) {
+        synchronized (scoreLock) {
+            int currentScore = hero.getScore();
+            hero.setScore(currentScore + increment);
+            scoreLiveData.postValue(hero.getScore());
         }
     }
 

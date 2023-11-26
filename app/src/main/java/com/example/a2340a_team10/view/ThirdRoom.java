@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -28,6 +29,9 @@ public class ThirdRoom extends AppCompatActivity {
     private ImageView avatar;
     private TextView playerNameTextView;
     private TextView chosenDifficulty;
+    private PowerUp yellowFlask;
+    private ImageView yellowFlaskImage;
+    private boolean yellowCheck;
     private MoveKeyActionFactory moveKeyActionFactory = new MoveKeyActionFactory();
     private Obstacle obstacle1 = new Obstacle(520, 780, 450, 380);
     private Obstacle obstacle2 = new Obstacle(2020, 780, 450, 380);
@@ -39,6 +43,11 @@ public class ThirdRoom extends AppCompatActivity {
     private EnemyMove necromancerMove;
     private int necromancerIP = 1;
     private int ogreIP = 1;
+
+    private ImageView longRangeWeapon;
+
+    private static final int WEAPON_OFFSET_X = 50;
+    private static final int WEAPON_OFFSET_Y = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +61,10 @@ public class ThirdRoom extends AppCompatActivity {
         door = findViewById(R.id.door);
         screenSetup.setScreenWidth(getResources().getDisplayMetrics().widthPixels);
         screenSetup.setScreenHeight(getResources().getDisplayMetrics().heightPixels);
+
+        yellowFlask = new YellowFlask();
+        yellowFlaskImage = findViewById(R.id.yellowFlask);
+        yellowCheck = true;
 
         // Calculate the number of grid lines you want horizontally and vertically
         int numHorizontalLines = 5; // Change this to the desired number
@@ -98,6 +111,7 @@ public class ThirdRoom extends AppCompatActivity {
             }
         });
 
+
         // Display player name
         playerNameTextView = findViewById(R.id.playerNameTextView);
         playerNameTextView.setText(String.format("Name: %s", hero.getName()));
@@ -126,6 +140,10 @@ public class ThirdRoom extends AppCompatActivity {
         necromancerEnemy = necromancerFactory.spawnEnemy();
         Player.getPlayer().addObserver(ogreEnemy);
         Player.getPlayer().addObserver(necromancerEnemy);
+
+        longRangeWeapon = findViewById(R.id.longWeapon);
+        AnimationDrawable weaponAnimation = (AnimationDrawable) longRangeWeapon.getDrawable();
+        weaponAnimation.start();
 
         int[] necromancerP = new int[2];
         necromancer.getLocationOnScreen(necromancerP);
@@ -157,6 +175,8 @@ public class ThirdRoom extends AppCompatActivity {
         avatar.setX(playerView.getPos()[0]);
         avatar.setY(playerView.getPos()[1]);
 
+        updateWeaponPosition(playerView.getPos()[0], playerView.getPos()[1]);
+
         if (playerView.jump(playerView.getPos()[0], playerView.getPos()[1], 1)) {
             Intent intent = new Intent(ThirdRoom.this, EndingScreen.class);
             startActivity(intent);
@@ -182,7 +202,13 @@ public class ThirdRoom extends AppCompatActivity {
         }
 
         necromancerEnemy.updatePosition(necromancerP[0], necromancerP[1]);
-        Player.getPlayer().updatePosition(playerView.getPos()[0], playerView.getPos()[1], true);
+        hero.updatePosition(playerView.getPos()[0], playerView.getPos()[1], true);
+
+        if (yellowFlask.collectPowerUp() && yellowCheck) {
+            yellowCheck = false;
+            yellowFlaskImage.setVisibility(View.INVISIBLE);
+            playerView.increaseScore(100); // The yellow flask increases score by 100.
+        }
 
         // Display updated health
         LinearLayout health = findViewById(R.id.healthShow);
@@ -203,6 +229,66 @@ public class ThirdRoom extends AppCompatActivity {
             startActivity(intent);
         }
 
+        if (keyCode == KeyEvent.KEYCODE_L) {
+            performAttack();
+        }
+
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void performAttack() {
+        if (isEnemyInRange(ogreEnemy)) {
+            ogreEnemy.takeDamage();
+        }
+        if (isEnemyInRange(necromancerEnemy)) {
+            necromancerEnemy.takeDamage();
+        }
+    }
+
+    private boolean isEnemyInRange(Enemy enemy) {
+        int attackRange = 300;
+        int dx = enemy.getPosX() - playerView.getPos()[0];
+        int dy = enemy.getPosY() - playerView.getPos()[1];
+        return dx * dx + dy * dy <= attackRange * attackRange;
+    }
+
+    private void updateWeaponPosition(int playerPosX, int playerPosY) {
+        longRangeWeapon.setX(playerPosX + WEAPON_OFFSET_X);
+        longRangeWeapon.setY(playerPosY + WEAPON_OFFSET_Y);
+    }
+    private Handler gameUpdateHandler = new Handler();
+    private Runnable gameUpdateRunnable = new Runnable() {
+        @Override
+        public void run() {
+            gameLogicUpdate();
+            gameUpdateHandler.postDelayed(this, 100);
+        }
+    };
+
+    private void gameLogicUpdate() {
+        if (ogreEnemy.getHealth() <= 0) {
+            handleEnemyDeath(ogreEnemy, ogre);
+        }
+        if (necromancerEnemy.getHealth() <= 0) {
+            handleEnemyDeath(necromancerEnemy, necromancer);
+        }
+    }
+
+    private void handleEnemyDeath(Enemy enemy, ImageView enemyImageView) {
+        if (enemyImageView.getVisibility() != View.GONE) {
+            enemyImageView.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        gameUpdateHandler.post(gameUpdateRunnable); // Start the game loop
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        gameUpdateHandler.removeCallbacks(gameUpdateRunnable); // Stop the game loop
     }
 }

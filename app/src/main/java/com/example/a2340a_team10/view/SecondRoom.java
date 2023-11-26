@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -27,12 +28,20 @@ public class SecondRoom extends AppCompatActivity {
     private ImageView avatar;
     private ImageView muddy;
     private ImageView imp;
+    private PowerUp blueFlask;
+    private ImageView blueFlaskImage;
+    private boolean blueCheck;
     private TextView playerNameTextView;
     private TextView chosenDifficulty;
     private MoveKeyActionFactory moveKeyActionFactory = new MoveKeyActionFactory();
     private ScreenSetup screenSetup = new ScreenSetup();
     private Enemy muddyEnemy;
     private Enemy impEnemy;
+
+    private ImageView longRangeWeapon;
+
+    private static final int WEAPON_OFFSET_X = 50;
+    private static final int WEAPON_OFFSET_Y = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +55,10 @@ public class SecondRoom extends AppCompatActivity {
 
         screenSetup.setScreenWidth(getResources().getDisplayMetrics().widthPixels);
         screenSetup.setScreenHeight(getResources().getDisplayMetrics().heightPixels);
+
+        blueFlask = new BlueFlask();
+        blueFlaskImage = findViewById(R.id.blueFlask);
+        blueCheck = true;
 
         // Calculate the number of grid lines you want horizontally and vertically
         int numHorizontalLines = 5; // Change this to the desired number
@@ -82,7 +95,6 @@ public class SecondRoom extends AppCompatActivity {
         hero = Player.getPlayer();
         playerView = new ViewModelProvider(this).get(PlayerView.class);
         TextView scoreTextView = findViewById(R.id.scoreTextView);
-
         // Observe the scoreLiveData to update the score in real-time
         playerView.getScoreLiveData().observe(this, new Observer<Integer>() {
             @Override
@@ -91,6 +103,7 @@ public class SecondRoom extends AppCompatActivity {
                 scoreTextView.setText("Score: " + score);
             }
         });
+
 
         // Display player name
         playerNameTextView = findViewById(R.id.playerNameTextView);
@@ -121,6 +134,10 @@ public class SecondRoom extends AppCompatActivity {
         impEnemy = impFactory.spawnEnemy();
         Player.getPlayer().addObserver(muddyEnemy);
         Player.getPlayer().addObserver(impEnemy);
+
+        longRangeWeapon = findViewById(R.id.longWeapon);
+        AnimationDrawable weaponAnimation = (AnimationDrawable) longRangeWeapon.getDrawable();
+        weaponAnimation.start();
 
         // Get the x and y coordinates of the ImageView
         int[] location = new int[2];
@@ -210,6 +227,8 @@ public class SecondRoom extends AppCompatActivity {
         avatar.setX(playerView.getPos()[0]);
         avatar.setY(playerView.getPos()[1]);
 
+        updateWeaponPosition(playerView.getPos()[0], playerView.getPos()[1]);
+
         if (playerView.jump(playerView.getPos()[0], playerView.getPos()[1], 1)) {
             Intent intent = new Intent(SecondRoom.this, ThirdRoom.class);
             startActivity(intent);
@@ -218,7 +237,19 @@ public class SecondRoom extends AppCompatActivity {
 
         // enemy move toward to player
         enemiesMovement();
-        Player.getPlayer().updatePosition(playerView.getPos()[0], playerView.getPos()[1], true);
+        hero.updatePosition(playerView.getPos()[0], playerView.getPos()[1], true);
+
+        if (blueFlask.collectPowerUp() && blueCheck) {
+            blueCheck = false;
+            blueFlaskImage.setVisibility(View.INVISIBLE);
+            int[] location = new int[2];
+            location[0]=2800;
+            location[1]=600;
+            hero.updatePosition(playerView.getPos()[0], playerView.getPos()[1], false);
+            playerView.setPos(location);
+            avatar.setX(playerView.getPos()[0]);
+            avatar.setY(playerView.getPos()[1]);
+        }
 
         // Display updated health
         LinearLayout health = findViewById(R.id.healthShow);
@@ -239,6 +270,67 @@ public class SecondRoom extends AppCompatActivity {
             startActivity(intent);
         }
 
+        if (keyCode == KeyEvent.KEYCODE_L) {
+            performAttack();
+        }
+
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void performAttack() {
+        if (isEnemyInRange(muddyEnemy)) {
+            muddyEnemy.takeDamage();
+        }
+        if (isEnemyInRange(impEnemy)) {
+            impEnemy.takeDamage();
+        }
+    }
+
+    private boolean isEnemyInRange(Enemy enemy) {
+        int attackRange = 300;
+        int dx = enemy.getPosX() - playerView.getPos()[0];
+        int dy = enemy.getPosY() - playerView.getPos()[1];
+        return dx * dx + dy * dy <= attackRange * attackRange;
+    }
+
+    private void updateWeaponPosition(int playerPosX, int playerPosY) {
+        longRangeWeapon.setX(playerPosX + WEAPON_OFFSET_X);
+        longRangeWeapon.setY(playerPosY + WEAPON_OFFSET_Y);
+    }
+
+    private Handler gameUpdateHandler = new Handler();
+    private Runnable gameUpdateRunnable = new Runnable() {
+        @Override
+        public void run() {
+            gameLogicUpdate();
+            gameUpdateHandler.postDelayed(this, 100);
+        }
+    };
+
+    private void gameLogicUpdate() {
+        if (muddyEnemy.getHealth() <= 0) {
+            handleEnemyDeath(muddyEnemy, muddy);
+        }
+        if (impEnemy.getHealth() <= 0) {
+            handleEnemyDeath(impEnemy, imp);
+        }
+    }
+
+    private void handleEnemyDeath(Enemy enemy, ImageView enemyImageView) {
+        if (enemyImageView.getVisibility() != View.GONE) {
+            enemyImageView.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        gameUpdateHandler.post(gameUpdateRunnable); // Start the game loop
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        gameUpdateHandler.removeCallbacks(gameUpdateRunnable); // Stop the game loop
     }
 }
