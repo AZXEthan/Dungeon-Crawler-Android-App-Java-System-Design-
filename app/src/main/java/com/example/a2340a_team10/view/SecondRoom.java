@@ -144,8 +144,6 @@ public class SecondRoom extends AppCompatActivity {
         Player.getPlayer().addObserver(impEnemy);
 
         longRangeWeapon = findViewById(R.id.longWeapon);
-        AnimationDrawable weaponAnimation = (AnimationDrawable) longRangeWeapon.getDrawable();
-        weaponAnimation.start();
 
         // Get the x and y coordinates of the ImageView
         int[] location = new int[2];
@@ -299,7 +297,13 @@ public class SecondRoom extends AppCompatActivity {
 
         if (keyCode == KeyEvent.KEYCODE_L) {
             performAttack();
-
+            longRangeWeapon.animate().setDuration(300);
+            longRangeWeapon.animate().setDuration(300);
+            if (longRangeWeapon.getRotation() < 90) {
+                longRangeWeapon.animate().rotationBy(180);
+            } else {
+                longRangeWeapon.animate().rotationBy(-180);
+            }
         }
 
         return super.onKeyDown(keyCode, event);
@@ -331,7 +335,7 @@ public class SecondRoom extends AppCompatActivity {
         @Override
         public void run() {
             gameLogicUpdate();
-            gameUpdateHandler.postDelayed(this, 100);
+            gameUpdateHandler.postDelayed(this, 300);
         }
     };
 

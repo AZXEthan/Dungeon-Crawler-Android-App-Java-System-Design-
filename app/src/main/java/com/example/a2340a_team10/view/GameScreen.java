@@ -159,8 +159,6 @@ public class GameScreen extends AppCompatActivity {
         Player.getPlayer().addObserver(zombieEnemy);
 
         longRangeWeapon = findViewById(R.id.longWeapon);
-        AnimationDrawable weaponAnimation = (AnimationDrawable) longRangeWeapon.getDrawable();
-        weaponAnimation.start();
 
         int[] location = new int[2];
         avatar.getLocationOnScreen(location);
@@ -276,7 +274,13 @@ public class GameScreen extends AppCompatActivity {
 
         if (keyCode == KeyEvent.KEYCODE_L) {
             performAttack();
-
+            longRangeWeapon.animate().setDuration(300);
+            longRangeWeapon.animate().setDuration(300);
+            if (longRangeWeapon.getRotation() < 90) {
+                longRangeWeapon.animate().rotationBy(180);
+            } else {
+                longRangeWeapon.animate().rotationBy(-180);
+            }
         }
 
         return super.onKeyDown(keyCode, event);
@@ -308,7 +312,7 @@ public class GameScreen extends AppCompatActivity {
         @Override
         public void run() {
             gameLogicUpdate();
-            gameUpdateHandler.postDelayed(this, 100);
+            gameUpdateHandler.postDelayed(this, 300);
         }
     };
 
