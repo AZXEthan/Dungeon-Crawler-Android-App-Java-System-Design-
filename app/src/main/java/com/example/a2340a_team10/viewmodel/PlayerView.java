@@ -10,7 +10,6 @@ import com.example.a2340a_team10.model.*;
 
 import java.util.List;
 import java.util.Timer;
-import java.util.TimerTask;
 
 public class PlayerView extends ViewModel {
     private final MutableLiveData<Integer> scoreLiveData = new MutableLiveData<>();

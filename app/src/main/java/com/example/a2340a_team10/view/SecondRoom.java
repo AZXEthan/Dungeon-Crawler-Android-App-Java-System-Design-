@@ -250,8 +250,8 @@ public class SecondRoom extends AppCompatActivity {
             blueCheck = false;
             blueFlaskImage.setVisibility(View.INVISIBLE);
             int[] location = new int[2];
-            location[0]=2800;
-            location[1]=600;
+            location[0] = 2800;
+            location[1] = 600;
             hero.updatePosition(playerView.getPos()[0], playerView.getPos()[1], false);
             playerView.setPos(location);
             avatar.setX(playerView.getPos()[0]);
@@ -279,7 +279,7 @@ public class SecondRoom extends AppCompatActivity {
 
 
 
-        int [] coinPos = new int[2];
+        int[] coinPos = new int[2];
         coin.getLocationOnScreen(coinPos);
         int offsetY = 130;
         int coinX = coinPos[0];
