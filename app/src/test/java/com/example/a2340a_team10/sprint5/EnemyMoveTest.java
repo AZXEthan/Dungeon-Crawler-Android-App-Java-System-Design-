@@ -1,4 +1,4 @@
-package com.example.a2340a_team10;
+package com.example.a2340a_team10.sprint5;
 
 import com.example.a2340a_team10.viewmodel.EnemyMove;
 import org.junit.Before;
