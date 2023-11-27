@@ -130,15 +130,5 @@ public class PlayerView extends ViewModel {
                 && playerY < coinY + coinSize && playerY + playerSize > coinY;
     }
 
-    public void increaseCoinScore(int amount) {
-        Integer currentScore = scoreLiveData.getValue();
-        if (currentScore != null) {
-            scoreLiveData.postValue(currentScore + amount);
-        }else {
-            scoreLiveData.postValue(amount);
-        }
-
-    }
-
 }
 

@@ -292,7 +292,7 @@ public class SecondRoom extends AppCompatActivity {
 
         if (playerView.isTouchingCoin(playerX, playerY, coinX, coinY)) {
             if (coin.getVisibility() == View.VISIBLE) {
-                playerView.increaseCoinScore(50);
+                playerView.increaseScore(50);
             }
             coin.setVisibility(View.GONE);
         }
