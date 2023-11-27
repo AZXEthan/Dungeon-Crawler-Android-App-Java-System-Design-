@@ -2,7 +2,7 @@ package com.example.a2340a_team10.model;
 
 import java.util.ArrayList;
 
-public class Player implements Observable {
+public class Player implements Observable, CommonPowers {
     private static Player hero;
     private String playerName;
     private String difficulty;
@@ -56,6 +56,10 @@ public class Player implements Observable {
         if (notify) {
             notifyAllObservers();
         }
+    }
+
+    public boolean collectPowerUp() {
+        return false;
     }
 
     public void setPosX(int newX) {
