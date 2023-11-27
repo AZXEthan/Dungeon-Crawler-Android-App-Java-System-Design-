@@ -28,4 +28,13 @@ public class EnemyMoveTest {
                 newPosition[1] >= 20 && newPosition[1] <= 1200);
         assertTrue("Move count should decrease", enemyMove.getCount() < 6);
     }
+
+    @Test
+    public void testEnemyMovesToDifferentLocation() {
+        int[] newPosition = enemyMove.move();
+
+        boolean movedInX = initialPosition[0] != newPosition[0];
+        boolean movedInY = initialPosition[1] != newPosition[1];
+        assertTrue("Enemy should move in at least one direction", movedInX || movedInY);
+    }
 }
