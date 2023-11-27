@@ -28,9 +28,9 @@
 
     <ImageView
         android:id="@+id/longWeapon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/longrangeweapon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/weapon_long0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 

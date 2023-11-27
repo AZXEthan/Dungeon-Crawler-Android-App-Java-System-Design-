@@ -147,8 +147,6 @@ public class ThirdRoom extends AppCompatActivity {
         Player.getPlayer().addObserver(necromancerEnemy);
 
         longRangeWeapon = findViewById(R.id.longWeapon);
-        AnimationDrawable weaponAnimation = (AnimationDrawable) longRangeWeapon.getDrawable();
-        weaponAnimation.start();
 
         int[] necromancerP = new int[2];
         necromancer.getLocationOnScreen(necromancerP);
@@ -251,7 +249,13 @@ public class ThirdRoom extends AppCompatActivity {
 
         if (keyCode == KeyEvent.KEYCODE_L) {
             performAttack();
-
+            longRangeWeapon.animate().setDuration(300);
+            longRangeWeapon.animate().setDuration(300);
+            if (longRangeWeapon.getRotation() < 90) {
+                longRangeWeapon.animate().rotationBy(180);
+            } else {
+                longRangeWeapon.animate().rotationBy(-180);
+            }
         }
 
         return super.onKeyDown(keyCode, event);
@@ -282,7 +286,7 @@ public class ThirdRoom extends AppCompatActivity {
         @Override
         public void run() {
             gameLogicUpdate();
-            gameUpdateHandler.postDelayed(this, 100);
+            gameUpdateHandler.postDelayed(this, 300);
         }
     };
 
