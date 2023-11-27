@@ -213,11 +213,12 @@ public class GameScreen extends AppCompatActivity {
         }
 
         KeyAction keyAction = moveKeyActionFactory.createKeyAction(keyCode);
-        playerView.movePlayer(screenSetup, keyAction);
-        avatar.setX(playerView.getPos()[0]);
-        avatar.setY(playerView.getPos()[1]);
-
-        updateWeaponPosition(playerView.getPos()[0], playerView.getPos()[1]);
+        if (keyAction != null) {
+            playerView.movePlayer(screenSetup, keyAction);
+            avatar.setX(playerView.getPos()[0]);
+            avatar.setY(playerView.getPos()[1]);
+            updateWeaponPosition(playerView.getPos()[0], playerView.getPos()[1]);
+        }
 
         if (playerView.jump(playerView.getPos()[0], playerView.getPos()[1], 1)) {
             Intent intent = new Intent(GameScreen.this, SecondRoom.class);
@@ -225,15 +226,8 @@ public class GameScreen extends AppCompatActivity {
             finish();
         }
 
-        int[] orcP = orcMove.move();
-        orc.setX(orcP[0]);
-        orc.setY(orcP[1]);
-        int[] zomP = zombieMove.move();
-        zombie.setX(zomP[0]);
-        zombie.setY(zomP[1]);
-
-        orcEnemy.updatePosition(orcP[0], orcP[1]);
-        zombieEnemy.updatePosition(zomP[0], zomP[1]);
+        orcMove.displayMove(orc, orcEnemy);
+        zombieMove.displayMove(zombie, zombieEnemy);
 
         hero.updatePosition(playerView.getPos()[0], playerView.getPos()[1], true);
 
@@ -262,8 +256,27 @@ public class GameScreen extends AppCompatActivity {
             startActivity(intent);
         }
 
+
+
+        int [] coinPos = new int[2];
+        coin.getLocationOnScreen(coinPos);
+        int offsetY = 130;
+        int coinX = coinPos[0];
+        int coinY = coinPos[1] - offsetY;
+
+        int playerX = playerView.getPos()[0];
+        int playerY = playerView.getPos()[1];
+
+        if (playerView.isTouchingCoin(playerX, playerY, coinX, coinY)) {
+            if (coin.getVisibility() == View.VISIBLE) {
+                playerView.increaseCoinScore(50);
+            }
+            coin.setVisibility(View.GONE);
+        }
+
         if (keyCode == KeyEvent.KEYCODE_L) {
             performAttack();
+
         }
 
         return super.onKeyDown(keyCode, event);

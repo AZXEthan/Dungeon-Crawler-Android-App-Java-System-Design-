@@ -1,4 +1,8 @@
 package com.example.a2340a_team10.viewmodel;
+import android.widget.ImageView;
+
+import com.example.a2340a_team10.model.Enemy;
+
 import java.util.Random;
 
 public class EnemyMove {
@@ -67,6 +71,13 @@ public class EnemyMove {
         positions[0] = posX;
         positions[1] = posY;
         return positions;
+    }
+
+    public void displayMove(ImageView enemyImage, Enemy enemy) {
+        int[] pos = move();
+        enemy.updatePosition(pos[0], pos[1]);
+        enemyImage.setX(pos[0]);
+        enemyImage.setY(pos[1]);
     }
 
     public int getCount() {

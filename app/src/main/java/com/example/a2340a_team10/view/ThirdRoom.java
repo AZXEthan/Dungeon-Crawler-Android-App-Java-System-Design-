@@ -38,6 +38,7 @@ public class ThirdRoom extends AppCompatActivity {
     private ScreenSetup screenSetup = new ScreenSetup(Arrays.asList(obstacle1, obstacle2));
     private ImageView ogre;
     private ImageView necromancer;
+    private ImageView coin;
     private Enemy ogreEnemy;
     private Enemy necromancerEnemy;
     private EnemyMove necromancerMove;
@@ -126,6 +127,10 @@ public class ThirdRoom extends AppCompatActivity {
         AnimationDrawable idleAvatar = (AnimationDrawable) avatar.getBackground();
         idleAvatar.start();
 
+        coin = findViewById(R.id.coin);
+        AnimationDrawable coinA = (AnimationDrawable) coin.getBackground();
+        coinA.start();
+
         ogre = findViewById(R.id.ogre);
         AnimationDrawable idleImp = (AnimationDrawable) ogre.getBackground();
         idleImp.start();
@@ -171,11 +176,12 @@ public class ThirdRoom extends AppCompatActivity {
     }
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         KeyAction keyAction = moveKeyActionFactory.createKeyAction(keyCode);
-        playerView.movePlayer(screenSetup, keyAction);
-        avatar.setX(playerView.getPos()[0]);
-        avatar.setY(playerView.getPos()[1]);
-
-        updateWeaponPosition(playerView.getPos()[0], playerView.getPos()[1]);
+        if (keyAction != null) {
+            playerView.movePlayer(screenSetup, keyAction);
+            avatar.setX(playerView.getPos()[0]);
+            avatar.setY(playerView.getPos()[1]);
+            updateWeaponPosition(playerView.getPos()[0], playerView.getPos()[1]);
+        }
 
         if (playerView.jump(playerView.getPos()[0], playerView.getPos()[1], 1)) {
             Intent intent = new Intent(ThirdRoom.this, EndingScreen.class);
@@ -190,9 +196,7 @@ public class ThirdRoom extends AppCompatActivity {
             necromancerMove = new EnemyMove(necromancerP);
             necromancerIP = 0;
         }
-        int[] necromancerP = necromancerMove.move();
-        necromancer.setX(necromancerP[0]);
-        necromancer.setY(necromancerP[1]);
+        necromancerMove.displayMove(necromancer, necromancerEnemy);
 
         if (ogreIP == 1) {
             int[] ogreP = new int[2];
@@ -201,7 +205,6 @@ public class ThirdRoom extends AppCompatActivity {
             ogreIP = 0;
         }
 
-        necromancerEnemy.updatePosition(necromancerP[0], necromancerP[1]);
         hero.updatePosition(playerView.getPos()[0], playerView.getPos()[1], true);
 
         if (yellowFlask.collectPowerUp() && yellowCheck) {
@@ -229,8 +232,26 @@ public class ThirdRoom extends AppCompatActivity {
             startActivity(intent);
         }
 
+
+        int [] coinPos = new int[2];
+        coin.getLocationOnScreen(coinPos);
+        int offsetY = 130;
+        int coinX = coinPos[0];
+        int coinY = coinPos[1] - offsetY;
+
+        int playerX = playerView.getPos()[0];
+        int playerY = playerView.getPos()[1];
+
+        if (playerView.isTouchingCoin(playerX, playerY, coinX, coinY)) {
+            if (coin.getVisibility() == View.VISIBLE) {
+                playerView.increaseCoinScore(50);
+            }
+            coin.setVisibility(View.GONE);
+        }
+
         if (keyCode == KeyEvent.KEYCODE_L) {
             performAttack();
+
         }
 
         return super.onKeyDown(keyCode, event);

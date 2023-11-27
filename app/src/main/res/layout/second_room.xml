@@ -47,6 +47,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+
+        android:id="@+id/coin"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="200dp"
+        android:background="@drawable/coin"
+        android:layout_marginEnd="800dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:elevation="-1dp" />
+
+    <ImageView
         android:id="@+id/blueFlask"
         android:layout_width="35dp"
         android:layout_height="35dp"
@@ -55,6 +67,7 @@
         android:src="@drawable/flask_blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+
         android:elevation="-1dp" />
 
     <ImageView

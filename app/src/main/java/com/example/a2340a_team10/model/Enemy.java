@@ -9,6 +9,7 @@ public abstract class Enemy implements Observer {
     protected int speed;
     protected int posX;
     protected int posY;
+    protected boolean isDead;
 
     public Enemy() {
         this.damage = 1;
@@ -108,4 +109,7 @@ public abstract class Enemy implements Observer {
         }
     }
 
+    public void setDead(boolean dead) {
+        isDead = dead;
+    }
 }

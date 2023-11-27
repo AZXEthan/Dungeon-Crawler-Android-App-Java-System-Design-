@@ -121,5 +121,24 @@ public class PlayerView extends ViewModel {
     public void setPos(int[] pos) {
         this.pos = pos;
     }
+
+    public boolean isTouchingCoin(int playerX, int playerY, int coinX, int coinY) {
+        int playerSize = 35;
+        int coinSize = 25;
+
+        return playerX < coinX + coinSize && playerX + playerSize > coinX
+                && playerY < coinY + coinSize && playerY + playerSize > coinY;
+    }
+
+    public void increaseCoinScore(int amount) {
+        Integer currentScore = scoreLiveData.getValue();
+        if (currentScore != null) {
+            scoreLiveData.postValue(currentScore + amount);
+        }else {
+            scoreLiveData.postValue(amount);
+        }
+
+    }
+
 }
 
