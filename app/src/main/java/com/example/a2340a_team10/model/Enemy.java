@@ -103,6 +103,9 @@ public abstract class Enemy implements Observer {
 
     public void takeDamage() {
         this.health -= 3;
+        if (this.health < 0) {
+            this.health = 0;
+        }
     }
 
 }

@@ -28,4 +28,23 @@ public class TestWeapon {
         muddy.takeDamage();
         assertEquals(0, muddy.getHealth());
     }
+
+    Muddy muddy2 = new Muddy();
+    int i3 = muddy2.getHealth();
+    @Test
+    public void TestDoubleDamageWtihRe() {
+        muddy2.takeDamage();
+        muddy2.takeDamage();
+        assertEquals(0, muddy2.getHealth());
+    }
+
+    Muddy muddy3 = new Muddy();
+    int i4 = muddy3.getHealth();
+    @Test
+    public void TestTripleDamageWtihRe() {
+        muddy3.takeDamage();
+        muddy3.takeDamage();
+        muddy3.takeDamage();
+        assertEquals(0, muddy3.getHealth());
+    }
 }
