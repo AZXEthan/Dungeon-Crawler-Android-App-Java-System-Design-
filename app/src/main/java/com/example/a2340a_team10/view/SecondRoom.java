@@ -352,6 +352,7 @@ public class SecondRoom extends AppCompatActivity {
         if (enemyImageView.getVisibility() != View.GONE) {
             enemyImageView.setVisibility(View.GONE);
         }
+        Player.getPlayer().removeObserver(enemy);
     }
 
     @Override
