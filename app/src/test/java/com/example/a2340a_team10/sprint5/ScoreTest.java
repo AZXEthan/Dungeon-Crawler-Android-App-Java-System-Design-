@@ -1,4 +1,4 @@
-package com.example.a2340a_team10;
+package com.example.a2340a_team10.sprint5;
 import com.example.a2340a_team10.model.Player;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +14,7 @@ public class ScoreTest{
 
     @Test
     public void ScoreInitializeAndUpdateTest() {
-        assertEquals("initial score should be 300", 300, player.getScore());
+        assertEquals("initial score should be 0", 0, player.getScore());
 
         int newScore = 100;
         player.setScore(newScore);
